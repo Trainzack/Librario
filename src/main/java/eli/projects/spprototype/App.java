@@ -2,11 +2,7 @@ package eli.projects.spprototype;
 
 import java.io.IOException;
 
-import eli.projects.spprototype.controller.EnsembleView;
 import eli.projects.spprototype.controller.LibraryController;
-import eli.projects.spprototype.controller.TabExport;
-import eli.projects.spprototype.controller.TabLibrary;
-import eli.projects.spprototype.controller.TabPieceEdit;
 import eli.projects.spprototype.model.Library;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -18,15 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**

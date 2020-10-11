@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
 public class EnsembleView extends AbstractTab {
 
 	private ListView<Ensemble> ensembleList;
@@ -80,10 +81,11 @@ public class EnsembleView extends AbstractTab {
 	
 	/**
 	 * Update the details pane.
-	 */
+	 *
 	private void updateDetails() {
 		ensembleNameLabel.setText(selectedEnsemble.getName());
 		ensembleContentLabel.setText("Members: " + selectedEnsemble.getNumberOfMembers());
 	}
 	
 }
+*/

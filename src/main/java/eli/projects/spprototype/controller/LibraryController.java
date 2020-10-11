@@ -5,11 +5,17 @@ import eli.projects.spprototype.model.Library;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 
 /**
  * Controls the Library
@@ -18,6 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  */
 public class LibraryController {
+
 
 	@FXML
 	private Label setlistNameLabel;
@@ -28,7 +35,14 @@ public class LibraryController {
 	@FXML
 	private TableColumn<Piece, String> pieceTitleColumn;
 	@FXML
+	private TableColumn<Piece, String> pieceComposerColumn;
+	@FXML
+	private TableColumn<Piece, String> pieceArrangerColumn;
+	@FXML
+	private TableColumn<Piece, Integer> pieceYearColumn;
+	@FXML
 	private TableColumn<Piece, Integer> pieceDurationColumn;
+	
 	
 	private Library library;
 	
@@ -36,6 +50,8 @@ public class LibraryController {
 
 	@FXML
 	private ListView<Setlist> setlistView;
+	@FXML
+	private TextField setlistTitleField;
 	@FXML
 	private ListView<Piece> setlistPieceView;
 	
@@ -60,12 +76,28 @@ public class LibraryController {
 		library.getCurrentSetlistProperty().addListener((obs, oldSelection, newSelection) -> {
 			if (newSelection != null) {
 				setlistPieceView.setItems(newSelection.getPieceList());
+				setlistTitleField.setText(newSelection.toString());
 			} else {
 				setlistPieceView.setItems(null);
+				setlistTitleField.setText("");
 			}
 		});
 		
+		
+		// If the user types in the setlist name field, update the name of the setlist!
+		
+		
+		setlistTitleField.textProperty().addListener((obs, oldText, newText) -> {
+			if (library.getCurrentSetlist() != null) {
+				library.getCurrentSetlist().setName(setlistTitleField.textProperty().get());
+				setlistView.refresh();
+			}
+		});
+
 		pieceTitleColumn.setCellValueFactory(new PropertyValueFactory<Piece, String>("title"));
+		pieceComposerColumn.setCellValueFactory(new PropertyValueFactory<Piece, String>("composer"));
+		pieceArrangerColumn.setCellValueFactory(new PropertyValueFactory<Piece, String>("arranger"));
+		pieceYearColumn.setCellValueFactory(new PropertyValueFactory<Piece, Integer>("year"));
 		pieceDurationColumn.setCellValueFactory(new PropertyValueFactory<Piece, Integer>("duration"));
 		
 		
@@ -80,6 +112,8 @@ public class LibraryController {
 	@FXML
 	private void deleteList() {
 		library.deleteCurrentSetlist();
+		setlistPieceView.getSelectionModel().clearSelection();
+		setlistView.getSelectionModel().clearSelection();
 	}
 
 	@FXML

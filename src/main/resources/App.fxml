@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -10,10 +9,11 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -84,7 +84,10 @@
                   <TableView fx:id="setlistPieceTable" prefHeight="9999.0" prefWidth="650.0">
                     <columns>
                       <TableColumn fx:id="pieceTitleColumn" prefWidth="129.0" text="Title" />
-                      <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="88.0" text="Duration" />
+                        <TableColumn fx:id="pieceComposerColumn" prefWidth="129.0" text="Composer" />
+                        <TableColumn fx:id="pieceArrangerColumn" prefWidth="129.0" text="Arranger" />
+                        <TableColumn fx:id="pieceYearColumn" prefWidth="58.0" text="Year" />
+                      <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="159.0" text="Duration" />
                     </columns>
                   </TableView>
                   <HBox prefHeight="35.0" prefWidth="650.0" styleClass="box">
@@ -98,54 +101,50 @@
                   <HBox layoutX="10.0" layoutY="398.0" prefHeight="0.0" prefWidth="650.0" styleClass="box" />
                </children>
             </VBox>
-            <Accordion prefHeight="551.0" prefWidth="222.0">
-              <panes>
-                <TitledPane animated="false" text="📜 Lists">
-                  <content>
+            <TabPane>
+               <tabs>
+                  <Tab closable="false" text="📜 Lists">
+                     <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <VBox prefHeight="551.0" prefWidth="222.0" styleClass="box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
+                                    <ListView fx:id="setlistView" prefHeight="429.0" prefWidth="221.0" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" styleClass="box">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#newList" text="➕ New List" textOverrun="WORD_ELLIPSIS" />
                                           <Button layoutX="340.0" layoutY="20.0" mnemonicParsing="false" onAction="#deleteList" text="🗑 Delete List" />
                                        </children>
                                     </HBox>
-                                    <ListView fx:id="setlistView" prefHeight="429.0" prefWidth="221.0" />
-                                    <HBox prefHeight="100.0" prefWidth="200.0" styleClass="box">
+                                    <VBox styleClass="border">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#exportList" text="➡ Export List" />
+                                          <TextField fx:id="setlistTitleField" promptText="Setlist Name" styleClass="header2" text="Setlist Name" />
+                                          <ListView fx:id="setlistPieceView" prefHeight="429.0" prefWidth="221.0" />
+                                          <HBox prefHeight="100.0" prefWidth="200.0" styleClass="box">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#exportList" text="➡ Export List" />
+                                             </children>
+                                          </HBox>
                                        </children>
-                                    </HBox>
-                                    <ListView fx:id="setlistPieceView" layoutX="20.0" layoutY="79.0" prefHeight="429.0" prefWidth="221.0" />
+                                    </VBox>
                                  </children>
                               </VBox>
                            </children>
                         </AnchorPane>
-                  </content>
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                </TitledPane>
-                <TitledPane animated="false" text="🎺 Ensembles">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                </TitledPane>
-                <TitledPane animated="false" text="➡ Export">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                </TitledPane>
-              </panes>
-            </Accordion>
+                     </content>
+                  </Tab>
+                  <Tab closable="false" text="🎺 Ensembles">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab closable="false" text="➡ Export">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
       </items>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" prefWidth="974.0" spacing="5.0" VBox.vgrow="NEVER">

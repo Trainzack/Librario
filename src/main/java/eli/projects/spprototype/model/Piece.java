@@ -37,6 +37,12 @@ public class Piece {
 
 	// The name of the piece
 	StringProperty compositionTitle = new SimpleStringProperty(this, "title");
+	// The name of the composer(s)
+	StringProperty composer = new SimpleStringProperty(this, "composer");
+	// The name of the arranger(s)
+	StringProperty arranger = new SimpleStringProperty(this, "arranger");
+	// The estimated duration of the piece in seconds
+	SimpleIntegerProperty year = new SimpleIntegerProperty(this, "year");
 	// The estimated duration of the piece in seconds
 	SimpleIntegerProperty duration = new SimpleIntegerProperty(this, "duration");
 	
@@ -87,6 +93,9 @@ public class Piece {
 	public Piece(String compositionTitle, int duration) {
 		super();
 		this.compositionTitle.set(compositionTitle);
+		this.arranger.set("Tom Wallace");
+		this.composer.set("Mozart");
+		this.year.set(1997);
 		this.duration.set(duration);
 	}
 	
@@ -138,14 +147,27 @@ public class Piece {
 		return this.compositionTitle;
 	}
 	
+	public final StringProperty composerProperty() {
+		return this.composer;
+	}
+	
+	public final StringProperty arrangerProperty() {
+		return this.arranger;
+	}
+	
+	public final IntegerProperty yearProperty() {
+		return this.year;
+	}
+	
 	public final IntegerProperty durationProperty() {
 		return this.duration;
 	}
 	
+	
 	public String getTitle() {
 		return this.compositionTitle.getValue();
 	}
-	
+
 
 	@Override
 	public String toString() {

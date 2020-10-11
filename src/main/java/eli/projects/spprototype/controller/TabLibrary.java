@@ -1,5 +1,5 @@
 package eli.projects.spprototype.controller;
-
+/*
 
 import java.io.IOException;
 import java.util.Optional;
@@ -167,7 +167,7 @@ public class TabLibrary extends AbstractTab {
 		detailsPane.prefWidthProperty().bind(((Region) detailsPane.getParent()).widthProperty());
 		
 		
-		*/
+		*//*
 	}
 	
 	/**
@@ -177,7 +177,7 @@ public class TabLibrary extends AbstractTab {
 		setlistNameLabel.setText(selectedSetlist.getName());
 		setlistContentLabel.setText("Pieces: " + selectedSetlist.getLength());
 		
-	}*/
+	}*//*
 	
-}
+}*/
 
