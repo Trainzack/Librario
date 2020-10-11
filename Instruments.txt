@@ -1,0 +1,347 @@
+# This file contains information pertaining to various instruments
+# The program is pretty picky about formatting
+
+# SCORE [
+# 	name:Condensed Score
+# 	subs:
+# ]
+
+# WOODWINDS
+
+MELODICA [
+	name:Melodica
+	subs:BELLS, FLT, PIC, KEYBOARD, OBOE
+	num_parts:1
+	category:Woodwind
+]
+DBPICC [
+	name:Db Piccolo
+	num_parts:1
+	category:Woodwind
+	group_by_instrument:False
+]
+PIC [
+	name:Piccolo
+	subs:FLT, MELODICA, BELLS, KEYBOARD, OBOE
+	num_parts:2
+	category:Woodwind
+	group_by_instrument:False
+]
+FLT [
+	name:Flute
+	subs:PIC, MELODICA, BELLS, KEYBOARD, OBOE
+	num_parts:2
+	category:Woodwind
+]
+OBOE [
+	name:Oboe
+	subs:FLT, PIC, MELODICA, BELLS, KEYBOARD
+	num_parts:1
+	category:Woodwind
+	group_by_instrument:False
+]
+CL [
+	name:Clarinet
+	subs:TPT, SOPSAX, TENSAX
+	num_parts:2
+	category:Woodwind
+]
+EBCL [
+	name:Eb Clarinet
+	subs:ALTCL, ALTSAX
+	num_parts:1
+	category:Woodwind
+	group_by_instrument:False
+]
+ALTCL [
+	name:Alto Eb Clarinet
+	subs:EBCL, ALTSAX
+	num_parts:1
+	category:Woodwind
+	group_by_instrument:False
+]
+CSAX [
+	name:C Melody Sax
+	subs:OBOE, FLT, PIC, MELODICA, BELLS, KEYBOARD
+	num_parts:1
+	category:Woodwind
+	group_by_instrument:False
+]
+SOPSAX [
+	name:Soprano Sax
+	subs:CL, TPT, TENSAX
+	num_parts:1
+	category:Woodwind
+	group_by_instrument:False
+]
+BASSOON [
+	name:Bassoon
+	subs:TBN
+	num_parts:1
+	category:Woodwind
+	group_by_instrument:False
+]
+ALTSAX [
+	name:Alto Sax
+	subs:TBN, BARSAX
+	num_parts:2
+	category:Woodwind
+]
+TENSAX [
+	name:Tenor Sax
+	subs:BARTC, BBHRN, CL, TPT
+	num_parts:1
+	category:Woodwind
+]
+BASCL [
+	name:Bass Clarinet
+	subs:TENSAX, BARTC, CL, TPT
+	num_parts:1
+	category:Woodwind
+]
+BARSAX [
+	name:Bari Sax
+	subs:TUBA, BASS, TBN
+	num_parts:1
+	category:Woodwind
+]
+
+# BRASS
+
+TPT [
+	name:Trumpet
+	subs:CL, BBHRN, TENSAX
+	num_parts:3
+	category:Brass
+]
+# Discant/Descant: Plays higher, but less
+DISTPT [
+	name:Discant Trumpet
+	subs:TPT, CL, BBHRN, TENSAX
+	num_parts:3
+	category:Brass
+	group_by_instrument:False
+]
+EBTPT [
+	name:Eb Trumpet
+	subs:ALTSAX
+	num_parts:1
+	category:Brass
+	group_by_instrument:False
+]
+HRN [
+	name:Horn
+	subs:HORN, EBHRN, EBCL
+	num_parts:1
+	category:Brass
+]
+
+BBHRN [
+	name:Bb Horn
+	subs:TENSAX, TPT
+	num_parts:1
+	category:Brass
+]
+EBHRN [
+	name:Eb Horn
+	subs:ALTSAX
+	num_parts:1
+	category:Brass
+	group_by_instrument:False
+]
+TBN [
+	name:Trombone
+	subs:BARBC, BASSOON, ALTSAX, BARSAX
+	num_parts:3
+	category:Brass
+]
+TBNTC [
+	name:Trombone (TC)
+	subs:BARTC, TENSAX
+	num_parts:1
+	category:Brass
+	group_by_instrument:False
+]
+BASTBN [
+	name:Bass Trombone
+	subs:TBN, BASSOON, ALTSAX, BARSAX
+	num_parts:1
+	category:Brass
+	group_by_instrument:False
+]
+BARTC [
+	name:Baritone (TC)
+	subs:TENSAX, BBHRN, BASCL, TPT
+	num_parts:1
+	category:Brass
+]
+BARBC [
+	name:Baritone (BC)
+	subs:TBN, BASSOON
+	num_parts:1
+	category:Brass
+]
+TUBA [
+	name:Tuba
+	subs:BARSAX, BASS, TBN
+	num_parts:1
+	category:Brass
+]
+BBBASS [
+	name:Bb Bass
+	num_parts:1
+	category:Brass
+	group_by_instrument:False
+]
+
+# PERCUSSION
+
+DMST [
+	name:Drumset
+	subs:DRUMS, TBN
+	num_parts:1
+	category:Percussion
+]
+BASDM [
+	name:Bass Drums
+	subs:DRUMS, TENDM, DMST, BASS, TUBA, BARSAX, TBN
+	num_parts:1
+	category:Percussion
+	drumline:True
+]
+TENDM [
+	name:Tenor Drums
+	subs:DRUMS, TRITOM, TENORDM, SNARE, DMST, TBN
+	num_parts:1
+	category:Percussion
+	drumline:True
+]
+TRITOM [
+	name:Tri-Tom
+	subs:DRUMS, TENDM, SNARE, DMST, TBN
+	num_parts:1
+	category:Percussion
+	group_by_instrument:False
+]
+TENORDM [
+	name:Single Tenor Drum
+	subs:DRUMS, TENDM, SNARE, DMST, TBN
+	num_parts:1
+	category:Percussion
+	group_by_instrument:False
+]
+CYM [
+	name:Cymbals
+	subs:DRUMS, DMST, SNARE, TBN
+	num_parts:1
+	category:Percussion
+	drumline:True
+]
+SNARE [
+	name:Snare Drum
+	subs:DRUMS, TENDM, DMST, TBN
+	num_parts:1
+	category:Percussion
+	drumline:True
+]
+PERC [
+	name:Auxiliary Percussion
+	num_parts:1
+	category:Percussion
+	group_by_instrument:True
+	split_parts:False
+# TODO: We should put all Aux. Perc. parts in one instrument group output
+]
+DRUMS [
+	name:Drums
+	subs:DMST, SNARE, TBN
+	num_parts:3
+	category:Percussion
+	group_by_instrument:False
+]
+
+TAMB [
+	name:Tambourine
+	subs:PERC
+	group_by_instrument:False
+]
+
+COWBELL [
+	name:Cowbell
+	subs:PERC
+	group_by_instrument:False
+]
+
+KEYBOARD [
+	name:Keyboard
+	subs:MELODICA, BELLS, FLT, PIC, OBOE
+	num_parts:1
+	category:Misc
+]
+BELLS [
+	name:Bells
+	subs:VIB, XYLO, MAR, MELODICA, KEYBOARD, FLT, PIC, OBOE
+	num_parts:1
+	category:Percussion
+]
+VIB [
+	name:Vibraphone
+	subs:BELLS, MAR, XYLO, MELODICA, KEYBOARD, FLT, PIC, OBOE
+	num_parts:1
+	category:Percussion
+	group_by_instrument:False
+]
+XYLO [
+	name:Xylophone
+	subs:MAR, BELLS, VIB, MELODICA, KEYBOARD, FLT, PIC, OBOE
+	num_parts:1
+	category:Percussion
+	group_by_instrument:False
+]
+MAR [
+	name:Marimba
+	subs:XYLO, VIB, BELLS, MELODICA, KEYBOARD, FLT, PIC, OBOE
+	num_parts:1
+	category:Percussion
+	group_by_instrument:False
+]
+VOCAL [
+	name:Vocal
+	subs:TPT, FLT, PIC, OBOE
+	num_parts:1
+	category:Misc
+	group_by_instrument:False
+]
+BASS [
+	name:Bass Guitar
+	subs:TUBA, BARSAX, TBN
+	num_parts:1
+	category:Misc
+]
+GUITAR [
+	name:Guitar
+	subs:MAR, VIB, MELODICA KEYBOARD, XYLO, BELLS, FLT, PIC, TPT
+	num_parts:1
+	category:Misc
+]
+TIMP [
+	name:Timpani
+	subs:BASS, TUBA
+	num_parts:1
+	category:Percussion
+	group_by_instrument:False
+]
+VIOLA [
+	name:Viola
+	num_parts:1
+	category:Misc
+	group_by_instrument:False
+]
+SCORE [
+	name:Conductor's Score
+	subs:TPT, FLT, PIC
+	num_parts:1
+	category:Misc
+	group_by_instrument:False
+	use_original_size:True
+]

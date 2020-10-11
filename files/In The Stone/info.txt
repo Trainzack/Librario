@@ -1,0 +1,7 @@
+# This file contains information read by the UberImpose program.
+
+# Use this if you need to change the title we display
+# Title:[Title]
+
+# Use this if some of the files are full pages (value can be FORCED to force each one to full page)
+# Accept_Full_Pages:True
