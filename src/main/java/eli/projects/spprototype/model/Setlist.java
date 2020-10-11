@@ -36,10 +36,9 @@ public class Setlist {
 	
 	private String name;
 	
-	// This variable contains the pieces in the tableview.
+	// This variable contains the pieces that are in this setlist.
 	private ObservableList<Piece> observableList;
 	
-	private TableView<Piece> setlistPieceTable;
 	
 	public Setlist(String name) {
 		super();
@@ -92,104 +91,5 @@ public class Setlist {
 	public String toString() {
 		return this.getName();
 	}
-	
-/*
-	@Override
-	public Node getControls() {
-		
-		TableColumn<Piece, String> nameColumn = new TableColumn<Piece, String>("Piece");
-		nameColumn.setCellValueFactory(new PropertyValueFactory<Piece, String>("title"));
-		TableColumn<Piece, Integer> durationColumn = new TableColumn<Piece, Integer>("Duration");
-		durationColumn.setCellValueFactory(new PropertyValueFactory<Piece, Integer>("duration"));
-		
-		/*
-		TextField searchField = new TextField();
-		Button searchButton = App.createTempButton( "🔎 Search", "Search");
-		
-		HBox pieceSearchControls = new HBox(searchField, searchButton);
-		pieceSearchControls.setSpacing(5);
-		*
-
-		/**
-		 * Set up the tableView
-		 *
-		setlistPieceTable = new TableView<Piece>(this.getPieceList());
-		setlistPieceTable.setPrefWidth(800);
-		setlistPieceTable.setMaxHeight(350);
-
-		setlistPieceTable.getColumns().add(nameColumn);
-		setlistPieceTable.getColumns().add(durationColumn);
-		
-		/**
-		 * TODO
-		 * Maybe we should make the entire details pane its own class heirarchy 
-		 *
-		
-		Button tableRemove = new Button("➖ Remove Piece");
-		
-		tableRemove.setOnAction(new EventHandler<ActionEvent>() {
-			
-			public void handle(ActionEvent event) {
-				
-				Piece selectedPiece = setlistPieceTable.getSelectionModel().getSelectedItem();
-				
-				if (selectedPiece == null) {
-					App.ShowError("Cannot Remove Piece", "No Piece Selected");
-					return;
-				}
-				
-				Alert confirmation = new Alert(AlertType.CONFIRMATION);
-				confirmation.setContentText("Are you sure you want to remove \"" + selectedPiece.getTitle() + "\" from " + name + "?");
-				confirmation.setTitle("Delete List");
-				ButtonType buttonTypeDelete = new ButtonType("Remove \"" + selectedPiece.getTitle() + "\"");
-				ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-				confirmation.getButtonTypes().setAll(buttonTypeDelete, buttonTypeCancel);
-
-				Optional<ButtonType> result = confirmation.showAndWait();
-				if (result.get() == buttonTypeDelete){
-					observableList.remove(selectedPiece);
-				}
-				
-			}
-		});
-		
-		Button tableMoveUp = new Button("⬆ Move Up");
-		
-		tableMoveUp.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				Piece selectedPiece = setlistPieceTable.getSelectionModel().getSelectedItem();
-				if (selectedPiece == null) return;
-				App.moveListItem(observableList, selectedPiece, -1);
-				setlistPieceTable.getSelectionModel().selectAboveCell();
-			}	
-		});
-		
-		Button tableMoveDown = new Button("⬇ Move Down");
-		
-		tableMoveDown.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				Piece selectedPiece = setlistPieceTable.getSelectionModel().getSelectedItem();
-				if (selectedPiece == null) return;
-				App.moveListItem(observableList, selectedPiece, 1);
-				// I don't know why this needs to be done twice.
-				setlistPieceTable.getSelectionModel().selectBelowCell();
-				setlistPieceTable.getSelectionModel().selectBelowCell();
-			}	
-		});
-		
-		HBox tableModControls = new HBox(tableRemove, tableMoveUp, tableMoveDown);
-		tableModControls.setSpacing(5);
-		
-		
-		VBox piecesBox = new VBox(new Separator(), /*pieceSearchControls,*  setlistPieceTable, tableModControls, new Separator());
-		piecesBox.setSpacing(10);
-		piecesBox.setPadding(new Insets(20,0,20,0));
-		piecesBox.setVgrow(setlistPieceTable, Priority.ALWAYS);
-		
-		return piecesBox;
-	}*/
-
-	
-	
 	
 }

@@ -114,6 +114,8 @@ public class Instrument {
 	
 
 	public static ArrayList<Instrument> getInstruments() {
+		initInstruments();
+		
 		return instruments;
 	}
 

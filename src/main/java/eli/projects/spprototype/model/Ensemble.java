@@ -1,19 +1,57 @@
 package eli.projects.spprototype.model;
 
+import java.util.ArrayList;
 import java.util.Random;
+
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Ensemble {
 
 	private String name;
 	
-	private int numberOfMembers;
+	// This observablelist contains all of the sections in this ensemble
+	private ObservableList<Section> sections;
+	// This ObjectProperty contains the currently selected section
+	private final ObjectProperty<Section> currentSection = new SimpleObjectProperty<Section>(null);
+	
+	public ObservableList<Section> getSections() {
+		return sections;
+	}
+	
+	public final ObjectProperty<Section> getCurrentSectionProperty() {
+		return currentSection;
+	}
+	
+	public final Section getCurrentSection() {
+		return currentSection.get();
+	}
+	
+	public final void setCurrentSection(Section section) {
+		currentSection.set(section);
+	}
 
 	// TODO: Currently this has only the minimum amount of info we need for the UI mockup.
-	public Ensemble(String name, int numberOfMembers) {
+	public Ensemble(String name) {
 		super();
 		this.name = name;
-		this.numberOfMembers = numberOfMembers;
+		
+		ArrayList<Section> tempTestingList = new ArrayList<>();
+		
+		for (Instrument i : Instrument.getInstruments()) {
+
+			tempTestingList.add(new Section(i, 2));
+		}
+		
+		
+		this.sections = FXCollections.observableArrayList(tempTestingList);
 	}
+	
+	
+	
+	
 	
 	/**
 	 * Generates some random ensembles to test other code.
@@ -31,8 +69,7 @@ public class Ensemble {
 		Random r = new Random();
 		
 		String name = names[0][r.nextInt(names[0].length)] + " " + names[1][r.nextInt(names[1].length)];
-		int members = r.nextInt(130) + 20;
-		Ensemble out = new Ensemble(name, members);
+		Ensemble out = new Ensemble(name);
 		
 		return out;
 	}
@@ -47,11 +84,9 @@ public class Ensemble {
 	}
 
 	public int getNumberOfMembers() {
-		return numberOfMembers;
-	}
-
-	public void setNumberOfMembers(int numberOfMembers) {
-		this.numberOfMembers = numberOfMembers;
+		int count = 0;
+		for (Section s : this.sections) count += s.getCount();
+		return count;
 	}
 	
 	public String toString() {

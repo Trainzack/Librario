@@ -22,15 +22,19 @@ public class Library {
 
 	// This arraylist contains all of the pieces that this library contains
 	private ObservableList<Piece> pieces;
+	// This ObjectProperty contains the currently selected piece
+	private final ObjectProperty<Piece> currentPiece = new SimpleObjectProperty<Piece>(null);
 
 	// This arraylist contains all of the setlists that this library contains
 	private final ObservableList<Setlist> setlists;
-
 	// This ObjectProperty contains the currently selected setlist
 	private final ObjectProperty<Setlist> currentSetlist = new SimpleObjectProperty<Setlist>(null);
 	
+	
 	// This arraylist contains all of the ensembles that this library contains
 	private ObservableList<Ensemble> ensembles;
+	// This ObjectProperty contains the currently selected ensemble
+	private final ObjectProperty<Ensemble> currentEnsemble = new SimpleObjectProperty<Ensemble>(null);
 	
 	/**
 	 * TODO: This needs a name variable for save file names
@@ -56,12 +60,26 @@ public class Library {
 	}
 
 
-	
+	/** Pieces **/
 
 	public ObservableList<Piece> getPieces() {
 		return pieces;
 	}
+	
+	public final ObjectProperty<Piece> getCurrentPieceProperty() {
+		return currentPiece;
+	}
+	
+	public final Piece getCurrentPiece() {
+		return currentPiece.get();
+	}
+	
+	public final void setCurrentPiece(Piece piece) {
+		currentPiece.set(piece);
+	}
 
+	/** Setlists **/
+	
 	public ObservableList<Setlist> getSetlists() {
 		return setlists;
 	}
@@ -72,18 +90,7 @@ public class Library {
 	
 	public final Setlist getCurrentSetlist() {
 		return currentSetlist.get();
-	}
-	
-	public final void setCurrentSetlist(Setlist setlist) {
-		currentSetlist.set(setlist);
-	}
-	
-	public final void deleteCurrentSetlist() {
-		setlists.remove(this.getCurrentSetlist());
-		currentSetlist.set(null);
-	}
-	
-	
+	}	
 	/**
 	 * Creates a new empty setlist
 	 * @param name The name of the setlist
@@ -95,10 +102,34 @@ public class Library {
 		// TODO: This needs to update the undo stack
 		return true;
 	}
-
+	
+	public final void setCurrentSetlist(Setlist setlist) {
+		currentSetlist.set(setlist);
+	}
+	
+	public final void deleteCurrentSetlist() {
+		setlists.remove(this.getCurrentSetlist());
+		currentSetlist.set(null);
+	}
+	
+	/** Ensembles **/
+	
 	public ObservableList<Ensemble> getEnsembles() {
 		return ensembles;
 	}
+
+	public final ObjectProperty<Ensemble> getCurrentEnsembleProperty() {
+		return currentEnsemble;
+	}
+	
+	public final Ensemble getCurrentEnsemble() {
+		return currentEnsemble.get();
+	}
+	
+	public final void setCurrentEnsemble(Ensemble ensemble) {
+		currentEnsemble.set(ensemble);
+	}
+
 	
 	
 	

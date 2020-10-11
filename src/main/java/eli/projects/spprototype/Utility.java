@@ -9,6 +9,10 @@ import javafx.scene.layout.Priority;
 
 public class Utility {
 	
-
+	public static String intToDuration(int duration) {
+		return "" + (duration / 60) + 
+				"'" + ((duration %60 < 10) ? "0"  : "")  +
+				(duration % 60) + "\"";
+	}
 }
 
