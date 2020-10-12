@@ -1,6 +1,7 @@
 package eli.projects.spprototype;
 
 import java.io.IOException;
+import java.net.URL;
 
 import eli.projects.spprototype.controller.LibraryController;
 import eli.projects.spprototype.model.Library;
@@ -22,14 +23,11 @@ import javafx.stage.Stage;
  * @author Eli
  *
  */
+
 public class App extends Application
 {
 
 	static final String WINDOW_NAME = "Eli's Senior Project";
-	
-	// TODO: extract to css
-	public static final String STYLE_LARGE_BUTTON = "-fx-font: 16 arial; -fx-padding: 10";
-	public static final String STYLE_HEADER = "-fx-font: 32 arial; -fx-padding: 10";
 	
 	// TODO: Put this in some kind of datamodel?
 	private static Library loadedLibrary;
@@ -56,7 +54,12 @@ public class App extends Application
         // TODO: Add icons to these (maybe https://kordamp.org/ikonli/#_javafx)
 
 		try {
-			FXMLLoader apploader = new FXMLLoader(getClass().getResource("/App.fxml"));
+			
+			URL fxmlLocation = getClass().getResource("/controller/LibraryController.fxml");
+			
+			System.out.println(fxmlLocation);
+					
+			FXMLLoader apploader = new FXMLLoader(fxmlLocation);
 	        
 			assert apploader.getLocation() != null;
 			

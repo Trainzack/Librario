@@ -1,6 +1,6 @@
 package eli.projects.spprototype.model;
 
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -147,17 +147,17 @@ public class Library {
 			pieces.add(p);
 		}
 		
-		ArrayList<Setlist> setlists = new ArrayList<Setlist>(8);
+		ArrayList<Setlist> setlists = new ArrayList<Setlist>(1);
 		
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 1; i++) {
 			Setlist u = Setlist.generateTestUserSetlist();
 			u.setName("Setlist #" + i);
 			setlists.add(u);
 		}
 		
-		ArrayList<Ensemble> ensembles = new ArrayList<Ensemble>(6);
+		ArrayList<Ensemble> ensembles = new ArrayList<Ensemble>(1);
 		
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 1; i++) {
 			ensembles.add(Ensemble.generateTestEnsemble());
 		}
 		
