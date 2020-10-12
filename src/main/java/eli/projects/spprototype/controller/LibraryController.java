@@ -3,28 +3,46 @@ package eli.projects.spprototype.controller;
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.Utility;
 import eli.projects.spprototype.model.Ensemble;
+import eli.projects.spprototype.model.ExportSettings;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Library;
+import eli.projects.spprototype.model.PaperSize;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Section;
 import eli.projects.spprototype.model.Setlist;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableObjectValue;
+import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
+
+import org.controlsfx.control.SearchableComboBox;
 
 /**
  * Controls the Library
@@ -34,6 +52,10 @@ import javafx.scene.layout.Priority;
  */
 public class LibraryController {
 
+
+	private Library library;
+	
+	private Stage stage;
 
 	
 	/** Search **/
@@ -61,7 +83,6 @@ public class LibraryController {
 	private TableColumn<Piece, Integer> pieceDurationColumn;
 	
 	
-	private Library library;
 	
 	@FXML
 	private TabPane tabPane;
@@ -103,15 +124,43 @@ public class LibraryController {
 	
 	@FXML
 	private ToggleGroup exportPieceSource;
+	
+	@FXML
+	private ToggleButton exportSetlistToggle;
+	@FXML
+	private SearchableComboBox<Setlist> exportSetlistComboBox;
+	
+	@FXML
+	private ToggleButton exportPieceToggle;
+	@FXML
+	private SearchableComboBox<Piece> exportPieceComboBox;
+	
+	@FXML
+	private CheckBox exportEnsembleCheckBox;
+	@FXML
+	private SearchableComboBox<Ensemble> exportEnsembleComboBox;
+	
+	
+	@FXML
+	private ComboBox<PaperSize> exportPaperSize;
+	@FXML
+	private Spinner<Double> exportPageWidthSpinner;
+	
+	
 	@FXML
 	private ToggleGroup exportPageOrientation;
 	@FXML
 	private ToggleGroup exportFolderGrouping;
 	
+	@FXML
+	private TextField exportDirectoryTextField;
 	
-	public void initModel(Library _library) {
+	
+	
+	public void initModel(Library _library, Stage _stage) {
 
 		this.library = _library;
+		this.stage = _stage;
 		
 		// Initialize the listview on the left part of the screen that contains all of the setlists
 		//setlistView = new ListView<AbstractSetlist>(library.getSetlists());
@@ -175,8 +224,8 @@ public class LibraryController {
 			{ library.setCurrentEnsemble(newSelection); });
 
 
-		sectionCountColumn.setCellValueFactory(new PropertyValueFactory<Section, Integer>("count"));
 		sectionInstrumentColumn.setCellValueFactory(new PropertyValueFactory<Section, Instrument>("instrumentName"));
+		sectionCountColumn.setCellValueFactory(new PropertyValueFactory<Section, Integer>("count"));
 		
 		library.getCurrentEnsembleProperty().addListener((obs, oldSelection, newSelection) -> {
 			if (newSelection != null) {
@@ -196,6 +245,39 @@ public class LibraryController {
 				library.getCurrentEnsemble().setName(ensembleNameField.textProperty().get());
 				ensembleView.refresh();
 			}
+		});
+		
+		/** Export **/
+		
+		/* Source Settings */
+		
+		exportSetlistComboBox.setItems(library.getSetlists());
+		exportSetlistToggle.selectedProperty().addListener((obs, oldValue, newValue) -> {
+			exportSetlistComboBox.disableProperty().set(!newValue);
+		});
+		
+		//TODO: Figure out exception that occurs whenever lists are deleted while the combobox is active.
+		exportPieceComboBox.setItems(library.getPieces());
+		exportPieceToggle.selectedProperty().addListener((obs, oldValue, newValue) -> {
+			exportPieceComboBox.disableProperty().set(!newValue);
+		});
+		
+		exportEnsembleComboBox.setItems(library.getEnsembles());
+		exportEnsembleCheckBox.selectedProperty().addListener((obs, oldValue, newValue) -> {
+			exportEnsembleComboBox.disableProperty().set(!newValue);
+		});
+		
+		/* Page Settings */
+		
+		exportPaperSize.setItems(FXCollections.observableArrayList(PaperSize.values()));
+		
+		
+		/* Export Folder Grouping */
+		
+		/* Destination */
+		
+		library.exportSettings.getExportDestinationProperty().addListener((obs, oldValue, newValue) -> {
+			exportDirectoryTextField.setText((newValue == null) ? "" : newValue.getPath());
 		});
 		
 	}
@@ -222,7 +304,6 @@ public class LibraryController {
 	
 	@FXML
 	private void newList() {
-		System.out.println("TEST");
 		library.addSetlist("New Setlist");
 	}
 	
@@ -284,5 +365,18 @@ public class LibraryController {
 	private void deleteEnsemble() {
 		App.ShowTempAlert("Action not yet implemented!");
 	}
-	
+
+	@FXML
+	private void exportChooseDirectory() {
+		ExportSettings es = library.exportSettings;
+
+        DirectoryChooser dir = new DirectoryChooser();
+        dir.setTitle("Choose a destination to export");
+        // If the user has already selected a destination before, use that one!
+        if (es.getExportDestination() != null) dir.setInitialDirectory(es.getExportDestination());
+        File destination = dir.showDialog(this.stage);
+        // Don't change the destination if the user didn't select anything
+        if (destination != null) es.setExportDestination(destination);
+        
+	}
 }

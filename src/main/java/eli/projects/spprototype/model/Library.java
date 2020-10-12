@@ -1,10 +1,12 @@
 package eli.projects.spprototype.model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -36,6 +38,8 @@ public class Library {
 	// This ObjectProperty contains the currently selected ensemble
 	private final ObjectProperty<Ensemble> currentEnsemble = new SimpleObjectProperty<Ensemble>(null);
 	
+	public final ExportSettings exportSettings;
+	
 	/**
 	 * TODO: This needs a name variable for save file names
 	 * @param pieces
@@ -47,7 +51,7 @@ public class Library {
 		this.pieces = FXCollections.observableArrayList(pieces);
 		this.setlists = FXCollections.observableArrayList(setlists);
 		this.ensembles = FXCollections.observableArrayList(ensembles);
-		
+		this.exportSettings = new ExportSettings();
 		
 	}
 	

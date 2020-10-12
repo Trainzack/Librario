@@ -14,10 +14,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 /**
- * 
+ * https://kordamp.org/ikonli/cheat-sheet-entypo.html
  * @author Eli
  *
  */
@@ -33,6 +34,8 @@ public class App extends Application
 	// TODO: Put this in some kind of datamodel?
 	private static Library loadedLibrary;
 	
+	private static Stage primaryStage;
+	
     public static void main( String[] args )
     {
     	
@@ -42,65 +45,16 @@ public class App extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
+		this.primaryStage = primaryStage;
+		
         String javaVersion = System.getProperty("java.version");
         String javafxVersion = System.getProperty("javafx.version");
 
         // TODO Testing code, should be replaced later.
         loadedLibrary = Library.generateTestingLibrary();
         
-        /*
         // TODO: Add icons to these (maybe https://kordamp.org/ikonli/#_javafx)
-        Tab tabPieces = new TabLibrary();
-        Tab tabEnsembles = new EnsembleView();
-        Tab tabPieceEdit = new TabPieceEdit();
-        Tab tabExport = new TabExport();
-        
-        TabPane mainPane = new TabPane(tabPieces, tabEnsembles, tabPieceEdit, tabExport);
-        
-        for (Tab t : mainPane.getTabs()) {
-        	t.setClosable(false);
-        	t.setStyle(STYLE_LARGE_BUTTON);
-        }
-        
-        /**
-         * Ensembles
-         */
-        
-        
-        
-        
-        /*
-        // Make the menuBar
-        //   TODO: Separate the menubar into its own class or something.
-        
-        MenuItem menuFileNew = new MenuItem("New Library");
-        MenuItem menuFileOpen = new MenuItem("Open Library");
-        
-        Menu menuFile = new Menu("File", null, menuFileNew, menuFileOpen);
-        
-        MenuItem menuEditUndo = new MenuItem("Undo");
-        MenuItem menuEditRedo = new MenuItem("Redo");
-        
-        Menu menuEdit = new Menu("Edit", null, menuEditUndo, menuEditRedo);
-        
 
-        MenuItem menuHelpAbout = new MenuItem("About");
-        
-        Menu menuHelp = new Menu("Help", null, menuHelpAbout);
-        
-        MenuBar menuBar = new MenuBar(menuFile, menuEdit, menuHelp);
-        
-        for (Menu m : menuBar.getMenus()) {
-        	for (MenuItem i : m.getItems()) {
-        		i.setDisable(true);
-        	}
-        }
-        
-        
-        
-        
-        VBox OverallBox = new VBox(menuBar, mainPane);
-        */
 		try {
 			FXMLLoader apploader = new FXMLLoader(getClass().getResource("/App.fxml"));
 	        
@@ -110,7 +64,7 @@ public class App extends Application
 			
 			LibraryController libraryController = apploader.getController();
 			
-	        libraryController.initModel(loadedLibrary);
+	        libraryController.initModel(loadedLibrary, primaryStage);
 	        
 			
 			Scene scene = new Scene(root, 1280, 800);
@@ -124,7 +78,6 @@ public class App extends Application
 
         
         primaryStage.show();
-		
 	}
 	
 	public static void ShowTempAlert(String text) {

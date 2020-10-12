@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -12,6 +11,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.SplitPane?>
@@ -30,8 +30,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.SearchableComboBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.LibraryController">
+<VBox prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.LibraryController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -88,7 +90,10 @@
                   <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
                      <children>
                         <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="312.0" promptText="Title" />
-                        <Button fx:id="searchFilterButton" mnemonicParsing="false" onAction="#filterPieceTable" text="🔍 Search" textOverrun="WORD_ELLIPSIS" />
+                        <Button fx:id="searchFilterButton" mnemonicParsing="false" onAction="#filterPieceTable" text="Search" textOverrun="WORD_ELLIPSIS">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-magnifying-glass" />
+                           </graphic></Button>
                      </children>
                   </HBox>
                   <TableView fx:id="libraryPieceTable" prefHeight="9999.0" prefWidth="650.0">
@@ -102,17 +107,33 @@
                   </TableView>
                   <ButtonBar>
                      <buttons>
-                        <Button mnemonicParsing="false" onAction="#editSelectedPiece" text="🖉 Edit Piece" textOverrun="WORD_ELLIPSIS" />
-                        <Button mnemonicParsing="false" onAction="#deleteSelectedPiece" text="🗑 Delete Piece" textOverrun="WORD_ELLIPSIS" />
-                        <Button mnemonicParsing="false" onAction="#exportSelectedPiece" text="➡ Export Piece" textOverrun="WORD_ELLIPSIS" />
-                        <Button mnemonicParsing="false" onAction="#addPieceToList" text="➕ Add To List" textOverrun="WORD_ELLIPSIS" />
+                        <Button mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit Piece" textOverrun="WORD_ELLIPSIS">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-edit" />
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#deleteSelectedPiece" text="Delete Piece" textOverrun="WORD_ELLIPSIS">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-trash" />
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#exportSelectedPiece" text="Export Piece" textOverrun="WORD_ELLIPSIS">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-export" />
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#addPieceToList" text="Add To List" textOverrun="WORD_ELLIPSIS">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-add-to-list" />
+                           </graphic>
+                        </Button>
                      </buttons>
                   </ButtonBar>
                </children>
             </VBox>
             <TabPane fx:id="tabPane" minWidth="300.0">
                <tabs>
-                  <Tab fx:id="tabLists" closable="false" text="📜 Lists">
+                  <Tab fx:id="tabLists" closable="false" text="Lists">
                      <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -121,8 +142,14 @@
                                     <ListView fx:id="setlistView" prefHeight="429.0" prefWidth="221.0" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#newList" text="➕ New List" textOverrun="WORD_ELLIPSIS" />
-                                          <Button layoutX="340.0" layoutY="20.0" mnemonicParsing="false" onAction="#deleteList" text="🗑 Delete List" />
+                                          <Button mnemonicParsing="false" onAction="#newList" text="New List" textOverrun="WORD_ELLIPSIS">
+                                             <graphic>
+                                                <FontIcon iconLiteral="enty-plus" />
+                                             </graphic></Button>
+                                          <Button layoutX="340.0" layoutY="20.0" mnemonicParsing="false" onAction="#deleteList" text="Delete List">
+                                             <graphic>
+                                                <FontIcon iconLiteral="enty-trash" />
+                                             </graphic></Button>
                                        </children>
                                     </HBox>
                                     <VBox styleClass="border">
@@ -131,7 +158,10 @@
                                           <ListView fx:id="setlistPieceView" prefHeight="429.0" prefWidth="221.0" />
                                           <HBox prefHeight="100.0" prefWidth="200.0" styleClass="box">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#exportList" text="➡ Export List" />
+                                                <Button mnemonicParsing="false" onAction="#exportList" text="Export List">
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="enty-export" />
+                                                   </graphic></Button>
                                              </children>
                                           </HBox>
                                        </children>
@@ -141,8 +171,11 @@
                            </children>
                         </AnchorPane>
                      </content>
+                     <graphic>
+                        <FontIcon iconLiteral="enty-list" />
+                     </graphic>
                   </Tab>
-                  <Tab fx:id="tabEnsembles" closable="false" text="🎺 Ensembles">
+                  <Tab fx:id="tabEnsembles" closable="false" text="Ensembles">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="200.0">
                            <children>
@@ -151,8 +184,14 @@
                                     <ListView fx:id="ensembleView" prefHeight="165.0" prefWidth="1488.0" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#newEnsemble" text="➕ New Ensemble" textOverrun="WORD_ELLIPSIS" />
-                                          <Button layoutX="340.0" layoutY="20.0" mnemonicParsing="false" onAction="#deleteEnsemble" text="🗑 Delete Ensemble" />
+                                          <Button mnemonicParsing="false" onAction="#newEnsemble" text="New Ensemble" textOverrun="WORD_ELLIPSIS">
+                                             <graphic>
+                                                <FontIcon iconLiteral="enty-plus" />
+                                             </graphic></Button>
+                                          <Button layoutX="340.0" layoutY="20.0" mnemonicParsing="false" onAction="#deleteEnsemble" text="Delete Ensemble">
+                                             <graphic>
+                                                <FontIcon iconLiteral="enty-trash" />
+                                             </graphic></Button>
                                        </children>
                                     </HBox>
                                     <VBox prefHeight="317.0" prefWidth="2083.0" styleClass="border">
@@ -167,7 +206,10 @@
                                           </TableView>
                                           <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#exportList" text="➕ New Part" />
+                                                <Button mnemonicParsing="false" onAction="#exportList" text="New Part">
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="enty-plus" />
+                                                   </graphic></Button>
                                              </children>
                                           </HBox>
                                        </children>
@@ -177,107 +219,132 @@
                            </children>
                         </AnchorPane>
                     </content>
+                     <graphic>
+                        <FontIcon iconLiteral="enty-rainbow" />
+                     </graphic>
                   </Tab>
-                  <Tab fx:id="tabExport" closable="false" text="➡ Export">
+                  <Tab fx:id="tabExport" closable="false" text="Export">
                      <content>
                         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="99999.0">
                            <children>
-                              <VBox layoutX="-2.0" prefHeight="523.0" prefWidth="312.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <VBox layoutX="20.0" layoutY="140.0" maxWidth="320.0" minWidth="-Infinity" prefHeight="192.0" prefWidth="292.0" styleClass="border">
+                              <ScrollPane hbarPolicy="NEVER" prefHeight="522.0" prefWidth="310.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <VBox prefHeight="661.0" prefWidth="312.0" spacing="5.0">
                                        <children>
-                                          <Label styleClass="header2" text="Source Settings" />
-                                          <GridPane vgap="10.0">
-                                            <columnConstraints>
-                                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="110.0" />
-                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="10.0" prefWidth="160.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
+                                          <VBox layoutX="20.0" layoutY="140.0" maxWidth="320.0" minWidth="-Infinity" prefHeight="192.0" prefWidth="292.0" styleClass="border">
                                              <children>
-                                                <ChoiceBox prefHeight="25.0" prefWidth="703.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                <ChoiceBox prefHeight="25.0" prefWidth="822.0" GridPane.columnIndex="1" />
-                                                <ChoiceBox prefHeight="25.0" prefWidth="766.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                <RadioButton mnemonicParsing="false" text="List">
+                                                <Label styleClass="header2" text="Source Settings" />
+                                                <GridPane vgap="10.0">
+                                                  <columnConstraints>
+                                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="110.0" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="10.0" prefWidth="160.0" />
+                                                  </columnConstraints>
+                                                  <rowConstraints>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  </rowConstraints>
+                                                   <children>
+                                                      <RadioButton fx:id="exportSetlistToggle" mnemonicParsing="false" text="All in List">
+                                                         <toggleGroup>
+                                                            <ToggleGroup fx:id="exportPieceSource" />
+                                                         </toggleGroup>
+                                                      </RadioButton>
+                                                      <RadioButton fx:id="exportPieceToggle" mnemonicParsing="false" text="One Piece" toggleGroup="$exportPieceSource" GridPane.rowIndex="1" />
+                                                      <CheckBox fx:id="exportEnsembleCheckBox" mnemonicParsing="false" text="For Ensemble" GridPane.rowIndex="2" />
+                                                      <SearchableComboBox fx:id="exportSetlistComboBox" disable="true" GridPane.columnIndex="1" />
+                                                      <SearchableComboBox fx:id="exportPieceComboBox" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                      <SearchableComboBox fx:id="exportEnsembleComboBox" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets bottom="10.0" top="10.0" />
+                                                   </padding>
+                                                </GridPane>
+                                             </children>
+                                          </VBox>
+                                          <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="192.0" prefWidth="292.0" styleClass="border">
+                                             <children>
+                                                <Label styleClass="header2" text="Page Settings" />
+                                                <ComboBox fx:id="exportPaperSize" prefHeight="25.0" prefWidth="278.0" promptText="Page Size" />
+                                                <GridPane hgap="5.0" prefHeight="140.0" prefWidth="312.0">
+                                                  <columnConstraints>
+                                                    <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="130.0" minWidth="10.0" prefWidth="55.0" />
+                                                    <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="211.0" minWidth="10.0" prefWidth="111.0" />
+                                                      <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="211.0" minWidth="2.0" prefWidth="14.0" />
+                                                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="86.0" />
+                                                  </columnConstraints>
+                                                  <rowConstraints>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  </rowConstraints>
+                                                   <children>
+                                                      <Label text="Width:" />
+                                                      <Label text="Height:" GridPane.rowIndex="1" />
+                                                      <Spinner fx:id="exportPageWidthSpinner" GridPane.columnIndex="1" />
+                                                      <Spinner GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                      <RadioButton mnemonicParsing="false" selected="true" text="Portrait" GridPane.columnIndex="3">
+                                                         <toggleGroup>
+                                                            <ToggleGroup fx:id="exportPageOrientation" />
+                                                         </toggleGroup>
+                                                      </RadioButton>
+                                                      <RadioButton mnemonicParsing="false" text="Landscape" toggleGroup="$exportPageOrientation" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                                      <Spinner GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                      <Label text="Margin" GridPane.rowIndex="2" />
+                                                   </children>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                </GridPane>
+                                                <CheckBox mnemonicParsing="false" prefWidth="146.0" text="Two pieces per page" />
+                                             </children>
+                                          </VBox>
+                                          <VBox layoutX="20.0" layoutY="150.0" maxWidth="320.0" minWidth="-Infinity" prefHeight="72.0" prefWidth="292.0" styleClass="border">
+                                             <children>
+                                                <Label styleClass="header2" text="Export Folder Grouping" />
+                                                <RadioButton mnemonicParsing="false" selected="true" text="One PDF">
                                                    <toggleGroup>
-                                                      <ToggleGroup fx:id="exportPieceSource" />
+                                                      <ToggleGroup fx:id="exportFolderGrouping" />
                                                    </toggleGroup>
                                                 </RadioButton>
-                                                <RadioButton mnemonicParsing="false" text="Piece" toggleGroup="$exportPieceSource" GridPane.rowIndex="1" />
-                                                <CheckBox mnemonicParsing="false" text="Ensemble" GridPane.rowIndex="2" />
+                                                <RadioButton mnemonicParsing="false" text="One Folder per Piece" toggleGroup="$exportFolderGrouping" />
+                                                <RadioButton mnemonicParsing="false" text="One Folder per Instrument" toggleGroup="$exportFolderGrouping" />
                                              </children>
-                                             <padding>
-                                                <Insets bottom="10.0" top="10.0" />
-                                             </padding>
-                                          </GridPane>
-                                       </children>
-                                    </VBox>
-                                    <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="192.0" prefWidth="292.0" styleClass="border">
-                                       <children>
-                                          <Label styleClass="header2" text="Page Settings" />
-                                          <ComboBox prefHeight="25.0" prefWidth="278.0" promptText="Page Size" />
-                                          <GridPane hgap="5.0" prefHeight="140.0" prefWidth="312.0">
-                                            <columnConstraints>
-                                              <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="130.0" minWidth="10.0" prefWidth="55.0" />
-                                              <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="211.0" minWidth="10.0" prefWidth="111.0" />
-                                                <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="211.0" minWidth="2.0" prefWidth="14.0" />
-                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="86.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
+                                          </VBox>
+                                          <VBox layoutX="20.0" layoutY="376.0" maxWidth="320.0" minWidth="-Infinity" prefHeight="72.0" prefWidth="292.0" styleClass="border">
                                              <children>
-                                                <Label text="Width:" />
-                                                <Label text="Height:" GridPane.rowIndex="1" />
-                                                <Spinner GridPane.columnIndex="1" />
-                                                <Spinner GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                <RadioButton mnemonicParsing="false" selected="true" text="Portrait" GridPane.columnIndex="3">
-                                                   <toggleGroup>
-                                                      <ToggleGroup fx:id="exportPageOrientation" />
-                                                   </toggleGroup>
-                                                </RadioButton>
-                                                <RadioButton mnemonicParsing="false" text="Landscape" toggleGroup="$exportPageOrientation" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                                <Spinner GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                <Label text="Margin" GridPane.rowIndex="2" />
+                                                <Label styleClass="header2" text="Destination" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TextField fx:id="exportDirectoryTextField" editable="false" />
+                                                      <Button mnemonicParsing="false" onAction="#exportChooseDirectory" text="Open Folder" />
+                                                   </children>
+                                                </HBox>
                                              </children>
-                                             <opaqueInsets>
-                                                <Insets />
-                                             </opaqueInsets>
-                                          </GridPane>
-                                          <CheckBox mnemonicParsing="false" prefWidth="146.0" text="Two pieces per page" />
+                                          </VBox>
+                                          <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="292.0" styleClass="large_button" text="Export">
+                                             <graphic>
+                                                <FontIcon iconLiteral="enty-export" />
+                                             </graphic>
+                                          </Button>
                                        </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
                                     </VBox>
-                                    <VBox layoutX="20.0" layoutY="150.0" maxWidth="320.0" minWidth="-Infinity" prefHeight="72.0" prefWidth="292.0" styleClass="border">
-                                       <children>
-                                          <Label styleClass="header2" text="Export Folder Grouping" />
-                                          <RadioButton mnemonicParsing="false" selected="true" text="One PDF">
-                                             <toggleGroup>
-                                                <ToggleGroup fx:id="exportFolderGrouping" />
-                                             </toggleGroup>
-                                          </RadioButton>
-                                          <RadioButton mnemonicParsing="false" text="One Folder per Piece" toggleGroup="$exportFolderGrouping" />
-                                          <RadioButton mnemonicParsing="false" text="One Folder per Instrument" toggleGroup="$exportFolderGrouping" />
-                                       </children>
-                                    </VBox>
-                                    <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="292.0" styleClass="large_button" text="➡ Export" />
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                              </VBox>
+                                 </content>
+                              </ScrollPane>
                            </children>
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets></AnchorPane>
                      </content>
+                     <graphic>
+                        <FontIcon iconLiteral="enty-export" />
+                     </graphic>
                   </Tab>
                </tabs>
             </TabPane>
