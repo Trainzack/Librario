@@ -33,7 +33,7 @@
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.261" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.LibraryController">
+<VBox prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.LibraryController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -98,14 +98,14 @@
                   </HBox>
                   <TableView fx:id="libraryPieceTable" prefHeight="9999.0" prefWidth="650.0">
                     <columns>
-                      <TableColumn fx:id="pieceTitleColumn" prefWidth="129.0" text="Title" />
-                        <TableColumn fx:id="pieceComposerColumn" prefWidth="129.0" text="Composer" />
-                        <TableColumn fx:id="pieceArrangerColumn" prefWidth="129.0" text="Arranger" />
-                        <TableColumn fx:id="pieceYearColumn" prefWidth="58.0" text="Year" />
-                      <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="159.0" text="Duration" />
+                      <TableColumn fx:id="pieceTitleColumn" prefWidth="193.0" text="Title" />
+                        <TableColumn fx:id="pieceComposerColumn" prefWidth="134.0" text="Composer" />
+                        <TableColumn fx:id="pieceArrangerColumn" prefWidth="138.0" text="Arranger" />
+                        <TableColumn fx:id="pieceYearColumn" prefWidth="75.0" text="Year" />
+                      <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="136.0" text="Duration" />
                     </columns>
                   </TableView>
-                  <ButtonBar>
+                  <ButtonBar fx:id="pieceButtonBar" disable="true">
                      <buttons>
                         <Button mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit Piece" textOverrun="WORD_ELLIPSIS">
                            <graphic>
@@ -152,17 +152,28 @@
                                              </graphic></Button>
                                        </children>
                                     </HBox>
-                                    <VBox styleClass="border">
+                                    <VBox fx:id="listEditBox" disable="true" styleClass="border">
                                        <children>
                                           <TextField fx:id="setlistTitleField" promptText="Setlist Name" styleClass="header2" text="Setlist Name" />
-                                          <ListView fx:id="setlistPieceView" prefHeight="429.0" prefWidth="221.0" />
-                                          <HBox prefHeight="100.0" prefWidth="200.0" styleClass="box">
+                                          <ListView fx:id="setlistPieceView" prefHeight="429.0" prefWidth="221.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="10.0" top="10.0" />
+                                             </VBox.margin></ListView>
+                                          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="box">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#exportList" text="Export List">
+                                                <Button mnemonicParsing="false" onAction="#listRemovePiece" text="Remove Piece">
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="enty-minus" />
+                                                   </graphic></Button>
+                                                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#exportList" text="Export List">
                                                    <graphic>
                                                       <FontIcon iconLiteral="enty-export" />
-                                                   </graphic></Button>
+                                                   </graphic>
+                                                </Button>
                                              </children>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
                                           </HBox>
                                        </children>
                                     </VBox>
@@ -194,19 +205,25 @@
                                              </graphic></Button>
                                        </children>
                                     </HBox>
-                                    <VBox prefHeight="317.0" prefWidth="2083.0" styleClass="border">
+                                    <VBox fx:id="ensembleEditBox" disable="true" prefHeight="360.0" prefWidth="422.0" styleClass="border">
                                        <children>
                                           <TextField fx:id="ensembleNameField" promptText="Ensemble Name" styleClass="header2" />
-                                          <Label fx:id="ensembleMembersLabel" text="Members: 0" />
+                                          <Label fx:id="ensembleMembersLabel" text="Members: 0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="10.0" top="10.0" />
+                                             </VBox.margin></Label>
                                           <TableView fx:id="ensembleSectionTableView" prefHeight="200.0" prefWidth="200.0">
                                             <columns>
                                               <TableColumn fx:id="sectionInstrumentColumn" prefWidth="197.0" text="Part" />
                                               <TableColumn fx:id="sectionCountColumn" minWidth="0.0" prefWidth="68.0" text="Number" />
                                             </columns>
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="10.0" top="10.0" />
+                                             </VBox.margin>
                                           </TableView>
                                           <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#exportList" text="New Part">
+                                                <Button mnemonicParsing="false" text="New Part">
                                                    <graphic>
                                                       <FontIcon iconLiteral="enty-plus" />
                                                    </graphic></Button>
@@ -245,7 +262,7 @@
                                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                   </rowConstraints>
                                                    <children>
-                                                      <RadioButton fx:id="exportSetlistToggle" mnemonicParsing="false" text="All in List">
+                                                      <RadioButton fx:id="exportSetlistToggle" mnemonicParsing="false" text="All From List">
                                                          <toggleGroup>
                                                             <ToggleGroup fx:id="exportPieceSource" />
                                                          </toggleGroup>
@@ -361,7 +378,7 @@
           </textFill>
         </Label>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+        <Label fx:id="rightStatus" font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

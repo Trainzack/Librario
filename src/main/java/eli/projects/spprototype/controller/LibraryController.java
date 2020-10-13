@@ -10,19 +10,14 @@ import eli.projects.spprototype.model.PaperSize;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Section;
 import eli.projects.spprototype.model.Setlist;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.Tab;
@@ -34,9 +29,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -57,6 +49,8 @@ public class LibraryController {
 	
 	private Stage stage;
 
+	@FXML
+	private Label rightStatus;
 	
 	/** Search **/
 	
@@ -82,6 +76,9 @@ public class LibraryController {
 	@FXML
 	private TableColumn<Piece, Integer> pieceDurationColumn;
 	
+	@FXML
+	private Node pieceButtonBar;
+	
 	
 	
 	@FXML
@@ -104,6 +101,9 @@ public class LibraryController {
 	@FXML
 	private ListView<Piece> setlistPieceView;
 	
+	@FXML
+	private Node listEditBox;
+	
 	
 	/** Ensembles Section **/
 	@FXML
@@ -119,6 +119,10 @@ public class LibraryController {
 	private TableColumn<Section, Integer> sectionCountColumn;
 	@FXML
 	private Label ensembleMembersLabel;
+	
+	@FXML
+	private Node ensembleEditBox;
+	
 	
 	/** Export Section **/
 	
@@ -166,12 +170,17 @@ public class LibraryController {
 		//setlistView = new ListView<AbstractSetlist>(library.getSetlists());
 		assert setlistView != null;
 		
+		/** Piece Table **/
+		
 		filteredPieces = new FilteredList<>(library.getPieces());
 		
 		libraryPieceTable.setItems(filteredPieces);
 		
 		libraryPieceTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->
-		{ library.setCurrentPiece(newSelection); });
+			{ 
+				library.setCurrentPiece(newSelection);
+				pieceButtonBar.setDisable(newSelection == null);
+			});
 
 		// Table Columns
 		pieceTitleColumn.setCellValueFactory(new PropertyValueFactory<Piece, String>("title"));
@@ -191,12 +200,16 @@ public class LibraryController {
 			}
 		});
 		
+		
 		/** Setlists **/
 		
 		setlistView.setItems(library.getSetlists());
 		
 		setlistView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->
-			{ library.setCurrentSetlist(newSelection); });
+			{
+				library.setCurrentSetlist(newSelection);
+				listEditBox.disableProperty().set(newSelection == null);
+			});
 
 		library.getCurrentSetlistProperty().addListener((obs, oldSelection, newSelection) -> {
 			if (newSelection != null) {
@@ -221,7 +234,10 @@ public class LibraryController {
 		ensembleView.setItems(library.getEnsembles());
 		
 		ensembleView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->
-			{ library.setCurrentEnsemble(newSelection); });
+			{
+				library.setCurrentEnsemble(newSelection);
+				ensembleEditBox.disableProperty().set(newSelection == null);
+			});
 
 
 		sectionInstrumentColumn.setCellValueFactory(new PropertyValueFactory<Section, Instrument>("instrumentName"));
@@ -247,22 +263,28 @@ public class LibraryController {
 			}
 		});
 		
+		 
 		/** Export **/
+		
+		exportPieceSource.selectedToggleProperty(); //TODO: Figure out how to link this to the model.
 		
 		/* Source Settings */
 		
 		exportSetlistComboBox.setItems(library.getSetlists());
+		exportSetlistComboBox.valueProperty().bindBidirectional(library.exportSettings.getSelectedExportSetlistProperty());
 		exportSetlistToggle.selectedProperty().addListener((obs, oldValue, newValue) -> {
 			exportSetlistComboBox.disableProperty().set(!newValue);
 		});
 		
 		//TODO: Figure out exception that occurs whenever lists are deleted while the combobox is active.
 		exportPieceComboBox.setItems(library.getPieces());
+		exportPieceComboBox.valueProperty().bindBidirectional(library.exportSettings.getSelectedExportPieceProperty());
 		exportPieceToggle.selectedProperty().addListener((obs, oldValue, newValue) -> {
 			exportPieceComboBox.disableProperty().set(!newValue);
 		});
 		
 		exportEnsembleComboBox.setItems(library.getEnsembles());
+		exportEnsembleComboBox.valueProperty().bindBidirectional(library.exportSettings.getSelectedExportEnsembleProperty());
 		exportEnsembleCheckBox.selectedProperty().addListener((obs, oldValue, newValue) -> {
 			exportEnsembleComboBox.disableProperty().set(!newValue);
 		});
@@ -315,11 +337,6 @@ public class LibraryController {
 		// TODO: Keep current index selected after delete?
 		setlistView.getSelectionModel().clearAndSelect(index);
 	}
-
-	@FXML
-	private void exportList() {
-		App.ShowTempAlert("Action not yet implemented!");
-	}
 	
 
 	@FXML
@@ -353,17 +370,43 @@ public class LibraryController {
 	}
 
 	@FXML
-	private void exportSelectedPiece() {
+	private void listRemovePiece() {
 		App.ShowTempAlert("Action not yet implemented!");
 	}
 
 	@FXML
+	private void exportList() {
+		if (library.getCurrentSetlist() == null) {
+			App.ShowError("Cannot export list.", "No list is selected. Please select a list and try again.");
+		} else {
+			library.exportSettings.getSelectedExportSetlistProperty().set(library.getCurrentSetlist());
+			tabPane.getSelectionModel().select(tabExport);
+			exportSetlistComboBox.requestFocus();
+			exportPieceSource.selectToggle(exportSetlistToggle);
+			// TODO: Make sure we select the "using piece" property
+		}
+	}
+	
+	@FXML
+	private void exportSelectedPiece() {
+		if (library.getCurrentPiece() == null) {
+			App.ShowError("Cannot export piece.", "No piece is selected. Please select a piece and try again.");
+		} else {
+			library.exportSettings.getSelectedExportPieceProperty().set(library.getCurrentPiece());
+			tabPane.getSelectionModel().select(tabExport);
+			exportPieceComboBox.requestFocus();
+			exportPieceSource.selectToggle(exportPieceToggle);
+			// TODO: Make sure we select the "using piece" property
+		}
+	}
+
+	@FXML
 	private void newEnsemble() {
-		App.ShowTempAlert("Action not yet implemented!");
+		library.addNewEnsemble();
 	}
 	@FXML
 	private void deleteEnsemble() {
-		App.ShowTempAlert("Action not yet implemented!");
+		library.deleteCurrentEnsemble();
 	}
 
 	@FXML

@@ -13,6 +13,11 @@ public class ExportSettings {
 	// This controls where we want to export things to.
 	private ObjectProperty<File> exportDestination = new SimpleObjectProperty<File>(null);
 	
+	// These three control what objects the user has selected for exporting. 
+	private ObjectProperty<Setlist> selectedExportSetlist = new SimpleObjectProperty<Setlist>(null);
+	private ObjectProperty<Piece> selectedExportPiece = new SimpleObjectProperty<Piece>(null);
+	private ObjectProperty<Ensemble> selectedExportEnsemble = new SimpleObjectProperty<Ensemble>(null);
+	
 	private ObjectProperty<PaperSize> paperSize = new SimpleObjectProperty<PaperSize>(null);
 	private DoubleProperty paperWidth = new SimpleDoubleProperty();
 	
@@ -31,9 +36,29 @@ public class ExportSettings {
 		});
 		
 		//TODO do the same for paper height
+		//TODO paper size width change not done: Need to update spinners
 		
 	}
 	
+	/* Get Selected Objects
+	 * 
+	 * I'm not going to make individual getters and setters for each property any more, I don't think we need them. 
+	 * 
+	 */
+	
+	public final ObjectProperty<Setlist> getSelectedExportSetlistProperty() {
+		return selectedExportSetlist;
+	}
+
+	public ObjectProperty<Piece> getSelectedExportPieceProperty() {
+		return selectedExportPiece;
+	}
+	
+	public ObjectProperty<Ensemble> getSelectedExportEnsembleProperty() {
+		return selectedExportEnsemble;
+	}
+
+	/** Export Destination Folder **/
 
 	public final ObjectProperty<File> getExportDestinationProperty() {
 		return exportDestination;
@@ -47,6 +72,7 @@ public class ExportSettings {
 		exportDestination.set(destination);
 	}
 	
+	/** Paper Size **/
 	
 	public final ObjectProperty<PaperSize> getPaperSizeProperty() {
 		return paperSize;
@@ -59,6 +85,8 @@ public class ExportSettings {
 	public final void setPaperSize(PaperSize p) {
 		paperSize.set(p);
 	}
+	
+	/** Paper Width **/
 
 	public final DoubleProperty getPaperWidthProperty() {
 		return paperWidth;

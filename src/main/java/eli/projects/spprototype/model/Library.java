@@ -100,11 +100,10 @@ public class Library {
 	 * @param name The name of the setlist
 	 * @return True if successful, false if not
 	 */
-	public boolean addSetlist(String name) {
+	public void addSetlist(String name) {
 		// TODO: We should probably disallow setlists with the same name or something.
 		this.setlists.add(new Setlist("New Setlist"));
 		// TODO: This needs to update the undo stack
-		return true;
 	}
 	
 	public final void setCurrentSetlist(Setlist setlist) {
@@ -132,6 +131,14 @@ public class Library {
 	
 	public final void setCurrentEnsemble(Ensemble ensemble) {
 		currentEnsemble.set(ensemble);
+	}
+	
+	public final void addNewEnsemble() {
+		ensembles.add(new Ensemble("New Ensemble"));
+	}
+	
+	public final void deleteCurrentEnsemble() {
+		ensembles.remove(currentEnsemble.get());
 	}
 
 	
