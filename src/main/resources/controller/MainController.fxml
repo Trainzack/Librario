@@ -33,7 +33,7 @@
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.LibraryController">
+<VBox prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.MainController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -46,7 +46,7 @@
             <MenuItem disable="true" mnemonicParsing="false" text="Close" />
             <MenuItem disable="true" mnemonicParsing="false" text="Save" />
             <MenuItem disable="true" mnemonicParsing="false" text="Save As…" />
-            <MenuItem disable="true" mnemonicParsing="false" text="Revert" />
+            <MenuItem mnemonicParsing="false" text="Export" />
             <SeparatorMenuItem disable="true" mnemonicParsing="false" />
             <MenuItem disable="true" mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem disable="true" mnemonicParsing="false" />
@@ -229,6 +229,7 @@
                                                    </graphic></Button>
                                              </children>
                                           </HBox>
+                                          <HBox prefHeight="100.0" prefWidth="200.0" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -360,7 +361,7 @@
                            </opaqueInsets></AnchorPane>
                      </content>
                      <graphic>
-                        <FontIcon iconLiteral="enty-export" />
+                        <FontIcon iconLiteral="enty-export" text="" />
                      </graphic>
                   </Tab>
                </tabs>

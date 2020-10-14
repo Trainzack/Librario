@@ -3,7 +3,7 @@ package eli.projects.spprototype;
 import java.io.IOException;
 import java.net.URL;
 
-import eli.projects.spprototype.controller.LibraryController;
+import eli.projects.spprototype.controller.MainController;
 import eli.projects.spprototype.model.Library;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -49,12 +49,10 @@ public class App extends Application
 
         // TODO Testing code, should be replaced later.
         loadedLibrary = Library.generateTestingLibrary();
-        
-        // TODO: Add icons to these (maybe https://kordamp.org/ikonli/#_javafx)
 
 		try {
 			
-			URL fxmlLocation = getClass().getResource("/controller/LibraryController.fxml");
+			URL fxmlLocation = getClass().getResource("/controller/MainController.fxml");
 			
 			System.out.println(fxmlLocation);
 					
@@ -64,7 +62,7 @@ public class App extends Application
 			
 			Parent root = apploader.load();
 			
-			LibraryController libraryController = apploader.getController();
+			MainController libraryController = apploader.getController();
 			
 	        libraryController.initModel(loadedLibrary, primaryStage);
 	        

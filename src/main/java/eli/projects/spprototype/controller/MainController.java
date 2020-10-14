@@ -42,7 +42,7 @@ import org.controlsfx.control.SearchableComboBox;
  * @author Eli
  *
  */
-public class LibraryController {
+public class MainController {
 
 
 	private Library library;
