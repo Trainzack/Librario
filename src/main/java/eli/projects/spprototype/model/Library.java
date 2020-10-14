@@ -38,8 +38,6 @@ public class Library {
 	// This ObjectProperty contains the currently selected ensemble
 	private final ObjectProperty<Ensemble> currentEnsemble = new SimpleObjectProperty<Ensemble>(null);
 	
-	public final ExportSettings exportSettings;
-	
 	/**
 	 * TODO: This needs a name variable for save file names
 	 * @param pieces
@@ -51,7 +49,6 @@ public class Library {
 		this.pieces = FXCollections.observableArrayList(pieces);
 		this.setlists = FXCollections.observableArrayList(setlists);
 		this.ensembles = FXCollections.observableArrayList(ensembles);
-		this.exportSettings = new ExportSettings();
 		
 	}
 	
@@ -139,6 +136,13 @@ public class Library {
 	
 	public final void deleteCurrentEnsemble() {
 		ensembles.remove(currentEnsemble.get());
+	}
+	
+	/** Instruments **/
+	
+	public ObservableList<Instrument> getInstruments() {
+		// TODO: At some point, we want all libraries to have their own instruments.
+		return FXCollections.observableArrayList(Instrument.getInstruments());
 	}
 
 	

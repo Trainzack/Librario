@@ -13,12 +13,17 @@ import eli.projects.spprototype.model.Setlist;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PopupControl;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -28,11 +33,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 import org.controlsfx.control.SearchableComboBox;
 
@@ -45,9 +55,16 @@ import org.controlsfx.control.SearchableComboBox;
 public class MainController {
 
 
-	private Library library;
 	
 	private Stage stage;
+	
+	
+	/** Data Model **/
+	private Library library;
+	private ExportSettings exportSettings;
+	
+	
+	// private Node exportNode;
 
 	@FXML
 	private Label rightStatus;
@@ -122,49 +139,19 @@ public class MainController {
 	
 	@FXML
 	private Node ensembleEditBox;
-	
-	
-	/** Export Section **/
-	
-	@FXML
-	private ToggleGroup exportPieceSource;
-	
-	@FXML
-	private ToggleButton exportSetlistToggle;
-	@FXML
-	private SearchableComboBox<Setlist> exportSetlistComboBox;
-	
-	@FXML
-	private ToggleButton exportPieceToggle;
-	@FXML
-	private SearchableComboBox<Piece> exportPieceComboBox;
-	
-	@FXML
-	private CheckBox exportEnsembleCheckBox;
-	@FXML
-	private SearchableComboBox<Ensemble> exportEnsembleComboBox;
-	
-	
-	@FXML
-	private ComboBox<PaperSize> exportPaperSize;
-	@FXML
-	private Spinner<Double> exportPageWidthSpinner;
-	
-	
-	@FXML
-	private ToggleGroup exportPageOrientation;
-	@FXML
-	private ToggleGroup exportFolderGrouping;
-	
-	@FXML
-	private TextField exportDirectoryTextField;
+
 	
 	
 	
-	public void initModel(Library _library, Stage _stage) {
+	public void initModel(Library _library, Stage _stage) throws IOException {
 
 		this.library = _library;
 		this.stage = _stage;
+		
+		
+		
+		this.exportSettings = new ExportSettings();
+		
 		
 		// Initialize the listview on the left part of the screen that contains all of the setlists
 		//setlistView = new ListView<AbstractSetlist>(library.getSetlists());
@@ -263,45 +250,6 @@ public class MainController {
 			}
 		});
 		
-		 
-		/** Export **/
-		
-		exportPieceSource.selectedToggleProperty(); //TODO: Figure out how to link this to the model.
-		
-		/* Source Settings */
-		
-		exportSetlistComboBox.setItems(library.getSetlists());
-		exportSetlistComboBox.valueProperty().bindBidirectional(library.exportSettings.getSelectedExportSetlistProperty());
-		exportSetlistToggle.selectedProperty().addListener((obs, oldValue, newValue) -> {
-			exportSetlistComboBox.disableProperty().set(!newValue);
-		});
-		
-		//TODO: Figure out exception that occurs whenever lists are deleted while the combobox is active.
-		exportPieceComboBox.setItems(library.getPieces());
-		exportPieceComboBox.valueProperty().bindBidirectional(library.exportSettings.getSelectedExportPieceProperty());
-		exportPieceToggle.selectedProperty().addListener((obs, oldValue, newValue) -> {
-			exportPieceComboBox.disableProperty().set(!newValue);
-		});
-		
-		exportEnsembleComboBox.setItems(library.getEnsembles());
-		exportEnsembleComboBox.valueProperty().bindBidirectional(library.exportSettings.getSelectedExportEnsembleProperty());
-		exportEnsembleCheckBox.selectedProperty().addListener((obs, oldValue, newValue) -> {
-			exportEnsembleComboBox.disableProperty().set(!newValue);
-		});
-		
-		/* Page Settings */
-		
-		exportPaperSize.setItems(FXCollections.observableArrayList(PaperSize.values()));
-		
-		
-		/* Export Folder Grouping */
-		
-		/* Destination */
-		
-		library.exportSettings.getExportDestinationProperty().addListener((obs, oldValue, newValue) -> {
-			exportDirectoryTextField.setText((newValue == null) ? "" : newValue.getPath());
-		});
-		
 	}
 	
 	@FXML
@@ -373,17 +321,17 @@ public class MainController {
 	private void listRemovePiece() {
 		App.ShowTempAlert("Action not yet implemented!");
 	}
-
+	
+	// TODO: Create new exportsettings page!
 	@FXML
 	private void exportList() {
 		if (library.getCurrentSetlist() == null) {
 			App.ShowError("Cannot export list.", "No list is selected. Please select a list and try again.");
 		} else {
-			library.exportSettings.getSelectedExportSetlistProperty().set(library.getCurrentSetlist());
-			tabPane.getSelectionModel().select(tabExport);
-			exportSetlistComboBox.requestFocus();
-			exportPieceSource.selectToggle(exportSetlistToggle);
+			exportSettings.getSelectedExportSetlistProperty().set(library.getCurrentSetlist());
+			//exportPieceSource.selectToggle(exportSetlistToggle);
 			// TODO: Make sure we select the "using piece" property
+			openExportPopup();
 		}
 	}
 	
@@ -392,11 +340,41 @@ public class MainController {
 		if (library.getCurrentPiece() == null) {
 			App.ShowError("Cannot export piece.", "No piece is selected. Please select a piece and try again.");
 		} else {
-			library.exportSettings.getSelectedExportPieceProperty().set(library.getCurrentPiece());
-			tabPane.getSelectionModel().select(tabExport);
-			exportPieceComboBox.requestFocus();
-			exportPieceSource.selectToggle(exportPieceToggle);
+			exportSettings.getSelectedExportPieceProperty().set(library.getCurrentPiece());
+			//exportPieceSource.selectToggle(exportPieceToggle);
 			// TODO: Make sure we select the "using piece" property
+			openExportPopup();
+		}
+	}
+	
+	@FXML
+	private void openExportPopup() {
+		FXMLLoader exportLoader = new FXMLLoader(getClass().getResource("/controller/ExportController.fxml"));
+        
+		assert exportLoader.getLocation() != null;
+		
+		try {
+			Parent exportNode = exportLoader.load();
+			
+		    Scene exportScene = new Scene(exportNode);
+		    Stage popup = new Stage();
+		    popup.setTitle("Export");
+		    popup.setScene(exportScene);
+		    popup.initModality(Modality.WINDOW_MODAL);
+		    popup.resizableProperty().set(false);
+		    
+		    // TODO is this the best way of getting the current window? Maybe we should pass a reference in to this class earlier.
+		    popup.initOwner(rightStatus.getScene().getWindow());
+
+			ExportController exportController = exportLoader.getController();
+
+			exportController.initModel(exportSettings, library, popup);
+			
+			popup.show();
+
+		} catch (IOException e) {
+			App.ShowError("Cannot Export", "Could not load Export page. This is a bug.");
+			e.printStackTrace();
 		}
 	}
 
@@ -409,17 +387,4 @@ public class MainController {
 		library.deleteCurrentEnsemble();
 	}
 
-	@FXML
-	private void exportChooseDirectory() {
-		ExportSettings es = library.exportSettings;
-
-        DirectoryChooser dir = new DirectoryChooser();
-        dir.setTitle("Choose a destination to export");
-        // If the user has already selected a destination before, use that one!
-        if (es.getExportDestination() != null) dir.setInitialDirectory(es.getExportDestination());
-        File destination = dir.showDialog(this.stage);
-        // Don't change the destination if the user didn't select anything
-        if (destination != null) es.setExportDestination(destination);
-        
-	}
 }

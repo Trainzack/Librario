@@ -1,6 +1,7 @@
 eli\projects\spprototype\model\PaperSize.class
 eli\projects\spprototype\PartDesignation.class
 eli\projects\spprototype\PartDesignation$InvalidPartDesignationException.class
+eli\projects\spprototype\controller\ExportController.class
 eli\projects\spprototype\Utility.class
 eli\projects\spprototype\controller\MainController$1.class
 eli\projects\spprototype\model\Instrument.class

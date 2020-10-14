@@ -137,7 +137,8 @@ public class Instrument {
 	
 	@Override
 	public String toString() {
-		return getId() + ":\t" + getName() + "\t" + getCategory(); 
+		return getName();
+		//return getId() + ":\t" + getName() + "\t" + getCategory(); 
 	}
 	
 }
