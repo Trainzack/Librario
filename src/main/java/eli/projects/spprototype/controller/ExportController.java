@@ -118,12 +118,26 @@ public class ExportController {
 			exportSetlistComboBox.disableProperty().set(!newValue);
 		});
 		
-		//TODO: Figure out exception that occurs whenever lists are deleted while the combobox is active.
 		exportPieceComboBox.setItems(library.getPieces());
 		exportPieceComboBox.valueProperty().bindBidirectional(exportSettings.getSelectedExportPieceProperty());
 		exportPieceToggle.selectedProperty().addListener((obs, oldValue, newValue) -> {
 			exportPieceComboBox.disableProperty().set(!newValue);
 		});
+		
+		// Whenever we make selections with the togglebox, change the corresponding setting in ExportSettings
+		// TODO: Maybe we can encapsulate more of this in the model?
+		exportPieceSource.selectedToggleProperty().addListener((obs, oldValue, newValue) -> {
+			
+			ExportSettings.SourceSelection value = null;
+			if (newValue == exportSetlistToggle) {
+				value = ExportSettings.SourceSelection.LIST;
+			} else if (newValue == exportPieceToggle) {
+				value = ExportSettings.SourceSelection.PIECE;
+			}
+			exportSettings.getSelectedSourceProperty().set(value);
+		});
+		
+		/* Target Settings */
 		
 		exportTargetEnsembleComboBox.setItems(library.getEnsembles());
 		exportTargetEnsembleComboBox.valueProperty().bindBidirectional(exportSettings.getSelectedExportEnsembleProperty());
@@ -135,6 +149,22 @@ public class ExportController {
 		exportTargetInstrumentComboBox.valueProperty().bindBidirectional(exportSettings.getSelectedExportInstrumentProperty());
 		exportTargetInstrumentToggle.selectedProperty().addListener((obs, oldValue, newValue) -> {
 			exportTargetInstrumentComboBox.disableProperty().set(!newValue);
+		});
+		
+		// Whenever we make selections with the togglebox, change the corresponding setting in ExportSettings
+		// TODO: Maybe we can encapsulate more of this in the model?
+		exportPieceTarget.selectedToggleProperty().addListener((obs, oldValue, newValue) -> {
+			
+			ExportSettings.TargetSelection value = null;
+			if (newValue == exportTargetEnsembleToggle) {
+				value = ExportSettings.TargetSelection.ENSEMBLE;
+			} else if (newValue == exportTargetInstrumentToggle) {
+				value = ExportSettings.TargetSelection.INSTRUMENT;
+			} else if (newValue == exportTargetAllPartsToggle) {
+				value = ExportSettings.TargetSelection.ALL;
+			}
+			
+			exportSettings.getSelectedTargetProperty().set(value);
 		});
 		
 		/* Page Settings */
@@ -150,6 +180,12 @@ public class ExportController {
 			exportDirectoryTextField.setText((newValue == null) ? "" : newValue.getPath());
 		});
 		
+		/** Buttons **/
+		
+		// Whenever the export settings are invalid, disallow exporting.
+		exportButton.disableProperty().bind(exportSettings.getIsInvalidProperty());
+		
+		exportSettings.evaluateValidity();
 		
 	}
 

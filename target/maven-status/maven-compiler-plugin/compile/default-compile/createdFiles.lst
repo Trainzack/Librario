@@ -7,7 +7,9 @@ eli\projects\spprototype\controller\MainController$1.class
 eli\projects\spprototype\model\Instrument.class
 eli\projects\spprototype\InputPage.class
 eli\projects\spprototype\model\Ensemble.class
+eli\projects\spprototype\model\ExportSettings$1.class
 eli\projects\spprototype\App.class
+eli\projects\spprototype\model\ExportSettings$TargetSelection.class
 eli\projects\spprototype\model\Instrument$InstrumentDoesNotExistException.class
 eli\projects\spprototype\PagePlan.class
 eli\projects\spprototype\controller\MainController.class
@@ -22,4 +24,5 @@ eli\projects\spprototype\OutputPlanner.class
 eli\projects\spprototype\App$1.class
 eli\projects\spprototype\model\MusicList.class
 eli\projects\spprototype\model\Piece.class
+eli\projects\spprototype\model\ExportSettings$SourceSelection.class
 eli\projects\spprototype\PageLayout.class

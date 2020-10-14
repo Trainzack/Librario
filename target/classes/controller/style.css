@@ -7,12 +7,12 @@
 }
 
 .header {
-	-fx-font: 32 arial;
+	-fx-font: 20 arial;
 	-fx-padding: 10;
 }
 
 .header2 {
-	-fx-font: 16 arial;
+	-fx-font: 14 arial;
 	-fx-padding: 5;
 }
 

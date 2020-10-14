@@ -16,8 +16,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
@@ -66,7 +69,7 @@
     </MenuBar>
       <TabPane>
          <tabs>
-            <Tab closable="false" styleClass="header2" text="Library">
+            <Tab closable="false" styleClass="header" text="Library">
                <content>
                 <SplitPane dividerPositions="0.61953125" focusTraversable="true" prefHeight="9999999.0" prefWidth="900.0">
                   <items>
@@ -79,7 +82,7 @@
                                           <Font size="18.0" fx:id="x5" />
                                        </font>
                                        <graphic>
-                                          <FontIcon iconLiteral="enty-spreadsheet" />
+                                          <FontIcon iconLiteral="enty-beamed-note" />
                                        </graphic>
                                     </Label>
                                  </children>
@@ -87,7 +90,7 @@
                               <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
                                  <children>
                                     <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="312.0" promptText="Title" />
-                                    <Button fx:id="searchFilterButton" mnemonicParsing="false" onAction="#filterPieceTable" text="Search" textOverrun="WORD_ELLIPSIS">
+                                    <Button fx:id="searchFilterButton" defaultButton="true" mnemonicParsing="false" onAction="#filterPieceTable" text="Search" textOverrun="WORD_ELLIPSIS">
                                        <graphic>
                                           <FontIcon iconLiteral="enty-magnifying-glass" />
                                        </graphic>
@@ -120,7 +123,7 @@
                                           <FontIcon iconLiteral="enty-export" />
                                        </graphic>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#addPieceToList" text="Add To List" textOverrun="WORD_ELLIPSIS">
+                                    <Button defaultButton="true" mnemonicParsing="false" onAction="#addPieceToList" text="Add To List" textOverrun="WORD_ELLIPSIS">
                                        <graphic>
                                           <FontIcon iconLiteral="enty-add-to-list" />
                                        </graphic>
@@ -138,7 +141,7 @@
                                           <Font size="18.0" fx:id="x51" />
                                        </font>
                                        <graphic>
-                                          <FontIcon iconLiteral="enty-list" />
+                                          <FontIcon iconLiteral="enty-list" text="" />
                                        </graphic>
                                     </Label>
                                     <ListView fx:id="setlistView" prefHeight="429.0" prefWidth="221.0" />
@@ -156,12 +159,32 @@
                                           </Button>
                                        </children>
                                     </HBox>
-                                    <VBox fx:id="listEditBox" disable="true" styleClass="border">
+                                    <VBox fx:id="listEditBox" disable="true" spacing="10.0" styleClass="border">
                                        <children>
-                                          <TextField fx:id="setlistTitleField" promptText="Setlist Name" styleClass="header2" text="Setlist Name" />
-                                          <ListView fx:id="setlistPieceView" prefHeight="429.0" prefWidth="221.0">
+                                          <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Selected List" textAlignment="CENTER" wrapText="false">
+                                             <font>
+                                                <Font size="18.0" fx:id="x511" />
+                                             </font>
+                                             <graphic>
+                                                <FontIcon iconLiteral="enty-list" />
+                                             </graphic>
+                                          </Label>
+                                          <GridPane hgap="10.0" prefHeight="80.0" prefWidth="442.0" vgap="10.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="216.0" minWidth="10.0" prefWidth="90.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="352.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label text="List Name" />
+                                                <TextField fx:id="setlistTitleField" promptText="Name" styleClass="header2" GridPane.columnIndex="1" />
+                                             </children>
+                                          </GridPane>
+                                          <ListView fx:id="setlistPieceView" prefHeight="214.0" prefWidth="442.0">
                                              <VBox.margin>
-                                                <Insets left="10.0" right="10.0" top="10.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </ListView>
                                           <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="box">
@@ -177,9 +200,6 @@
                                                    </graphic>
                                                 </Button>
                                              </children>
-                                             <padding>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </padding>
                                           </HBox>
                                        </children>
                                     </VBox>
@@ -191,10 +211,10 @@
                 </SplitPane>
                </content>
                <graphic>
-                  <FontIcon iconLiteral="enty-beamed-note" />
+                  <FontIcon iconLiteral="enty-archive" wrappingWidth="20.0" />
                </graphic>
             </Tab>
-            <Tab fx:id="tabEnsembles" closable="false" styleClass="header2" text="Ensembles">
+            <Tab fx:id="tabEnsembles" closable="false" styleClass="header" text="Ensembles">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="200.0">
                      <children>
@@ -204,6 +224,18 @@
                                  <children>
                                     <VBox prefHeight="551.0" prefWidth="310.0" styleClass="orgbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
+                                          <HBox>
+                                             <children>
+                                                <Label alignment="CENTER" style="&#10;" styleClass="header2" text="All Ensembles" textAlignment="CENTER" wrapText="false">
+                                                   <font>
+                                                      <Font size="18.0" fx:id="x52" />
+                                                   </font>
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="enty-list" />
+                                                   </graphic>
+                                                </Label>
+                                             </children>
+                                          </HBox>
                                           <ListView fx:id="ensembleView" prefHeight="349.0" prefWidth="358.0" />
                                           <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
                                              <children>
@@ -225,21 +257,42 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <VBox fx:id="ensembleEditBox" disable="true" prefHeight="467.0" prefWidth="538.0" styleClass="border">
+                                    <VBox fx:id="ensembleEditBox" disable="true" prefHeight="753.0" prefWidth="538.0" spacing="10.0" styleClass="border" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                        <children>
-                                          <TextField fx:id="ensembleNameField" promptText="Ensemble Name" styleClass="header2" />
-                                          <Label fx:id="ensembleMembersLabel" text="Members: 0">
-                                             <VBox.margin>
-                                                <Insets left="10.0" right="10.0" top="10.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <TableView fx:id="ensembleSectionTableView" prefHeight="566.0" prefWidth="496.0">
+                                          <HBox>
+                                             <children>
+                                                <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Selected Ensemble" textAlignment="CENTER" wrapText="false">
+                                                   <font>
+                                                      <Font size="18.0" fx:id="x521" />
+                                                   </font>
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="enty-list" text="" />
+                                                   </graphic>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <GridPane hgap="10.0" maxWidth="400.0" prefWidth="400.0" vgap="10.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="527.0" minWidth="113.0" prefWidth="113.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="760.0" minWidth="10.0" prefWidth="749.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label prefHeight="17.0" prefWidth="92.0" text="Ensemble Name" textAlignment="RIGHT" />
+                                                <TextField fx:id="ensembleNameField" prefHeight="26.0" promptText="Name" styleClass="header2" GridPane.columnIndex="1" />
+                                                <Label fx:id="ensembleMembersLabel" prefHeight="17.0" prefWidth="66.0" text="Members: 0" textAlignment="RIGHT" GridPane.rowIndex="1" />
+                                             </children>
+                                          </GridPane>
+                                          <TableView fx:id="ensembleSectionTableView" prefHeight="566.0" prefWidth="852.0">
                                             <columns>
                                               <TableColumn fx:id="sectionInstrumentColumn" prefWidth="197.0" text="Section" />
                                               <TableColumn fx:id="sectionCountColumn" minWidth="0.0" prefWidth="68.0" text="Number" />
                                             </columns>
                                              <VBox.margin>
-                                                <Insets left="10.0" right="10.0" top="10.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </TableView>
                                           <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">

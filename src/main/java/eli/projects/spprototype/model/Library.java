@@ -95,12 +95,13 @@ public class Library {
 	/**
 	 * Creates a new empty setlist
 	 * @param name The name of the setlist
-	 * @return True if successful, false if not
+	 * @return The setlist that we add
 	 */
-	public void addSetlist(String name) {
-		// TODO: We should probably disallow setlists with the same name or something.
-		this.setlists.add(new Setlist("New Setlist"));
+	public Setlist addSetlist(String name) {
+		Setlist out = new Setlist(name);;
+		this.setlists.add(out);
 		// TODO: This needs to update the undo stack
+		return out;
 	}
 	
 	public final void setCurrentSetlist(Setlist setlist) {
@@ -159,12 +160,13 @@ public class Library {
 		}
 		
 		ArrayList<Setlist> setlists = new ArrayList<Setlist>(1);
-		
-		for (int i = 0; i < 1; i++) {
-			Setlist u = Setlist.generateTestUserSetlist();
-			u.setName("Setlist #" + i);
-			setlists.add(u);
-		}
+
+		Setlist u = Setlist.generateTestUserSetlist();
+		u.setName("Fall Concert Program 2019");
+		setlists.add(u);
+		u = Setlist.generateTestUserSetlist();
+		u.setName("Spring Concert Program 2020");
+		setlists.add(u);
 		
 		ArrayList<Ensemble> ensembles = new ArrayList<Ensemble>(1);
 		

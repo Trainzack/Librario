@@ -97,18 +97,6 @@ public class MainController {
 	private Node pieceButtonBar;
 	
 	
-	
-	@FXML
-	private TabPane tabPane;
-	
-	@FXML
-	private Tab tabLists;
-	@FXML
-	private Tab tabEnsembles;
-	@FXML
-	private Tab tabExport;
-	
-	
 	/** Lists Section **/
 
 	@FXML
@@ -274,7 +262,8 @@ public class MainController {
 	
 	@FXML
 	private void newList() {
-		library.addSetlist("New Setlist");
+		Setlist list = library.addSetlist("New List"); 
+		setlistView.getSelectionModel().select(list);
 	}
 	
 	@FXML
@@ -295,7 +284,6 @@ public class MainController {
 
 	@FXML
 	private void addPieceToList() {
-		tabPane.getSelectionModel().select(tabLists);
 		if (library.getCurrentSetlist() == null) {
 			App.ShowError("Cannot add to list.", "No list is selected. Please select a list and try again.");
 		} else {
