@@ -64,82 +64,96 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.5" focusTraversable="true" prefHeight="9999999.0" prefWidth="900.0">
-      <items>
-            <VBox prefHeight="551.0" prefWidth="577.0" styleClass="orgbox">
-               <children>
-                  <HBox>
-                     <children>
-                <Label alignment="CENTER" style="&#10;" styleClass="header" text="Library" textAlignment="CENTER" wrapText="false">
-                           <font>
-                              <Font size="18.0" fx:id="x5" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
-                     <children>
-                        <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="312.0" promptText="Title" />
-                        <Button fx:id="searchFilterButton" mnemonicParsing="false" onAction="#filterPieceTable" text="Search" textOverrun="WORD_ELLIPSIS">
-                           <graphic>
-                              <FontIcon iconLiteral="enty-magnifying-glass" />
-                           </graphic></Button>
-                     </children>
-                  </HBox>
-                  <TableView fx:id="libraryPieceTable" prefHeight="9999.0" prefWidth="650.0">
-                    <columns>
-                      <TableColumn fx:id="pieceTitleColumn" prefWidth="193.0" text="Title" />
-                        <TableColumn fx:id="pieceComposerColumn" prefWidth="134.0" text="Composer" />
-                        <TableColumn fx:id="pieceArrangerColumn" prefWidth="138.0" text="Arranger" />
-                        <TableColumn fx:id="pieceYearColumn" prefWidth="75.0" text="Year" />
-                      <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="136.0" text="Duration" />
-                    </columns>
-                  </TableView>
-                  <ButtonBar fx:id="pieceButtonBar" disable="true">
-                     <buttons>
-                        <Button mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit Piece" textOverrun="WORD_ELLIPSIS">
-                           <graphic>
-                              <FontIcon iconLiteral="enty-edit" />
-                           </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#deleteSelectedPiece" text="Delete Piece" textOverrun="WORD_ELLIPSIS">
-                           <graphic>
-                              <FontIcon iconLiteral="enty-trash" />
-                           </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#exportSelectedPiece" text="Export Piece" textOverrun="WORD_ELLIPSIS">
-                           <graphic>
-                              <FontIcon iconLiteral="enty-export" />
-                           </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#addPieceToList" text="Add To List" textOverrun="WORD_ELLIPSIS">
-                           <graphic>
-                              <FontIcon iconLiteral="enty-add-to-list" />
-                           </graphic>
-                        </Button>
-                     </buttons>
-                  </ButtonBar>
-               </children>
-            </VBox>
-            <TabPane fx:id="tabPane" minWidth="300.0">
-               <tabs>
-                  <Tab fx:id="tabLists" closable="false" text="Lists">
-                     <content>
+      <TabPane>
+         <tabs>
+            <Tab closable="false" styleClass="header2" text="Library">
+               <content>
+                <SplitPane dividerPositions="0.61953125" focusTraversable="true" prefHeight="9999999.0" prefWidth="900.0">
+                  <items>
+                        <VBox prefHeight="551.0" prefWidth="577.0" styleClass="orgbox">
+                           <children>
+                              <HBox>
+                                 <children>
+                            <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Pieces" textAlignment="CENTER" wrapText="false">
+                                       <font>
+                                          <Font size="18.0" fx:id="x5" />
+                                       </font>
+                                       <graphic>
+                                          <FontIcon iconLiteral="enty-spreadsheet" />
+                                       </graphic>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
+                                 <children>
+                                    <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="312.0" promptText="Title" />
+                                    <Button fx:id="searchFilterButton" mnemonicParsing="false" onAction="#filterPieceTable" text="Search" textOverrun="WORD_ELLIPSIS">
+                                       <graphic>
+                                          <FontIcon iconLiteral="enty-magnifying-glass" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="libraryPieceTable" prefHeight="9999.0" prefWidth="650.0">
+                                <columns>
+                                  <TableColumn fx:id="pieceTitleColumn" prefWidth="193.0" text="Title" />
+                                    <TableColumn fx:id="pieceComposerColumn" prefWidth="134.0" text="Composer" />
+                                    <TableColumn fx:id="pieceArrangerColumn" prefWidth="138.0" text="Arranger" />
+                                    <TableColumn fx:id="pieceYearColumn" prefWidth="75.0" text="Year" />
+                                  <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="136.0" text="Duration" />
+                                </columns>
+                              </TableView>
+                              <ButtonBar fx:id="pieceButtonBar" disable="true">
+                                 <buttons>
+                                    <Button mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit Piece" textOverrun="WORD_ELLIPSIS">
+                                       <graphic>
+                                          <FontIcon iconLiteral="enty-edit" />
+                                       </graphic>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#deleteSelectedPiece" text="Delete Piece" textOverrun="WORD_ELLIPSIS">
+                                       <graphic>
+                                          <FontIcon iconLiteral="enty-trash" />
+                                       </graphic>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#exportSelectedPiece" text="Export Piece" textOverrun="WORD_ELLIPSIS">
+                                       <graphic>
+                                          <FontIcon iconLiteral="enty-export" />
+                                       </graphic>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#addPieceToList" text="Add To List" textOverrun="WORD_ELLIPSIS">
+                                       <graphic>
+                                          <FontIcon iconLiteral="enty-add-to-list" />
+                                       </graphic>
+                                    </Button>
+                                 </buttons>
+                              </ButtonBar>
+                           </children>
+                        </VBox>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <VBox prefHeight="551.0" prefWidth="222.0" styleClass="orgbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
+                                    <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Lists" textAlignment="CENTER" wrapText="false">
+                                       <font>
+                                          <Font size="18.0" fx:id="x51" />
+                                       </font>
+                                       <graphic>
+                                          <FontIcon iconLiteral="enty-list" />
+                                       </graphic>
+                                    </Label>
                                     <ListView fx:id="setlistView" prefHeight="429.0" prefWidth="221.0" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#newList" text="New List" textOverrun="WORD_ELLIPSIS">
                                              <graphic>
                                                 <FontIcon iconLiteral="enty-plus" />
-                                             </graphic></Button>
+                                             </graphic>
+                                          </Button>
                                           <Button layoutX="340.0" layoutY="20.0" mnemonicParsing="false" onAction="#deleteList" text="Delete List">
                                              <graphic>
                                                 <FontIcon iconLiteral="enty-trash" />
-                                             </graphic></Button>
+                                             </graphic>
+                                          </Button>
                                        </children>
                                     </HBox>
                                     <VBox fx:id="listEditBox" disable="true" styleClass="border">
@@ -148,13 +162,15 @@
                                           <ListView fx:id="setlistPieceView" prefHeight="429.0" prefWidth="221.0">
                                              <VBox.margin>
                                                 <Insets left="10.0" right="10.0" top="10.0" />
-                                             </VBox.margin></ListView>
+                                             </VBox.margin>
+                                          </ListView>
                                           <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="box">
                                              <children>
                                                 <Button mnemonicParsing="false" onAction="#listRemovePiece" text="Remove Piece">
                                                    <graphic>
                                                       <FontIcon iconLiteral="enty-minus" />
-                                                   </graphic></Button>
+                                                   </graphic>
+                                                </Button>
                                                 <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#exportList" text="Export List">
                                                    <graphic>
                                                       <FontIcon iconLiteral="enty-export" />
@@ -171,40 +187,55 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                     </content>
-                     <graphic>
-                        <FontIcon iconLiteral="enty-list" />
-                     </graphic>
-                  </Tab>
-                  <Tab fx:id="tabEnsembles" closable="false" text="Ensembles">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="200.0">
-                           <children>
-                              <VBox prefHeight="551.0" prefWidth="310.0" styleClass="orgbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  </items>
+                </SplitPane>
+               </content>
+               <graphic>
+                  <FontIcon iconLiteral="enty-beamed-note" />
+               </graphic>
+            </Tab>
+            <Tab fx:id="tabEnsembles" closable="false" styleClass="header2" text="Ensembles">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <ListView fx:id="ensembleView" prefHeight="165.0" prefWidth="1488.0" />
-                                    <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
+                                    <VBox prefHeight="551.0" prefWidth="310.0" styleClass="orgbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#newEnsemble" text="New Ensemble" textOverrun="WORD_ELLIPSIS">
-                                             <graphic>
-                                                <FontIcon iconLiteral="enty-plus" />
-                                             </graphic></Button>
-                                          <Button layoutX="340.0" layoutY="20.0" mnemonicParsing="false" onAction="#deleteEnsemble" text="Delete Ensemble">
-                                             <graphic>
-                                                <FontIcon iconLiteral="enty-trash" />
-                                             </graphic></Button>
+                                          <ListView fx:id="ensembleView" prefHeight="349.0" prefWidth="358.0" />
+                                          <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#newEnsemble" text="New Ensemble" textOverrun="WORD_ELLIPSIS">
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="enty-plus" />
+                                                   </graphic>
+                                                </Button>
+                                                <Button layoutX="340.0" layoutY="20.0" mnemonicParsing="false" onAction="#deleteEnsemble" text="Delete Ensemble">
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="enty-trash" />
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </HBox>
                                        </children>
-                                    </HBox>
-                                    <VBox fx:id="ensembleEditBox" disable="true" prefHeight="360.0" prefWidth="422.0" styleClass="border">
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <VBox fx:id="ensembleEditBox" disable="true" prefHeight="467.0" prefWidth="538.0" styleClass="border">
                                        <children>
                                           <TextField fx:id="ensembleNameField" promptText="Ensemble Name" styleClass="header2" />
                                           <Label fx:id="ensembleMembersLabel" text="Members: 0">
                                              <VBox.margin>
                                                 <Insets left="10.0" right="10.0" top="10.0" />
-                                             </VBox.margin></Label>
-                                          <TableView fx:id="ensembleSectionTableView" prefHeight="200.0" prefWidth="200.0">
+                                             </VBox.margin>
+                                          </Label>
+                                          <TableView fx:id="ensembleSectionTableView" prefHeight="566.0" prefWidth="496.0">
                                             <columns>
-                                              <TableColumn fx:id="sectionInstrumentColumn" prefWidth="197.0" text="Part" />
+                                              <TableColumn fx:id="sectionInstrumentColumn" prefWidth="197.0" text="Section" />
                                               <TableColumn fx:id="sectionCountColumn" minWidth="0.0" prefWidth="68.0" text="Number" />
                                             </columns>
                                              <VBox.margin>
@@ -213,28 +244,29 @@
                                           </TableView>
                                           <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
                                              <children>
-                                                <Button mnemonicParsing="false" text="New Part">
+                                                <Button mnemonicParsing="false" text="New Section">
                                                    <graphic>
                                                       <FontIcon iconLiteral="enty-plus" />
-                                                   </graphic></Button>
+                                                   </graphic>
+                                                </Button>
                                              </children>
                                           </HBox>
                                           <HBox prefHeight="100.0" prefWidth="200.0" />
                                        </children>
                                     </VBox>
                                  </children>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                     <graphic>
-                        <FontIcon iconLiteral="enty-rainbow" />
-                     </graphic>
-                  </Tab>
-               </tabs>
-            </TabPane>
-      </items>
-    </SplitPane>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+               <graphic>
+                  <FontIcon iconLiteral="enty-rainbow" />
+               </graphic>
+            </Tab>
+         </tabs>
+      </TabPane>
     <HBox alignment="CENTER_LEFT" prefWidth="974.0" spacing="5.0" VBox.vgrow="NEVER">
       <children>
         <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
