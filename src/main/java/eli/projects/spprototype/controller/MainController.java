@@ -4,6 +4,7 @@ import eli.projects.spprototype.App;
 import eli.projects.spprototype.Utility;
 import eli.projects.spprototype.model.Ensemble;
 import eli.projects.spprototype.model.ExportSettings;
+import eli.projects.spprototype.model.ExportSettings.SourceSelection;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Library;
 import eli.projects.spprototype.model.PaperSize;
@@ -317,8 +318,8 @@ public class MainController {
 			App.ShowError("Cannot export list.", "No list is selected. Please select a list and try again.");
 		} else {
 			exportSettings.getSelectedExportSetlistProperty().set(library.getCurrentSetlist());
-			//exportPieceSource.selectToggle(exportSetlistToggle);
-			// TODO: Make sure we select the "using piece" property
+			exportSettings.getSelectedSourceProperty().set(SourceSelection.LIST);
+			
 			openExportPopup();
 		}
 	}
@@ -329,8 +330,8 @@ public class MainController {
 			App.ShowError("Cannot export piece.", "No piece is selected. Please select a piece and try again.");
 		} else {
 			exportSettings.getSelectedExportPieceProperty().set(library.getCurrentPiece());
-			//exportPieceSource.selectToggle(exportPieceToggle);
-			// TODO: Make sure we select the "using piece" property
+			exportSettings.getSelectedSourceProperty().set(SourceSelection.PIECE);
+			
 			openExportPopup();
 		}
 	}
@@ -359,11 +360,13 @@ public class MainController {
 			exportController.initModel(exportSettings, library, popup);
 			
 			popup.show();
+			
 
 		} catch (IOException e) {
 			App.ShowError("Cannot Export", "Could not load Export page. This is a bug.");
 			e.printStackTrace();
 		}
+		
 	}
 
 	@FXML

@@ -20,6 +20,7 @@ eli\projects\spprototype\model\Library.class
 eli\projects\spprototype\Part.class
 eli\projects\spprototype\model\Piece$PDFFileFilter.class
 eli\projects\spprototype\model\Setlist.class
+eli\projects\spprototype\controller\ExportController$1.class
 eli\projects\spprototype\OutputPlanner.class
 eli\projects\spprototype\App$1.class
 eli\projects\spprototype\model\MusicList.class

@@ -7,6 +7,7 @@ import org.controlsfx.control.SearchableComboBox;
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.model.Ensemble;
 import eli.projects.spprototype.model.ExportSettings;
+import eli.projects.spprototype.model.ExportSettings.SourceSelection;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Library;
 import eli.projects.spprototype.model.PaperSize;
@@ -114,6 +115,7 @@ public class ExportController {
 		
 		exportSetlistComboBox.setItems(library.getSetlists());
 		exportSetlistComboBox.valueProperty().bindBidirectional(exportSettings.getSelectedExportSetlistProperty());
+		
 		exportSetlistToggle.selectedProperty().addListener((obs, oldValue, newValue) -> {
 			exportSetlistComboBox.disableProperty().set(!newValue);
 		});
@@ -136,6 +138,19 @@ public class ExportController {
 			}
 			exportSettings.getSelectedSourceProperty().set(value);
 		});
+		
+		// Set these toggles to their correct initial values
+		if (exportSettings.getSelectedSourceProperty().get() != null) {
+			switch (exportSettings.getSelectedSourceProperty().get()) {
+			case LIST:
+				exportSetlistToggle.setSelected(true);
+				break;
+			case PIECE:
+				exportPieceToggle.setSelected(true);
+				break;
+			}
+		}
+
 		
 		/* Target Settings */
 		
@@ -166,6 +181,21 @@ public class ExportController {
 			
 			exportSettings.getSelectedTargetProperty().set(value);
 		});
+		
+		// Set these toggles to their correct initial values
+		if (exportSettings.getSelectedTargetProperty().get() != null) {
+			switch (exportSettings.getSelectedTargetProperty().get()) {
+			case ENSEMBLE:
+				exportTargetEnsembleToggle.setSelected(true);
+				break;
+			case INSTRUMENT:
+				exportTargetInstrumentToggle.setSelected(true);
+				break;
+			case ALL:
+				exportTargetAllPartsToggle.setSelected(true);
+			}
+		}
+
 		
 		/* Page Settings */
 		
@@ -207,6 +237,11 @@ public class ExportController {
 	/** Close this window and actually do the export! **/
 	@FXML
 	private void finishExport() {
+		exportSettings.evaluateValidity();
+		if (exportSettings.getIsInvalidProperty().get()) {
+			//This is bad
+			App.ShowError("Export Failed", "The settings you chose for export were invalid. Additionally, the program should have prevented this.");
+		}
 		// TODO
 		stage.close();
 		App.ShowTempAlert("Export Successful.");
