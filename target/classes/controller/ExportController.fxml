@@ -62,7 +62,7 @@
                      <children>
                         <Label styleClass="header2" text="Target Settings">
                            <graphic>
-                              <FontIcon iconLiteral="enty-rainbow" />
+                              <FontIcon iconLiteral="enty-man" />
                            </graphic>
                         </Label>
                         <GridPane vgap="10.0">
@@ -98,7 +98,7 @@
                <children>
                   <Label styleClass="header2" text="Page Settings">
                      <graphic>
-                        <FontIcon iconLiteral="enty-document" />
+                        <FontIcon iconLiteral="enty-text-document" />
                      </graphic>
                   </Label>
                   <GridPane hgap="5.0">

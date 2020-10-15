@@ -2,15 +2,9 @@ package eli.projects.spprototype.controller;
 
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.Utility;
-import eli.projects.spprototype.model.Ensemble;
-import eli.projects.spprototype.model.ExportSettings;
+import eli.projects.spprototype.model.*;
 import eli.projects.spprototype.model.ExportSettings.SourceSelection;
-import eli.projects.spprototype.model.Instrument;
-import eli.projects.spprototype.model.Library;
-import eli.projects.spprototype.model.PaperSize;
-import eli.projects.spprototype.model.Piece;
-import eli.projects.spprototype.model.Section;
-import eli.projects.spprototype.model.Setlist;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -18,23 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.PopupControl;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.DirectoryChooser;
@@ -48,6 +26,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.controlsfx.control.SearchableComboBox;
+
+import com.sun.javafx.property.adapter.PropertyDescriptor.Listener;
 
 /**
  * Controls the Library
@@ -112,7 +92,13 @@ public class MainController {
 	private ListView<Piece> setlistPieceView;
 	
 	@FXML
+	private Node setlistButtonBar;
+	
+	@FXML
 	private Node listEditBox;
+	
+	@FXML
+	private Node setlistPieceButtonBar;
 	
 	
 	/** Ensembles Section **/
@@ -191,19 +177,39 @@ public class MainController {
 				listEditBox.disableProperty().set(newSelection == null);
 			});
 
+		// This is the listener that listens for changes to the count
+		ChangeListener<Number> setlistCountLabelChangeListener = (obs2, oldValue, newValue) -> {
+			setlistPieceCountLabel.setText("" + newValue);
+		};
+		
+
+		// TODO: can this be abstracted into its own class?
 		library.getCurrentSetlistProperty().addListener((obs, oldSelection, newSelection) -> {
+
+			if (oldSelection != null) oldSelection.getLengthProperty().removeListener(setlistCountLabelChangeListener);
+			
 			if (newSelection != null) {
+				
+				
 				setlistPieceView.setItems(newSelection.getPieceList());
 				setlistTitleField.setText(newSelection.getName());
 				//TODO: We really should do something with binding and properties for the length.
 				setlistPieceCountLabel.setText("" + newSelection.getLengthProperty().get());
+				newSelection.getLengthProperty().addListener(setlistCountLabelChangeListener);
+				setlistButtonBar.setDisable(false);
 			} else {
 				setlistPieceView.setItems(null);
 				setlistTitleField.setText("");
 				setlistPieceCountLabel.setText("0");
+				setlistButtonBar.setDisable(true);
 			}
 		});
 		
+		setlistPieceView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			setlistPieceButtonBar.setDisable(newSelection == null);
+		});
+		
+		// TODO: push into own class
 		setlistPieceView.setCellFactory(list -> new ReorderablePieceListCell() {
 
 		    {
@@ -430,8 +436,19 @@ public class MainController {
 	}
 	@FXML
 	private void deleteEnsemble() {
-		// TODO: Confirmation box
-		library.deleteCurrentEnsemble();
+		
+		Ensemble selectedEnsemble = library.getCurrentEnsemble();
+		
+		if (selectedEnsemble == null) {
+			// App.ShowError("Cannot delete ensemble.", "No ensemble is selected. Please select an ensemble and try again.");
+		} else {
+			boolean userWantsToDelete = App.showConfirmationDialog("Are you sure?", 
+					"Are you sure you want to delete " + selectedEnsemble.getName() + "?", 
+					"Delete " + selectedEnsemble.getName());
+			if (userWantsToDelete) {
+				library.deleteCurrentEnsemble();
+			}
+		}
 	}
 
 	@FXML

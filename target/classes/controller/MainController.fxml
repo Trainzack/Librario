@@ -207,7 +207,7 @@
                                           </Label>
                                           <VBox prefHeight="854.0" prefWidth="462.0">
                                              <children>
-                                                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                                <ToolBar fx:id="setlistButtonBar" disable="true" prefHeight="40.0" prefWidth="200.0">
                                                   <items>
                                                       <Button mnemonicParsing="false" onAction="#newList" text="Create New List" textOverrun="WORD_ELLIPSIS">
                                                          <graphic>
@@ -275,7 +275,7 @@
                                           </GridPane>
                                           <VBox>
                                              <children>
-                                                <ToolBar>
+                                                <ToolBar fx:id="setlistPieceButtonBar" disable="true">
                                                    <items>
                                                       <Button mnemonicParsing="false" onAction="#listRemovePiece" text="Remove Piece">
                                                          <graphic>
@@ -338,7 +338,18 @@
                                                       </Button>
                                                    </items>
                                                 </ToolBar>
-                                                <ListView fx:id="ensembleView" prefHeight="820.0" prefWidth="358.0" />
+                                                <ListView fx:id="ensembleView" prefHeight="820.0" prefWidth="358.0">
+                                                   <contextMenu>
+                                                      <ContextMenu>
+                                                        <items>
+                                                          <MenuItem mnemonicParsing="false" onAction="#deleteEnsemble" text="Delete">
+                                                               <graphic>
+                                                                  <FontIcon iconLiteral="enty-trash" />
+                                                               </graphic>
+                                                            </MenuItem>
+                                                        </items>
+                                                      </ContextMenu>
+                                                   </contextMenu></ListView>
                                              </children>
                                           </VBox>
                                        </children>
