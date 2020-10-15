@@ -78,6 +78,10 @@ public class Library {
 	public final void setCurrentPiece(Piece piece) {
 		currentPiece.set(piece);
 	}
+	
+	public final void deletePiece(Piece piece) {
+		this.pieces.remove(piece);
+	}
 
 	/** Setlists **/
 	

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -136,6 +137,31 @@
                                           <TableColumn fx:id="pieceYearColumn" prefWidth="75.0" text="Year" />
                                         <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="136.0" text="Duration" />
                                       </columns>
+                                       <contextMenu>
+                                          <ContextMenu>
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit">
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="enty-edit" />
+                                                   </graphic></MenuItem>
+                                                <MenuItem mnemonicParsing="false" onAction="#deleteSelectedPiece" text="Delete">
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="enty-trash" />
+                                                   </graphic>
+                                                </MenuItem>
+                                                <MenuItem mnemonicParsing="false" onAction="#exportSelectedPiece" text="Export">
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="enty-export" />
+                                                   </graphic>
+                                                </MenuItem>
+                                                <MenuItem mnemonicParsing="false" onAction="#addPieceToList" text="Add To List">
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="enty-add-to-list" />
+                                                   </graphic>
+                                                </MenuItem>
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu>
                                     </TableView>
                                     <ToolBar fx:id="pieceButtonBar" disable="true">
                                        <items>
@@ -200,7 +226,23 @@
                                                       </Button>
                                                   </items>
                                                 </ToolBar>
-                                                <ListView fx:id="setlistView" prefHeight="821.0" prefWidth="462.0" />
+                                                <ListView fx:id="setlistView" prefHeight="821.0" prefWidth="462.0">
+                                                   <contextMenu>
+                                                      <ContextMenu>
+                                                        <items>
+                                                            <MenuItem mnemonicParsing="false" onAction="#deleteList" text="Delete">
+                                                               <graphic>
+                                                                  <FontIcon iconLiteral="enty-trash" />
+                                                               </graphic>
+                                                            </MenuItem>
+                                                            <MenuItem mnemonicParsing="false" onAction="#exportList" text="Export">
+                                                               <graphic>
+                                                                  <FontIcon iconLiteral="enty-export" />
+                                                               </graphic>
+                                                            </MenuItem>
+                                                        </items>
+                                                      </ContextMenu>
+                                                   </contextMenu></ListView>
                                              </children>
                                           </VBox>
                                        </children>
@@ -380,7 +422,7 @@
           </textFill>
         </Label>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label fx:id="rightStatus" font="$x3" maxWidth="-1.0" text="Bottom Text" textFill="$x4" HBox.hgrow="NEVER" />
+        <Label fx:id="rightStatus" font="$x3" maxWidth="-1.0" text="Status: OK" textFill="$x4" HBox.hgrow="NEVER" />
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

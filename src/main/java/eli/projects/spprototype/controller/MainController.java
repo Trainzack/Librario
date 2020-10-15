@@ -293,11 +293,23 @@ public class MainController {
 	
 	@FXML
 	private void deleteList() {
-		int index = setlistView.getSelectionModel().getSelectedIndex();
-		library.deleteCurrentSetlist();
-		setlistPieceView.getSelectionModel().clearSelection();
-		// TODO: Keep current index selected after delete?
-		setlistView.getSelectionModel().clearAndSelect(index);
+
+		Setlist selectedSetlist = library.getCurrentSetlist();
+		
+		if (selectedSetlist == null) {
+			// App.ShowError("Cannot delete list.", "No list is selected. Please select a list and try again.");
+		} else {
+			boolean userWantsToDelete = App.showConfirmationDialog("Are you sure?", 
+					"Are you sure you want to delete " + selectedSetlist.getName() + "?", 
+					"Delete " + selectedSetlist.getName());
+			if (userWantsToDelete) {
+				int index = setlistView.getSelectionModel().getSelectedIndex();
+				library.deleteCurrentSetlist();
+				setlistPieceView.getSelectionModel().clearSelection();
+				// TODO: Keep current index selected after delete?
+				setlistView.getSelectionModel().clearAndSelect(index);
+			}
+		}
 	}
 	
 
@@ -309,7 +321,7 @@ public class MainController {
 			App.ShowError("Cannot add to list.", "No list is selected. Please select a list and try again.");
 		} else {
 			if (library.getCurrentPiece() == null) {
-				App.ShowError("Cannot add to list.", "No piece is selected. Please select a piece and try again.");
+				// App.ShowError("Cannot add to list.", "No piece is selected. Please select a piece and try again.");
 			} else {
 				library.getCurrentSetlist().add(library.getCurrentPiece());	
 			}
@@ -318,12 +330,29 @@ public class MainController {
 
 	@FXML
 	private void editSelectedPiece() {
-		App.ShowTempAlert("Action not yet implemented!");
+		if (library.getCurrentPiece() == null) {
+			// App.ShowError("Cannot edit piece.", "No piece is selected. Please select a piece and try again.");
+		} else {
+			App.ShowTempAlert("Action not yet implemented!");
+		}
 	}
 
 	@FXML
 	private void deleteSelectedPiece() {
-		App.ShowTempAlert("Action not yet implemented!");
+		if (library.getCurrentPiece() == null) {
+			// App.ShowError("Cannot delete piece.", "No piece is selected. Please select a piece and try again.");
+		} else {
+			Piece selectedPiece = library.getCurrentPiece();
+			
+			boolean userWantsToDelete = App.showConfirmationDialog("Are you sure?", 
+					"Are you sure you want to delete " + selectedPiece.getTitle() + " from the library?", 
+					"Delete " + selectedPiece.getTitle());
+			if (userWantsToDelete) {
+				library.deletePiece(selectedPiece);
+			}
+		}
+		
+
 	}
 	
 	@FXML

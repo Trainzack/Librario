@@ -2,6 +2,7 @@ package eli.projects.spprototype;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 
 import eli.projects.spprototype.controller.MainController;
 import eli.projects.spprototype.model.Library;
@@ -15,6 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 /**
@@ -98,6 +101,27 @@ public class App extends Application
 		alert.setContentText(reason);
 
 		alert.showAndWait();
+	}
+	
+	/**
+	 * Show a confirmation dialog box.
+	 * @param title The title of the dialog box
+	 * @param content The text describing the confirmation
+	 * @param actionName This is the string that is displayed on the button that does the action
+	 * @return true if the user confirmed, false if not
+	 */
+	public static boolean showConfirmationDialog(String title, String content, String actionName) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle(title);
+		alert.setContentText(content);
+
+		ButtonType buttonTypeAction = new ButtonType(actionName);
+		ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+		alert.getButtonTypes().setAll(buttonTypeAction, buttonTypeCancel);
+
+		Optional<ButtonType> result = alert.showAndWait();
+		return (result.get() == buttonTypeAction);
 	}
 	
 	
