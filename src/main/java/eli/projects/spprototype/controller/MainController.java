@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PopupControl;
 import javafx.scene.control.Spinner;
@@ -40,6 +41,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
@@ -104,6 +106,8 @@ public class MainController {
 	private ListView<Setlist> setlistView;
 	@FXML
 	private TextField setlistTitleField;
+	@FXML
+	private Label setlistPieceCountLabel;
 	@FXML
 	private ListView<Piece> setlistPieceView;
 	
@@ -191,10 +195,30 @@ public class MainController {
 			if (newSelection != null) {
 				setlistPieceView.setItems(newSelection.getPieceList());
 				setlistTitleField.setText(newSelection.getName());
+				//TODO: We really should do something with binding and properties for the length.
+				setlistPieceCountLabel.setText("" + newSelection.getLengthProperty().get());
 			} else {
 				setlistPieceView.setItems(null);
 				setlistTitleField.setText("");
+				setlistPieceCountLabel.setText("0");
 			}
+		});
+		
+		setlistPieceView.setCellFactory(list -> new ReorderablePieceListCell() {
+
+		    {
+		    	// Nothing here I guess?
+		    }
+
+		    @Override
+		    protected void updateItem(Piece item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null || item == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getTitle());
+		        }
+		    }
 		});
 
 		// Update setlist name when changing the name listview
@@ -223,11 +247,11 @@ public class MainController {
 			if (newSelection != null) {
 				ensembleSectionTableView.setItems(newSelection.getSections());
 				ensembleNameField.setText(newSelection.getName());
-				ensembleMembersLabel.setText("Members: " + newSelection.getNumberOfMembers());
+				ensembleMembersLabel.setText(newSelection.getNumberOfMembers() + " members");
 			} else {
 				ensembleSectionTableView.setItems(null);
 				ensembleNameField.setText("");
-				ensembleMembersLabel.setText("Members: 0");
+				ensembleMembersLabel.setText("0 members");
 			}
 		});
 
@@ -277,10 +301,6 @@ public class MainController {
 	}
 	
 
-	@FXML
-	private void removeSelectedPiece() {
-		App.ShowTempAlert("Action not yet implemented!");
-	}
 
 
 	@FXML
@@ -305,10 +325,16 @@ public class MainController {
 	private void deleteSelectedPiece() {
 		App.ShowTempAlert("Action not yet implemented!");
 	}
-
+	
 	@FXML
 	private void listRemovePiece() {
-		App.ShowTempAlert("Action not yet implemented!");
+		int index = setlistPieceView.getSelectionModel().getSelectedIndex();
+		Setlist list = library.getCurrentSetlist();
+		list.remove(setlistPieceView.getSelectionModel().getSelectedItem());
+		setlistPieceView.getSelectionModel().clearSelection();
+		// TODO: Keep current index selected after delete?
+		setlistPieceView.getSelectionModel().clearAndSelect(index);
+		
 	}
 	
 	// TODO: Create new exportsettings page!
@@ -347,7 +373,7 @@ public class MainController {
 			
 		    Scene exportScene = new Scene(exportNode);
 		    Stage popup = new Stage();
-		    popup.setTitle("Export");
+		    popup.setTitle("Export: " + App.WINDOW_NAME);
 		    popup.setScene(exportScene);
 		    popup.initModality(Modality.WINDOW_MODAL);
 		    popup.resizableProperty().set(false);
@@ -375,7 +401,15 @@ public class MainController {
 	}
 	@FXML
 	private void deleteEnsemble() {
+		// TODO: Confirmation box
 		library.deleteCurrentEnsemble();
 	}
 
+	@FXML
+	private void quitProgram() {
+		// TODO: check to see if we have unsaved work
+		// TODO: also check when we recieve a window close request. stage.setOnCloseRequest
+		this.stage.close();
+	}
+	
 }

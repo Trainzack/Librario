@@ -13,12 +13,14 @@ import eli.projects.spprototype.model.Library;
 import eli.projects.spprototype.model.PaperSize;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -35,6 +37,8 @@ import javafx.stage.Stage;
  */
 
 public class ExportController {
+
+	private static final PaperSize DEFAULT_PAPER_SIZE = PaperSize.LETTER;
 	
 
 	// These are the models we rely on
@@ -78,11 +82,16 @@ public class ExportController {
 	@FXML
 	private SearchableComboBox<Instrument> exportTargetInstrumentComboBox;
 	
+	/* Page Size */
 	
 	@FXML
 	private ComboBox<PaperSize> exportPaperSize;
 	@FXML
 	private Spinner<Double> exportPageWidthSpinner;
+	@FXML
+	private Spinner<Double> exportPageHeightSpinner;
+	@FXML
+	private Spinner<Double> exportPageMarginSpinner;
 	
 	
 	@FXML
@@ -201,6 +210,23 @@ public class ExportController {
 		
 		exportPaperSize.setItems(FXCollections.observableArrayList(PaperSize.values()));
 		
+		exportPageMarginSpinner.setValueFactory(new DoubleMMSpinnerValueFactory());
+		exportPageWidthSpinner.setValueFactory(new DoubleMMSpinnerValueFactory());
+		exportPageHeightSpinner.setValueFactory(new DoubleMMSpinnerValueFactory());
+		
+
+		// TODO: This is wrong. Export paper size should update the model, which should update the width and height settings in the model, which should then update the spinners.
+		exportPaperSize.valueProperty().addListener((obs, oldValue, newValue) -> {
+			exportPageWidthSpinner.getValueFactory().setValue(newValue.getWidthmm());
+		});
+		
+		exportPaperSize.valueProperty().addListener((obs, oldValue, newValue) -> {
+			exportPageHeightSpinner.getValueFactory().setValue(newValue.getHeightmm());
+		});
+		
+		exportPaperSize.setValue(DEFAULT_PAPER_SIZE);
+		// TODO: This is unconnected to the model.
+		exportPageMarginSpinner.getValueFactory().setValue(10.0);
 		
 		/* Export Folder Grouping */
 		

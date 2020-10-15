@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import eli.projects.spprototype.App;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,14 +43,22 @@ public class Setlist {
 	private ObservableList<Piece> observableList;
 	
 	
+	private IntegerProperty numberOfPieces = new SimpleIntegerProperty(0);
+	
 	public Setlist(String name) {
 		super();
 		
 		this.name = name;
 		observableList = FXCollections.observableArrayList(new ArrayList<Piece>());
 		
+		observableList.addListener(new ListChangeListener<Piece>() {
+			@Override
+			public void onChanged(Change<? extends Piece> c) {
+				numberOfPieces.set(observableList.size());
+				
+			}
+		});
 	}
-	
 	/**
 	 * Generates a new UserSetlist filled with testing data.
 	 * @return
@@ -70,13 +81,17 @@ public class Setlist {
 	public void add(Piece newPiece) {
 		observableList.add(newPiece);
 	}
+	
+	public void remove(Piece piece) {
+		observableList.remove(piece);
+	}
 
 	public String getName() {
 		return name;
 	}
 	
-	public int getLength() {
-		return observableList.size();
+	public IntegerProperty getLengthProperty() {
+		return numberOfPieces;
 	}
 
 	public void setName(String name) {

@@ -131,6 +131,7 @@ public class ExportSettings {
 					fullProperty = this.selectedExportInstrument.get();
 					break;
 			}
+			if (exportDestination.get() == null) invalid = true;
 			if (fullProperty == null) invalid = true;
 			
 		}

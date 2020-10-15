@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 public class App extends Application
 {
 
-	static final String WINDOW_NAME = "Eli's Senior Project";
+	public static final String WINDOW_NAME = "Eli's Senior Project";
 	
 	// TODO: Put this in some kind of datamodel?
 	private static Library loadedLibrary;

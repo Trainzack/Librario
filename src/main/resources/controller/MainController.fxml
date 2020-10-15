@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -15,6 +14,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -32,32 +33,60 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem disable="true" mnemonicParsing="false" text="New" />
-            <MenuItem disable="true" mnemonicParsing="false" text="Open…" />
-            <Menu disable="true" mnemonicParsing="false" text="Open Recent" />
+            <MenuItem disable="true" mnemonicParsing="false" text="New Library" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Open Library" />
             <SeparatorMenuItem disable="true" mnemonicParsing="false" />
             <MenuItem disable="true" mnemonicParsing="false" text="Close" />
-            <MenuItem disable="true" mnemonicParsing="false" text="Save" />
-            <MenuItem disable="true" mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" onAction="#openExportPopup" text="Export" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Save Library">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem disable="true" mnemonicParsing="false" text="Save Library As…">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F12" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#openExportPopup" text="Export">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
             <SeparatorMenuItem disable="true" mnemonicParsing="false" />
             <MenuItem disable="true" mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem disable="true" mnemonicParsing="false" />
-            <MenuItem disable="true" mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" onAction="#quitProgram" text="Quit">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem disable="true" mnemonicParsing="false" text="Undo" />
-            <MenuItem disable="true" mnemonicParsing="false" text="Redo" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Undo">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem disable="true" mnemonicParsing="false" text="Redo">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
             <SeparatorMenuItem disable="true" mnemonicParsing="false" />
-            <MenuItem disable="true" mnemonicParsing="false" text="Cut" />
-            <MenuItem disable="true" mnemonicParsing="false" text="Copy" />
-            <MenuItem disable="true" mnemonicParsing="false" text="Paste" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Cut">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem disable="true" mnemonicParsing="false" text="Copy">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem disable="true" mnemonicParsing="false" text="Paste">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
             <MenuItem disable="true" mnemonicParsing="false" text="Delete" />
             <SeparatorMenuItem disable="true" mnemonicParsing="false" />
-            <MenuItem disable="true" mnemonicParsing="false" text="Select All" />
-            <MenuItem disable="true" mnemonicParsing="false" text="Unselect All" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Select All">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
@@ -97,69 +126,86 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <TableView fx:id="libraryPieceTable" prefHeight="9999.0" prefWidth="650.0">
-                                <columns>
-                                  <TableColumn fx:id="pieceTitleColumn" prefWidth="193.0" text="Title" />
-                                    <TableColumn fx:id="pieceComposerColumn" prefWidth="134.0" text="Composer" />
-                                    <TableColumn fx:id="pieceArrangerColumn" prefWidth="138.0" text="Arranger" />
-                                    <TableColumn fx:id="pieceYearColumn" prefWidth="75.0" text="Year" />
-                                  <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="136.0" text="Duration" />
-                                </columns>
-                              </TableView>
-                              <ButtonBar fx:id="pieceButtonBar" disable="true">
-                                 <buttons>
-                                    <Button mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit Piece" textOverrun="WORD_ELLIPSIS">
-                                       <graphic>
-                                          <FontIcon iconLiteral="enty-edit" />
-                                       </graphic>
-                                    </Button>
-                                    <Button mnemonicParsing="false" onAction="#deleteSelectedPiece" text="Delete Piece" textOverrun="WORD_ELLIPSIS">
-                                       <graphic>
-                                          <FontIcon iconLiteral="enty-trash" />
-                                       </graphic>
-                                    </Button>
-                                    <Button mnemonicParsing="false" onAction="#exportSelectedPiece" text="Export Piece" textOverrun="WORD_ELLIPSIS">
-                                       <graphic>
-                                          <FontIcon iconLiteral="enty-export" />
-                                       </graphic>
-                                    </Button>
-                                    <Button defaultButton="true" mnemonicParsing="false" onAction="#addPieceToList" text="Add To List" textOverrun="WORD_ELLIPSIS">
-                                       <graphic>
-                                          <FontIcon iconLiteral="enty-add-to-list" />
-                                       </graphic>
-                                    </Button>
-                                 </buttons>
-                              </ButtonBar>
-                           </children>
-                        </VBox>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <VBox prefHeight="551.0" prefWidth="222.0" styleClass="orgbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox>
                                  <children>
-                                    <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Lists" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x51" />
-                                       </font>
-                                       <graphic>
-                                          <FontIcon iconLiteral="enty-list" text="" />
-                                       </graphic>
-                                    </Label>
-                                    <ListView fx:id="setlistView" prefHeight="429.0" prefWidth="221.0" />
-                                    <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
-                                       <children>
-                                          <Button mnemonicParsing="false" onAction="#newList" text="New List" textOverrun="WORD_ELLIPSIS">
+                                    <TableView fx:id="libraryPieceTable" prefHeight="9999.0" prefWidth="650.0">
+                                      <columns>
+                                        <TableColumn fx:id="pieceTitleColumn" prefWidth="193.0" text="Title" />
+                                          <TableColumn fx:id="pieceComposerColumn" prefWidth="134.0" text="Composer" />
+                                          <TableColumn fx:id="pieceArrangerColumn" prefWidth="138.0" text="Arranger" />
+                                          <TableColumn fx:id="pieceYearColumn" prefWidth="75.0" text="Year" />
+                                        <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="136.0" text="Duration" />
+                                      </columns>
+                                    </TableView>
+                                    <ToolBar fx:id="pieceButtonBar" disable="true">
+                                       <items>
+                                          <Button mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit Piece" textOverrun="WORD_ELLIPSIS">
                                              <graphic>
-                                                <FontIcon iconLiteral="enty-plus" />
+                                                <FontIcon iconLiteral="enty-edit" />
                                              </graphic>
                                           </Button>
-                                          <Button layoutX="340.0" layoutY="20.0" mnemonicParsing="false" onAction="#deleteList" text="Delete List">
+                                          <Button mnemonicParsing="false" onAction="#deleteSelectedPiece" text="Delete Piece" textOverrun="WORD_ELLIPSIS">
                                              <graphic>
                                                 <FontIcon iconLiteral="enty-trash" />
                                              </graphic>
                                           </Button>
+                                          <Button mnemonicParsing="false" onAction="#exportSelectedPiece" text="Export Piece" textOverrun="WORD_ELLIPSIS">
+                                             <graphic>
+                                                <FontIcon iconLiteral="enty-export" />
+                                             </graphic>
+                                          </Button>
+                                          <Button mnemonicParsing="false" onAction="#addPieceToList" text="Add To List" textOverrun="WORD_ELLIPSIS">
+                                             <graphic>
+                                                <FontIcon iconLiteral="enty-add-to-list" />
+                                             </graphic>
+                                          </Button>
+                                       </items>
+                                    </ToolBar>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <SplitPane dividerPositions="0.5" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <items>
+                                    <VBox prefHeight="551.0" prefWidth="222.0" styleClass="orgbox">
+                                       <children>
+                                          <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Lists" textAlignment="CENTER" wrapText="false">
+                                             <font>
+                                                <Font size="18.0" fx:id="x51" />
+                                             </font>
+                                             <graphic>
+                                                <FontIcon iconLiteral="enty-list" text="" />
+                                             </graphic>
+                                          </Label>
+                                          <VBox prefHeight="854.0" prefWidth="462.0">
+                                             <children>
+                                                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                                  <items>
+                                                      <Button mnemonicParsing="false" onAction="#newList" text="Create New List" textOverrun="WORD_ELLIPSIS">
+                                                         <graphic>
+                                                            <FontIcon iconLiteral="enty-plus" />
+                                                         </graphic>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#deleteList" text="Delete List">
+                                                         <graphic>
+                                                            <FontIcon iconLiteral="enty-trash" />
+                                                         </graphic>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#exportList" text="Export List">
+                                                         <graphic>
+                                                            <FontIcon iconLiteral="enty-export" />
+                                                         </graphic>
+                                                      </Button>
+                                                  </items>
+                                                </ToolBar>
+                                                <ListView fx:id="setlistView" prefHeight="821.0" prefWidth="462.0" />
+                                             </children>
+                                          </VBox>
                                        </children>
-                                    </HBox>
-                                    <VBox fx:id="listEditBox" disable="true" spacing="10.0" styleClass="border">
+                                    </VBox>
+                                    <VBox fx:id="listEditBox" disable="true" layoutX="10.0" layoutY="10.0" prefHeight="551.0" prefWidth="222.0" styleClass="orgbox">
                                        <children>
                                           <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Selected List" textAlignment="CENTER" wrapText="false">
                                              <font>
@@ -171,40 +217,38 @@
                                           </Label>
                                           <GridPane hgap="10.0" prefHeight="80.0" prefWidth="442.0" vgap="10.0">
                                             <columnConstraints>
-                                              <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="216.0" minWidth="10.0" prefWidth="90.0" />
-                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="352.0" />
+                                              <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
+                                              <ColumnConstraints hgrow="ALWAYS" maxWidth="352.0" minWidth="10.0" prefWidth="352.0" />
                                             </columnConstraints>
                                             <rowConstraints>
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
-                                                <Label text="List Name" />
+                                                <Label text="Name:" />
                                                 <TextField fx:id="setlistTitleField" promptText="Name" styleClass="header2" GridPane.columnIndex="1" />
+                                                <Label text="Pieces:" GridPane.rowIndex="1" />
+                                                <Label fx:id="setlistPieceCountLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                              </children>
                                           </GridPane>
-                                          <ListView fx:id="setlistPieceView" prefHeight="214.0" prefWidth="442.0">
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </ListView>
-                                          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="box">
+                                          <VBox>
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#listRemovePiece" text="Remove Piece">
-                                                   <graphic>
-                                                      <FontIcon iconLiteral="enty-minus" />
-                                                   </graphic>
-                                                </Button>
-                                                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#exportList" text="Export List">
-                                                   <graphic>
-                                                      <FontIcon iconLiteral="enty-export" />
-                                                   </graphic>
-                                                </Button>
+                                                <ToolBar>
+                                                   <items>
+                                                      <Button mnemonicParsing="false" onAction="#listRemovePiece" text="Remove Piece">
+                                                         <graphic>
+                                                            <FontIcon iconLiteral="enty-minus" />
+                                                         </graphic>
+                                                      </Button>
+                                                   </items>
+                                                </ToolBar>
+                                                <ListView fx:id="setlistPieceView" prefHeight="9999.0" prefWidth="442.0" />
                                              </children>
-                                          </HBox>
+                                          </VBox>
                                        </children>
                                     </VBox>
-                                 </children>
-                              </VBox>
+                                 </items>
+                              </SplitPane>
                            </children>
                         </AnchorPane>
                   </items>
@@ -214,7 +258,7 @@
                   <FontIcon iconLiteral="enty-archive" wrappingWidth="20.0" />
                </graphic>
             </Tab>
-            <Tab fx:id="tabEnsembles" closable="false" styleClass="header" text="Ensembles">
+            <Tab closable="false" styleClass="header" text="Ensembles">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="200.0">
                      <children>
@@ -236,21 +280,25 @@
                                                 </Label>
                                              </children>
                                           </HBox>
-                                          <ListView fx:id="ensembleView" prefHeight="349.0" prefWidth="358.0" />
-                                          <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
+                                          <VBox prefHeight="854.0" prefWidth="358.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#newEnsemble" text="New Ensemble" textOverrun="WORD_ELLIPSIS">
-                                                   <graphic>
-                                                      <FontIcon iconLiteral="enty-plus" />
-                                                   </graphic>
-                                                </Button>
-                                                <Button layoutX="340.0" layoutY="20.0" mnemonicParsing="false" onAction="#deleteEnsemble" text="Delete Ensemble">
-                                                   <graphic>
-                                                      <FontIcon iconLiteral="enty-trash" />
-                                                   </graphic>
-                                                </Button>
+                                                <ToolBar>
+                                                   <items>
+                                                      <Button mnemonicParsing="false" onAction="#newEnsemble" text="New Ensemble" textOverrun="WORD_ELLIPSIS">
+                                                         <graphic>
+                                                            <FontIcon iconLiteral="enty-plus" />
+                                                         </graphic>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#deleteEnsemble" text="Delete Ensemble">
+                                                         <graphic>
+                                                            <FontIcon iconLiteral="enty-trash" />
+                                                         </graphic>
+                                                      </Button>
+                                                   </items>
+                                                </ToolBar>
+                                                <ListView fx:id="ensembleView" prefHeight="820.0" prefWidth="358.0" />
                                              </children>
-                                          </HBox>
+                                          </VBox>
                                        </children>
                                     </VBox>
                                  </children>
@@ -273,38 +321,39 @@
                                           </HBox>
                                           <GridPane hgap="10.0" maxWidth="400.0" prefWidth="400.0" vgap="10.0">
                                              <columnConstraints>
-                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="527.0" minWidth="113.0" prefWidth="113.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="760.0" minWidth="10.0" prefWidth="749.0" />
+                                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="527.0" minWidth="43.0" prefWidth="43.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="760.0" minWidth="10.0" prefWidth="347.0" />
                                              </columnConstraints>
                                              <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
-                                                <Label prefHeight="17.0" prefWidth="92.0" text="Ensemble Name" textAlignment="RIGHT" />
+                                                <Label text="Name:" textAlignment="RIGHT" />
                                                 <TextField fx:id="ensembleNameField" prefHeight="26.0" promptText="Name" styleClass="header2" GridPane.columnIndex="1" />
-                                                <Label fx:id="ensembleMembersLabel" prefHeight="17.0" prefWidth="66.0" text="Members: 0" textAlignment="RIGHT" GridPane.rowIndex="1" />
+                                                <Label fx:id="ensembleMembersLabel" prefHeight="17.0" prefWidth="114.0" text="0 members" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label text="Size:" textAlignment="RIGHT" GridPane.rowIndex="1" />
                                              </children>
                                           </GridPane>
-                                          <TableView fx:id="ensembleSectionTableView" prefHeight="566.0" prefWidth="852.0">
-                                            <columns>
-                                              <TableColumn fx:id="sectionInstrumentColumn" prefWidth="197.0" text="Section" />
-                                              <TableColumn fx:id="sectionCountColumn" minWidth="0.0" prefWidth="68.0" text="Number" />
-                                            </columns>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </TableView>
-                                          <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
+                                          <VBox prefHeight="762.0" prefWidth="852.0">
                                              <children>
-                                                <Button mnemonicParsing="false" text="New Section">
-                                                   <graphic>
-                                                      <FontIcon iconLiteral="enty-plus" />
-                                                   </graphic>
-                                                </Button>
+                                                <ToolBar>
+                                                   <items>
+                                                      <Button mnemonicParsing="false" text="New Section">
+                                                         <graphic>
+                                                            <FontIcon iconLiteral="enty-plus" />
+                                                         </graphic>
+                                                      </Button>
+                                                   </items>
+                                                </ToolBar>
+                                                <TableView fx:id="ensembleSectionTableView" prefHeight="802.0" prefWidth="852.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="sectionInstrumentColumn" prefWidth="197.0" text="Section" />
+                                                    <TableColumn fx:id="sectionCountColumn" minWidth="0.0" prefWidth="68.0" text="Number" />
+                                                  </columns>
+                                                </TableView>
                                              </children>
-                                          </HBox>
-                                          <HBox prefHeight="100.0" prefWidth="200.0" />
+                                          </VBox>
                                        </children>
                                     </VBox>
                                  </children>
@@ -315,14 +364,14 @@
                   </AnchorPane>
               </content>
                <graphic>
-                  <FontIcon iconLiteral="enty-rainbow" />
+                  <FontIcon iconLiteral="enty-users" />
                </graphic>
             </Tab>
          </tabs>
       </TabPane>
     <HBox alignment="CENTER_LEFT" prefWidth="974.0" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Library: Testing" HBox.hgrow="ALWAYS">
           <font>
             <Font size="11.0" fx:id="x3" />
           </font>
@@ -331,7 +380,7 @@
           </textFill>
         </Label>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label fx:id="rightStatus" font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+        <Label fx:id="rightStatus" font="$x3" maxWidth="-1.0" text="Bottom Text" textFill="$x4" HBox.hgrow="NEVER" />
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

@@ -12,33 +12,19 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<Pane prefHeight="600.0" prefWidth="563.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.ExportController">
+<AnchorPane maxHeight="500.0" maxWidth="800.0" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.ExportController">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="569.0">
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="425.0" prefWidth="700.0" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ButtonBar prefHeight="41.0" prefWidth="535.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
-              <buttons>
-                  <Button cancelButton="true" layoutX="287.0" layoutY="10.0" mnemonicParsing="false" onAction="#finishCancel" prefHeight="40.0" prefWidth="120.0" styleClass="large_button" text="Cancel">
-                     <graphic>
-                        <FontIcon iconLiteral="enty-cross" />
-                     </graphic>
-                  </Button>
-                  <Button fx:id="exportButton" defaultButton="true" minWidth="120.0" mnemonicParsing="false" onAction="#finishExport" prefHeight="40.0" prefWidth="120.0" styleClass="large_button" text="Export">
-                     <graphic>
-                        <FontIcon iconLiteral="enty-export" />
-                     </graphic>
-                  </Button>
-              </buttons>
-            </ButtonBar>
-            <VBox layoutX="10.0" layoutY="10.0" prefHeight="459.0" prefWidth="550.0" spacing="5.0">
+            <VBox>
                <children>
                   <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="115.0" prefWidth="320.0" styleClass="border">
                      <children>
@@ -106,95 +92,100 @@
                         </GridPane>
                      </children>
                   </VBox>
-                  <HBox prefHeight="187.0" prefWidth="313.0" spacing="5.0">
+               </children>
+            </VBox>
+            <VBox maxHeight="257.0" maxWidth="320.0" minHeight="180.0" minWidth="-Infinity" prefHeight="205.0" prefWidth="320.0" styleClass="border">
+               <children>
+                  <Label styleClass="header2" text="Page Settings">
+                     <graphic>
+                        <FontIcon iconLiteral="enty-document" />
+                     </graphic>
+                  </Label>
+                  <GridPane hgap="5.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="130.0" minWidth="10.0" prefWidth="45.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="211.0" minWidth="10.0" prefWidth="121.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="211.0" minWidth="2.0" prefWidth="39.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="78.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
                      <children>
-                        <VBox maxHeight="230.0" maxWidth="320.0" minHeight="180.0" minWidth="-Infinity" prefHeight="230.0" prefWidth="320.0" styleClass="border">
-                           <children>
-                              <Label styleClass="header2" text="Page Settings">
-                                 <graphic>
-                                    <FontIcon iconLiteral="enty-document" />
-                                 </graphic>
-                              </Label>
-                              <GridPane hgap="5.0">
-                                <columnConstraints>
-                                  <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="130.0" minWidth="10.0" prefWidth="55.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="211.0" minWidth="10.0" prefWidth="111.0" />
-                                    <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="211.0" minWidth="2.0" prefWidth="14.0" />
-                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="86.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Label text="Width:" GridPane.rowIndex="1" />
-                                    <Label text="Height:" GridPane.rowIndex="2" />
-                                    <Spinner fx:id="exportPageWidthSpinner" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Spinner disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <RadioButton mnemonicParsing="false" selected="true" text="Portrait" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="exportPageOrientation" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="Landscape" toggleGroup="$exportPageOrientation" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                                    <Spinner disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Label text="Margin:" GridPane.rowIndex="3" />
-                                    <FontIcon GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                    <FontIcon iconLiteral="enty-document" iconSize="16" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                    <FontIcon iconLiteral="enty-document-landscape" iconSize="16" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                                    <CheckBox mnemonicParsing="false" prefWidth="146.0" text="Two pieces per page" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-                                    <ComboBox fx:id="exportPaperSize" prefHeight="25.0" prefWidth="278.0" promptText="Page Size" GridPane.columnIndex="1" GridPane.columnSpan="3" />
-                                    <Label text="Size:" />
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </GridPane>
-                           </children>
-                        </VBox>
-                        <VBox spacing="5.0">
-                           <children>
-                              <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="187.0" prefWidth="225.0" styleClass="border">
-                                 <children>
-                                    <Label styleClass="header2" text="Export Folder Grouping">
-                                       <graphic>
-                                          <FontIcon iconLiteral="enty-flow-tree" />
-                                       </graphic>
-                                    </Label>
-                                    <RadioButton mnemonicParsing="false" selected="true" text="One PDF">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="exportFolderGrouping" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="One Folder per Piece" toggleGroup="$exportFolderGrouping" />
-                                    <RadioButton mnemonicParsing="false" text="One Folder per Instrument" toggleGroup="$exportFolderGrouping" />
-                                 </children>
-                              </VBox>
-                              <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="70.0" prefWidth="225.0" styleClass="border">
-                                 <children>
-                                    <Label styleClass="header2" text="Destination">
-                                       <graphic>
-                                          <FontIcon iconLiteral="enty-folder" />
-                                       </graphic>
-                                    </Label>
-                                    <HBox prefHeight="25.0" prefWidth="112.0">
-                                       <children>
-                                          <TextField fx:id="exportDirectoryTextField" editable="false" prefHeight="25.0" prefWidth="107.0" />
-                                          <Button mnemonicParsing="false" onAction="#exportChooseDirectory" text="Open Folder" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </VBox>
+                        <Label text="Width:" GridPane.rowIndex="1" />
+                        <Label text="Height:" GridPane.rowIndex="2" />
+                        <Spinner fx:id="exportPageWidthSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Spinner fx:id="exportPageHeightSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <RadioButton mnemonicParsing="false" selected="true" text="Portrait" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="exportPageOrientation" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" text="Landscape" toggleGroup="$exportPageOrientation" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Spinner fx:id="exportPageMarginSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Margin:" GridPane.rowIndex="3" />
+                        <FontIcon GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <FontIcon iconLiteral="enty-document" iconSize="16" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <FontIcon iconLiteral="enty-document-landscape" iconSize="16" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="exportPaperSize" prefHeight="25.0" prefWidth="278.0" promptText="Page Size" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                        <Label text="Size:" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </GridPane>
+                  <CheckBox maxHeight="30.0" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" text="Two pieces per page" />
+               </children>
+            </VBox>
+            <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="278.0" spacing="10.0" styleClass="border">
+               <children>
+                  <Label styleClass="header2" text="Export Grouping">
+                     <graphic>
+                        <FontIcon iconLiteral="enty-flow-tree" />
+                     </graphic>
+                  </Label>
+                  <RadioButton mnemonicParsing="false" selected="true" text="One PDF with everything">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="exportFolderGrouping" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false" text="One PDF per instrument" toggleGroup="$exportFolderGrouping" />
+                  <RadioButton mnemonicParsing="false" text="One PDF per piece grouped by instrument" toggleGroup="$exportFolderGrouping" />
+               </children>
+            </VBox>
+            <VBox maxWidth="416.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="360.0" styleClass="border">
+               <children>
+                  <Label styleClass="header2" text="Destination">
+                     <graphic>
+                        <FontIcon iconLiteral="enty-folder" />
+                     </graphic>
+                  </Label>
+                  <HBox prefHeight="25.0" prefWidth="112.0">
+                     <children>
+                        <TextField fx:id="exportDirectoryTextField" editable="false" prefHeight="25.0" prefWidth="677.0" />
+                        <Button maxWidth="87.0" minWidth="87.0" mnemonicParsing="false" onAction="#exportChooseDirectory" prefHeight="25.0" prefWidth="87.0" text="Open Folder" />
                      </children>
                   </HBox>
                </children>
             </VBox>
          </children>
-      </AnchorPane>
+      </FlowPane>
+      <ButtonBar prefHeight="41.0" prefWidth="606.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+        <buttons>
+            <Button cancelButton="true" layoutX="287.0" layoutY="10.0" mnemonicParsing="false" onAction="#finishCancel" prefHeight="40.0" prefWidth="120.0" styleClass="large_button" text="Cancel">
+               <graphic>
+                  <FontIcon iconLiteral="enty-cross" />
+               </graphic>
+            </Button>
+            <Button fx:id="exportButton" defaultButton="true" minWidth="120.0" mnemonicParsing="false" onAction="#finishExport" prefHeight="40.0" prefWidth="120.0" styleClass="large_button" text="Export">
+               <graphic>
+                  <FontIcon iconLiteral="enty-export" />
+               </graphic>
+            </Button>
+        </buttons>
+      </ButtonBar>
    </children>
-</Pane>
+</AnchorPane>
