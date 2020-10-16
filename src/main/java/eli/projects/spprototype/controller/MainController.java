@@ -7,6 +7,7 @@ import eli.projects.spprototype.model.ExportSettings.SourceSelection;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,6 +17,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+
 import java.io.IOException;
 
 /**
@@ -114,6 +117,15 @@ public class MainController {
 
 		this.library = _library;
 		this.stage = _stage;
+		
+		// Request confirmation before closing window.
+		this.stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				boolean userWantsToQuit = App.showConfirmationDialog("Quit?", "Are you sure you want to quit?", "Quit");
+				if (!userWantsToQuit) event.consume();
+			}
+		});
 		
 		
 		
@@ -265,7 +277,7 @@ public class MainController {
 	
 	@FXML
 	private void filterPieceTable() {
-
+		
 		String searchString = searchFilterField.getText().toLowerCase();
 		if (searchString.isEmpty()) {
 			filteredPieces.setPredicate(piece -> true);
@@ -491,8 +503,9 @@ public class MainController {
 
 	@FXML
 	private void quitProgram() {
+		//TODO: This and window close request should call the same function
+		boolean userWantsToQuit = App.showConfirmationDialog("Quit?", "Are you sure you want to quit?", "Quit");
 		// TODO: check to see if we have unsaved work
-		// TODO: also check when we recieve a window close request. stage.setOnCloseRequest
 		this.stage.close();
 	}
 	

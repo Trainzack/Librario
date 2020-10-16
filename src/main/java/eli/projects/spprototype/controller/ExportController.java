@@ -229,6 +229,9 @@ public class ExportController {
 		/* Export Folder Grouping */
 		
 		/* Destination */
+
+		exportDirectoryTextField.setText(
+				(exportSettings.getExportDestination() == null) ? "" : exportSettings.getExportDestination().getPath());
 		
 		exportSettings.getExportDestinationProperty().addListener((obs, oldValue, newValue) -> {
 			exportDirectoryTextField.setText((newValue == null) ? "" : newValue.getPath());

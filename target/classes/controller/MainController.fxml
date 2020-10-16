@@ -26,9 +26,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.tableview2.TableView2?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox minHeight="400.0" minWidth="400.0" prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.261" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.MainController">
+<VBox minHeight="400.0" minWidth="400.0" prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.MainController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -129,7 +130,7 @@
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
                                  <children>
-                                    <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="312.0" promptText="Title" />
+                                    <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="312.0" promptText="title, arranger, or composer" />
                                     <Button fx:id="searchFilterButton" defaultButton="true" mnemonicParsing="false" onAction="#filterPieceTable" text="Search" textOverrun="WORD_ELLIPSIS">
                                        <graphic>
                                           <FontIcon iconLiteral="enty-magnifying-glass" />
@@ -148,14 +149,7 @@
                                           </Button>
                                        </items>
                                     </ToolBar>
-                                    <TableView fx:id="libraryPieceTable" prefHeight="9999.0" prefWidth="650.0">
-                                      <columns>
-                                        <TableColumn fx:id="pieceTitleColumn" prefWidth="193.0" text="Title" />
-                                          <TableColumn fx:id="pieceComposerColumn" prefWidth="134.0" text="Composer" />
-                                          <TableColumn fx:id="pieceArrangerColumn" prefWidth="138.0" text="Arranger" />
-                                          <TableColumn fx:id="pieceYearColumn" prefWidth="75.0" text="Year" />
-                                        <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="136.0" text="Duration" />
-                                      </columns>
+                                    <TableView2 fx:id="libraryPieceTable" editable="true" prefHeight="707.0" prefWidth="770.0" tableMenuButtonVisible="true">
                                        <contextMenu>
                                           <ContextMenu>
                                             <items>
@@ -182,7 +176,14 @@
                                             </items>
                                           </ContextMenu>
                                        </contextMenu>
-                                    </TableView>
+                                       <columns>
+                                          <TableColumn fx:id="pieceComposerColumn" prefWidth="134.0" text="Composer" />
+                                        <TableColumn fx:id="pieceTitleColumn" prefWidth="193.0" text="Title" />
+                                          <TableColumn fx:id="pieceArrangerColumn" prefWidth="138.0" text="Arranger" />
+                                          <TableColumn fx:id="pieceYearColumn" prefWidth="75.0" text="Year" />
+                                        <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="136.0" text="Duration" />
+                                       </columns>
+                                    </TableView2>
                                     <ToolBar fx:id="pieceButtonBar" disable="true" prefHeight="35.0" prefWidth="572.0">
                                        <items>
                                           <Button mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit Piece" textOverrun="WORD_ELLIPSIS">
