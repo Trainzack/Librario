@@ -6,6 +6,7 @@ import eli.projects.spprototype.model.*;
 import eli.projects.spprototype.model.ExportSettings.SourceSelection;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -122,7 +123,11 @@ public class MainController {
 		
 		filteredPieces = new FilteredList<>(library.getPieces());
 		
-		libraryPieceTable.setItems(filteredPieces);
+		SortedList<Piece> sortedPieces = new SortedList<>(filteredPieces);
+		
+		sortedPieces.comparatorProperty().bind(libraryPieceTable.comparatorProperty());
+		
+		libraryPieceTable.setItems(sortedPieces);
 		
 		libraryPieceTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->
 			{ 
@@ -248,7 +253,7 @@ public class MainController {
 			}
 		});
 
-		// Update setlist name when changing the name listview
+		// Update ensemble name when changing the name listview
 		ensembleNameField.textProperty().addListener((obs, oldText, newText) -> {
 			if (library.getCurrentEnsemble() != null) {
 				library.getCurrentEnsemble().setName(ensembleNameField.textProperty().get());

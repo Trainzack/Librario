@@ -1,8 +1,6 @@
 package eli.projects.spprototype.controller;
 
-import eli.projects.spprototype.App;
 import eli.projects.spprototype.model.Ensemble;
-import eli.projects.spprototype.model.ExportSettings;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Library;
 import eli.projects.spprototype.model.Section;
@@ -43,6 +41,10 @@ public class NewSectionController {
 	/** Close this window and actually create the section! **/
 	@FXML
 	private void finishCreate() {
+		
+		// Force the spinner to commit the value that has been typed upon focus loss.
+		this.memberCountSpinner.increment(0);
+		
 		this.ensemble.addSection(new Section(
 				instrumentComboBox.getValue(),
 				memberCountSpinner.getValue()));

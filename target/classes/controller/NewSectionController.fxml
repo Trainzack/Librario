@@ -14,7 +14,7 @@
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane maxHeight="300.0" maxWidth="300.0" prefHeight="300.0" prefWidth="300.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.261" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.NewSectionController">
+<AnchorPane maxHeight="300.0" maxWidth="300.0" prefHeight="300.0" prefWidth="300.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.NewSectionController">
    <children>
       <Label styleClass="header" text="New Section" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
          <graphic>
@@ -45,7 +45,7 @@
                               <SearchableComboBox fx:id="instrumentComboBox" GridPane.columnIndex="1" />
                               <Label text="Instrument" />
                               <Label text="Number of Members" GridPane.rowIndex="1" />
-                              <Spinner fx:id="memberCountSpinner" prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Spinner fx:id="memberCountSpinner" editable="true" prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                            <padding>
                               <Insets top="10.0" />
