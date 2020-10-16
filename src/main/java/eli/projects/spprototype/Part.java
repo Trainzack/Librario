@@ -2,10 +2,6 @@ package eli.projects.spprototype;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
-
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 
 import eli.projects.spprototype.PartDesignation.InvalidPartDesignationException;
 import eli.projects.spprototype.model.Piece;
@@ -60,9 +56,10 @@ public class Part {
 		return piece;
 	}
 
+	/*
 	public PDDocument getPdfDocument() throws InvalidPasswordException, IOException {
 		return PDDocument.load(new File(documentPath));
-	}
+	}*/
 	
 	
 	

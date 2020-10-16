@@ -55,6 +55,7 @@ public class ExportSettings {
 	private DoubleProperty paperWidth = new SimpleDoubleProperty();
 	
 	/**This list contains any properties that, when changed, may change the validity of the settings. **/ 
+	@SuppressWarnings("rawtypes")
 	private final ObservableValue[] validityProperties =  {
 			exportDestination,
 			selectedExportSetlist,
@@ -67,6 +68,7 @@ public class ExportSettings {
 			paperWidth,
 		};
 	
+	@SuppressWarnings("unchecked")
 	public ExportSettings() {
 
 		paperSize.addListener((obs, oldValue, newValue) -> {
@@ -85,7 +87,7 @@ public class ExportSettings {
 		//TODO paper size width change not done: Need to update spinners
 		
 		// Check validity after every setting change
-		for (ObservableValue p : validityProperties ) {
+		for (@SuppressWarnings("rawtypes") ObservableValue p : validityProperties ) {
 			p.addListener((obs, oldValue, newValue) -> evaluateValidity());
 		}
 		

@@ -28,7 +28,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.MainController">
+<VBox minHeight="400.0" minWidth="400.0" prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.261" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.MainController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -41,22 +41,26 @@
             <MenuItem disable="true" mnemonicParsing="false" text="Save Library">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
+                     </accelerator>
+                  </MenuItem>
             <MenuItem disable="true" mnemonicParsing="false" text="Save Library As…">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="F12" control="ANY" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
+                     </accelerator>
+                  </MenuItem>
             <MenuItem mnemonicParsing="false" onAction="#openExportPopup" text="Export">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
+                     </accelerator>
+                  </MenuItem>
             <SeparatorMenuItem disable="true" mnemonicParsing="false" />
             <MenuItem disable="true" mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem disable="true" mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#quitProgram" text="Quit">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
+                     </accelerator>
+                  </MenuItem>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
@@ -64,30 +68,36 @@
             <MenuItem disable="true" mnemonicParsing="false" text="Undo">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
+                     </accelerator>
+                  </MenuItem>
             <MenuItem disable="true" mnemonicParsing="false" text="Redo">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
-                     </accelerator></MenuItem>
+                     </accelerator>
+                  </MenuItem>
             <SeparatorMenuItem disable="true" mnemonicParsing="false" />
             <MenuItem disable="true" mnemonicParsing="false" text="Cut">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
+                     </accelerator>
+                  </MenuItem>
             <MenuItem disable="true" mnemonicParsing="false" text="Copy">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
+                     </accelerator>
+                  </MenuItem>
             <MenuItem disable="true" mnemonicParsing="false" text="Paste">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
+                     </accelerator>
+                  </MenuItem>
             <MenuItem disable="true" mnemonicParsing="false" text="Delete" />
             <SeparatorMenuItem disable="true" mnemonicParsing="false" />
             <MenuItem disable="true" mnemonicParsing="false" text="Select All">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
+                     </accelerator>
+                  </MenuItem>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
@@ -97,7 +107,7 @@
         </Menu>
       </menus>
     </MenuBar>
-      <TabPane>
+      <TabPane minHeight="400.0" minWidth="400.0">
          <tabs>
             <Tab closable="false" styleClass="header" text="Library">
                <content>
@@ -129,6 +139,15 @@
                               </HBox>
                               <VBox>
                                  <children>
+                                    <ToolBar disable="true" maxWidth="1642.0" minWidth="100.0" prefHeight="35.0" prefWidth="1642.0">
+                                       <items>
+                                          <Button mnemonicParsing="false" text="New Piece">
+                                             <graphic>
+                                                <FontIcon iconLiteral="enty-plus" />
+                                             </graphic>
+                                          </Button>
+                                       </items>
+                                    </ToolBar>
                                     <TableView fx:id="libraryPieceTable" prefHeight="9999.0" prefWidth="650.0">
                                       <columns>
                                         <TableColumn fx:id="pieceTitleColumn" prefWidth="193.0" text="Title" />
@@ -143,7 +162,8 @@
                                               <MenuItem mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit">
                                                    <graphic>
                                                       <FontIcon iconLiteral="enty-edit" />
-                                                   </graphic></MenuItem>
+                                                   </graphic>
+                                                </MenuItem>
                                                 <MenuItem mnemonicParsing="false" onAction="#deleteSelectedPiece" text="Delete">
                                                    <graphic>
                                                       <FontIcon iconLiteral="enty-trash" />
@@ -163,7 +183,7 @@
                                           </ContextMenu>
                                        </contextMenu>
                                     </TableView>
-                                    <ToolBar fx:id="pieceButtonBar" disable="true">
+                                    <ToolBar fx:id="pieceButtonBar" disable="true" prefHeight="35.0" prefWidth="572.0">
                                        <items>
                                           <Button mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit Piece" textOverrun="WORD_ELLIPSIS">
                                              <graphic>
@@ -207,21 +227,11 @@
                                           </Label>
                                           <VBox prefHeight="854.0" prefWidth="462.0">
                                              <children>
-                                                <ToolBar fx:id="setlistButtonBar" disable="true" prefHeight="40.0" prefWidth="200.0">
+                                                <ToolBar prefHeight="40.0" prefWidth="200.0">
                                                   <items>
                                                       <Button mnemonicParsing="false" onAction="#newList" text="Create New List" textOverrun="WORD_ELLIPSIS">
                                                          <graphic>
                                                             <FontIcon iconLiteral="enty-plus" />
-                                                         </graphic>
-                                                      </Button>
-                                                      <Button mnemonicParsing="false" onAction="#deleteList" text="Delete List">
-                                                         <graphic>
-                                                            <FontIcon iconLiteral="enty-trash" />
-                                                         </graphic>
-                                                      </Button>
-                                                      <Button mnemonicParsing="false" onAction="#exportList" text="Export List">
-                                                         <graphic>
-                                                            <FontIcon iconLiteral="enty-export" />
                                                          </graphic>
                                                       </Button>
                                                   </items>
@@ -242,7 +252,22 @@
                                                             </MenuItem>
                                                         </items>
                                                       </ContextMenu>
-                                                   </contextMenu></ListView>
+                                                   </contextMenu>
+                                                </ListView>
+                                                <ToolBar fx:id="setlistButtonBar" disable="true" prefHeight="40.0" prefWidth="200.0">
+                                                  <items>
+                                                      <Button mnemonicParsing="false" onAction="#deleteList" text="Delete List">
+                                                         <graphic>
+                                                            <FontIcon iconLiteral="enty-trash" />
+                                                         </graphic>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#exportList" text="Export List">
+                                                         <graphic>
+                                                            <FontIcon iconLiteral="enty-export" />
+                                                         </graphic>
+                                                      </Button>
+                                                  </items>
+                                                </ToolBar>
                                              </children>
                                           </VBox>
                                        </children>
@@ -349,7 +374,8 @@
                                                             </MenuItem>
                                                         </items>
                                                       </ContextMenu>
-                                                   </contextMenu></ListView>
+                                                   </contextMenu>
+                                                </ListView>
                                              </children>
                                           </VBox>
                                        </children>
@@ -392,9 +418,14 @@
                                              <children>
                                                 <ToolBar>
                                                    <items>
-                                                      <Button mnemonicParsing="false" text="New Section">
+                                                      <Button mnemonicParsing="false" onAction="#newSection" text="New Section">
                                                          <graphic>
                                                             <FontIcon iconLiteral="enty-plus" />
+                                                         </graphic>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#deleteSection" text="Delete Section">
+                                                         <graphic>
+                                                            <FontIcon iconLiteral="enty-trash" />
                                                          </graphic>
                                                       </Button>
                                                    </items>
@@ -404,6 +435,16 @@
                                                     <TableColumn fx:id="sectionInstrumentColumn" prefWidth="197.0" text="Section" />
                                                     <TableColumn fx:id="sectionCountColumn" minWidth="0.0" prefWidth="68.0" text="Number" />
                                                   </columns>
+                                                   <contextMenu>
+                                                      <ContextMenu>
+                                                         <items>
+                                                            <MenuItem mnemonicParsing="false" onAction="#deleteSection" text="Delete">
+                                                               <graphic>
+                                                                  <FontIcon iconLiteral="enty-trash" />
+                                                               </graphic></MenuItem>
+                                                         </items>
+                                                      </ContextMenu>
+                                                   </contextMenu>
                                                 </TableView>
                                              </children>
                                           </VBox>
@@ -417,7 +458,7 @@
                   </AnchorPane>
               </content>
                <graphic>
-                  <FontIcon iconLiteral="enty-users" />
+                  <FontIcon iconLiteral="enty-man" />
                </graphic>
             </Tab>
          </tabs>

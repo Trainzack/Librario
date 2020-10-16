@@ -1,6 +1,5 @@
 package eli.projects.spprototype.model;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**

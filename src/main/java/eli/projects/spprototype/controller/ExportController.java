@@ -7,20 +7,16 @@ import org.controlsfx.control.SearchableComboBox;
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.model.Ensemble;
 import eli.projects.spprototype.model.ExportSettings;
-import eli.projects.spprototype.model.ExportSettings.SourceSelection;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Library;
 import eli.projects.spprototype.model.PaperSize;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -108,6 +104,8 @@ public class ExportController {
 	private Button exportButton;
 	
 
+	
+	
 	
 	public void initModel(ExportSettings _exportSettings, Library _library, Stage _stage) {
 

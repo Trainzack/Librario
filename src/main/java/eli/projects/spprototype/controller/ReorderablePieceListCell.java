@@ -3,7 +3,6 @@ package eli.projects.spprototype.controller;
 import eli.projects.spprototype.model.Piece;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.input.*;
 import org.kordamp.ikonli.javafx.FontIcon;

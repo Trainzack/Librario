@@ -5,7 +5,6 @@ import eli.projects.spprototype.Utility;
 import eli.projects.spprototype.model.*;
 import eli.projects.spprototype.model.ExportSettings.SourceSelection;
 import javafx.beans.value.ChangeListener;
-import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,21 +12,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-
-import org.controlsfx.control.SearchableComboBox;
-
-import com.sun.javafx.property.adapter.PropertyDescriptor.Listener;
 
 /**
  * Controls the Library
@@ -93,7 +81,6 @@ public class MainController {
 	
 	@FXML
 	private Node setlistButtonBar;
-	
 	@FXML
 	private Node listEditBox;
 	
@@ -130,11 +117,6 @@ public class MainController {
 		
 		
 		this.exportSettings = new ExportSettings();
-		
-		
-		// Initialize the listview on the left part of the screen that contains all of the setlists
-		//setlistView = new ListView<AbstractSetlist>(library.getSetlists());
-		assert setlistView != null;
 		
 		/** Piece Table **/
 		
@@ -207,6 +189,11 @@ public class MainController {
 		
 		setlistPieceView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			setlistPieceButtonBar.setDisable(newSelection == null);
+			
+			// When we select a piece on the right, select it in the main tableview.
+			if (newSelection != null) {
+				library.getCurrentPieceProperty().set(newSelection);
+			}
 		});
 		
 		// TODO: push into own class
@@ -313,7 +300,7 @@ public class MainController {
 				library.deleteCurrentSetlist();
 				setlistPieceView.getSelectionModel().clearSelection();
 				// TODO: Keep current index selected after delete?
-				setlistView.getSelectionModel().clearAndSelect(index);
+				setlistView.getSelectionModel().clearSelection();
 			}
 		}
 	}
@@ -399,6 +386,7 @@ public class MainController {
 	
 	@FXML
 	private void openExportPopup() {
+		//TODO this should probably go in the export controller class
 		FXMLLoader exportLoader = new FXMLLoader(getClass().getResource("/controller/ExportController.fxml"));
         
 		assert exportLoader.getLocation() != null;
@@ -434,6 +422,51 @@ public class MainController {
 	private void newEnsemble() {
 		library.addNewEnsemble();
 	}
+	
+	@FXML
+	private void newSection() {
+		
+		FXMLLoader exportLoader = new FXMLLoader(getClass().getResource("/controller/NewSectionController.fxml"));
+        
+		assert exportLoader.getLocation() != null;
+		
+		try {
+			Parent exportNode = exportLoader.load();
+			
+		    Scene exportScene = new Scene(exportNode);
+		    Stage popup = new Stage();
+		    popup.setTitle("Export: " + App.WINDOW_NAME);
+		    popup.setScene(exportScene);
+		    popup.initModality(Modality.WINDOW_MODAL);
+		    popup.resizableProperty().set(false);
+		    
+		    // TODO is this the best way of getting the current window? Maybe we should pass a reference in to this class earlier.
+		    popup.initOwner(rightStatus.getScene().getWindow());
+
+			NewSectionController newSectionController = exportLoader.getController();
+
+			newSectionController.initModel(library.getCurrentEnsemble(), library, popup);
+			
+			popup.show();
+			
+
+		} catch (IOException e) {
+			App.ShowError("Cannot Export", "Could not load Export page. This is a bug.");
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void deleteSection() {
+		
+		Section currentSection = ensembleSectionTableView.getSelectionModel().getSelectedItem();
+		
+		if (currentSection != null) {
+			library.getCurrentEnsemble().deleteSection(currentSection);
+		}
+		
+	}
+	
 	@FXML
 	private void deleteEnsemble() {
 		

@@ -2,8 +2,8 @@
 
 
 .large_button {
-	-fx-font: 32 arial;
-	-fx-padding: 0;
+	-fx-font: 16 arial;
+	-fx-padding: 5;
 }
 
 .header {

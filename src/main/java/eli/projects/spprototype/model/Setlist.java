@@ -1,34 +1,11 @@
 package eli.projects.spprototype.model;
 
 import java.util.ArrayList;
-import java.util.Optional;
-
-import eli.projects.spprototype.App;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 
 /**
  * This is a list of pieces that users can create, delete, edit, and manipulate in any way.
@@ -67,7 +44,7 @@ public class Setlist {
 		
 		Setlist out = new Setlist("Test List");
 		
-		for (Piece p : Piece.generateFakePieces(12)) {
+		for (Piece p : Piece.generateFakePieces(4)) {
 			out.add(p);
 		}
 		

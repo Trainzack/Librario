@@ -1,8 +1,6 @@
 package eli.projects.spprototype.model;
 
 import java.util.ArrayList;
-import java.util.Random;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -32,21 +30,20 @@ public class Ensemble {
 	public final void setCurrentSection(Section section) {
 		currentSection.set(section);
 	}
+	
+	public void addSection(Section section) {
+		sections.add(section);
+	}
+	
+	public void deleteSection(Section section) {
+		sections.remove(section);
+	}
 
-	// TODO: Currently this has only the minimum amount of info we need for the UI mockup.
 	public Ensemble(String name) {
 		super();
 		this.name = name;
 		
-		ArrayList<Section> tempTestingList = new ArrayList<>();
-		
-		for (Instrument i : Instrument.getInstruments()) {
-
-			tempTestingList.add(new Section(i, 2));
-		}
-		
-		
-		this.sections = FXCollections.observableArrayList(tempTestingList);
+		this.sections = FXCollections.observableArrayList(new ArrayList<>());
 	}
 	
 	
@@ -61,10 +58,13 @@ public class Ensemble {
 	 */
 	public static Ensemble generateTestEnsemble() {
 		
-		Random r = new Random();
-		
 		String name = "Concert Band";
 		Ensemble out = new Ensemble(name);
+		
+		for (Instrument i : Instrument.getInstruments()) {
+
+			out.addSection(new Section(i, 2));
+		}
 		
 		return out;
 	}
