@@ -141,11 +141,16 @@ public class MainController {
 		
 		libraryPieceTable.setItems(sortedPieces);
 		
+		
 		libraryPieceTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->
 			{ 
 				library.setCurrentPiece(newSelection);
-				pieceButtonBar.setDisable(newSelection == null);
 			});
+		
+		library.getCurrentPieceProperty().addListener((obs, oldPiece, newPiece) -> {
+			pieceButtonBar.setDisable(newPiece == null);
+			libraryPieceTable.getSelectionModel().select(newPiece);
+		});
 
 		// Table Columns
 		pieceTitleColumn.setCellValueFactory(new PropertyValueFactory<Piece, String>("title"));
@@ -209,7 +214,12 @@ public class MainController {
 			
 			// When we select a piece on the right, select it in the main tableview.
 			if (newSelection != null) {
-				library.getCurrentPieceProperty().set(newSelection);
+				if (sortedPieces.contains(newSelection)) {
+					library.setCurrentPiece(newSelection);
+				} else {
+					library.setCurrentPiece(null);
+				}
+				
 			}
 		});
 		
@@ -357,6 +367,7 @@ public class MainController {
 			boolean userWantsToDelete = App.showConfirmationDialog("Are you sure?", 
 					"Are you sure you want to delete " + selectedPiece.getTitle() + " from the library?", 
 					"Delete " + selectedPiece.getTitle());
+			// TODO: List how many setlists this piece is in, and warn that it will be removed from all of them.
 			if (userWantsToDelete) {
 				library.deletePiece(selectedPiece);
 			}

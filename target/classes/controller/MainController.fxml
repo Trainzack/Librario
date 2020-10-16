@@ -140,15 +140,6 @@
                               </HBox>
                               <VBox>
                                  <children>
-                                    <ToolBar disable="true" maxWidth="1642.0" minWidth="100.0" prefHeight="35.0" prefWidth="1642.0">
-                                       <items>
-                                          <Button mnemonicParsing="false" text="New Piece">
-                                             <graphic>
-                                                <FontIcon iconLiteral="enty-plus" />
-                                             </graphic>
-                                          </Button>
-                                       </items>
-                                    </ToolBar>
                                     <TableView2 fx:id="libraryPieceTable" editable="true" prefHeight="707.0" prefWidth="770.0" tableMenuButtonVisible="true">
                                        <contextMenu>
                                           <ContextMenu>

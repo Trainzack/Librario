@@ -79,6 +79,7 @@ public class Library {
 	}
 	
 	public final void deletePiece(Piece piece) {
+		// TODO: remove this piece from all setlists!
 		this.pieces.remove(piece);
 	}
 
