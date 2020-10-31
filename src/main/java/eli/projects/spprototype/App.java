@@ -89,6 +89,7 @@ public class App extends Application
 		alert.setTitle("Temporary Placeholder Alert");
 		alert.setHeaderText(text);
 		alert.setContentText("[This action is not yet implemented]");
+		alert.initOwner(primaryStage); // Should fix alerts taking up the fullscreen on MacOS, and should make sure that the window reliably pops up in front of the main window.
 
 		alert.showAndWait();
 	}
@@ -99,6 +100,7 @@ public class App extends Application
 		alert.setTitle("Error");
 		alert.setHeaderText(error);
 		alert.setContentText(reason);
+		alert.initOwner(primaryStage);
 
 		alert.showAndWait();
 	}
@@ -114,6 +116,7 @@ public class App extends Application
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle(title);
 		alert.setContentText(content);
+		alert.initOwner(primaryStage);
 
 		ButtonType buttonTypeAction = new ButtonType(actionName);
 		ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);

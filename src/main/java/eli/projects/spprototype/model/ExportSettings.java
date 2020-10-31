@@ -1,6 +1,7 @@
 package eli.projects.spprototype.model;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -9,6 +10,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 public class ExportSettings {
@@ -54,10 +57,13 @@ public class ExportSettings {
 	private ObjectProperty<PaperSize> paperSize = new SimpleObjectProperty<PaperSize>(null);
 	private DoubleProperty paperWidth = new SimpleDoubleProperty();
 	
+	
+	// Export Grouping
+	private ObservableList<ExportGroup> exportGroups;
+	
 	/**This list contains any properties that, when changed, may change the validity of the settings. **/ 
 	@SuppressWarnings("rawtypes")
 	private final ObservableValue[] validityProperties =  {
-			exportDestination,
 			selectedExportSetlist,
 			selectedExportPiece,
 			selectedExportEnsemble,
@@ -85,6 +91,8 @@ public class ExportSettings {
 		
 		//TODO do the same for paper height
 		//TODO paper size width change not done: Need to update spinners
+		
+		exportGroups = FXCollections.observableArrayList(ExportGroup.getOneOfEachExportGroup());
 		
 		// Check validity after every setting change
 		for (@SuppressWarnings("rawtypes") ObservableValue p : validityProperties ) {
@@ -133,7 +141,6 @@ public class ExportSettings {
 					fullProperty = this.selectedExportInstrument.get();
 					break;
 			}
-			if (exportDestination.get() == null) invalid = true;
 			if (fullProperty == null) invalid = true;
 			
 		}
@@ -219,4 +226,10 @@ public class ExportSettings {
 		paperWidth.set(w);
 	}
 
+	/** Export Groups **/
+	
+	public final ObservableList<ExportGroup> getExportGroups() {
+		return exportGroups;
+	}
+	
 }

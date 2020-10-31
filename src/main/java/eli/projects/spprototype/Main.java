@@ -3,7 +3,7 @@ package eli.projects.spprototype;
 /**
  * As per https://stackoverflow.com/questions/52653836/maven-shade-javafx-runtime-components-are-missing
  * 
- * I hate that this is needed.
+ * This feels like a kludgey workaround, but it makes the program function.
  * @author Eli
  *
  */

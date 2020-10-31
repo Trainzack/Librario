@@ -6,6 +6,7 @@ import org.controlsfx.control.SearchableComboBox;
 
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.model.Ensemble;
+import eli.projects.spprototype.model.ExportGroup;
 import eli.projects.spprototype.model.ExportSettings;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Library;
@@ -16,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -92,11 +94,9 @@ public class ExportController {
 	
 	@FXML
 	private ToggleGroup exportPageOrientation;
+
 	@FXML
-	private ToggleGroup exportFolderGrouping;
-	
-	@FXML
-	private TextField exportDirectoryTextField;
+	private ListView<ExportGroup> exportGroupingListView;
 	
 	
 	
@@ -227,15 +227,10 @@ public class ExportController {
 		exportPageMarginSpinner.getValueFactory().setValue(10.0);
 		
 		/* Export Folder Grouping */
+		exportGroupingListView.setCellFactory(list -> new ExportGroupListCell());
 		
-		/* Destination */
-
-		exportDirectoryTextField.setText(
-				(exportSettings.getExportDestination() == null) ? "" : exportSettings.getExportDestination().getPath());
+		exportGroupingListView.setItems(exportSettings.getExportGroups());
 		
-		exportSettings.getExportDestinationProperty().addListener((obs, oldValue, newValue) -> {
-			exportDirectoryTextField.setText((newValue == null) ? "" : newValue.getPath());
-		});
 		
 		/** Buttons **/
 		
@@ -246,32 +241,34 @@ public class ExportController {
 		
 	}
 
-
-	// Todo: we might want to use something else here.
-	@FXML
-	private void exportChooseDirectory() {
-
-        DirectoryChooser dir = new DirectoryChooser();
-        dir.setTitle("Choose a destination to export");
-        // If the user has already selected a destination before, use that one!
-        if (exportSettings.getExportDestination() != null) dir.setInitialDirectory(exportSettings.getExportDestination());
-        File destination = dir.showDialog(this.stage);
-        // Don't change the destination if the user didn't select anything
-        if (destination != null) exportSettings.setExportDestination(destination);
-        
-	}
 	
 	/** Close this window and actually do the export! **/
 	@FXML
 	private void finishExport() {
+		
+		
 		exportSettings.evaluateValidity();
 		if (exportSettings.getIsInvalidProperty().get()) {
 			//This is bad
 			App.ShowError("Export Failed", "The settings you chose for export were invalid. Additionally, the program should have prevented this.");
 		}
-		// TODO
-		stage.close();
-		App.ShowTempAlert("Export Successful.");
+		
+		DirectoryChooser dir = new DirectoryChooser();
+        dir.setTitle("Choose an export directory");
+        // If the user has already selected a destination before, use that one!
+        if (exportSettings.getExportDestination() != null) dir.setInitialDirectory(exportSettings.getExportDestination());
+        File destination = dir.showDialog(this.stage);
+
+        if (destination == null) {
+        	// If they don't select a destination, then cancel the export! 
+        } else {
+        	exportSettings.setExportDestination(destination);
+    		stage.close();
+    		App.ShowTempAlert("Export Successful.");
+    		
+    		// TODO: Actually complete the export
+        }
+		
 	}
 	
 	/** Close this window and do nothing. **/

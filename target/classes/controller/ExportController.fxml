@@ -6,9 +6,10 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -20,16 +21,16 @@
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane maxHeight="500.0" maxWidth="800.0" prefHeight="500.0" prefWidth="700.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.ExportController">
+<AnchorPane maxHeight="813.0" maxWidth="800.0" prefHeight="813.0" prefWidth="700.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.ExportController">
    <children>
       <Label styleClass="header" text="Export" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
          <graphic>
             <FontIcon iconLiteral="enty-export" />
          </graphic>
       </Label>
-      <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="425.0" prefWidth="700.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+      <HBox layoutY="30.0" prefHeight="621.0" prefWidth="700.0" spacing="10.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0">
          <children>
-            <VBox>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="612.0" prefWidth="325.0">
                <children>
                   <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="115.0" prefWidth="320.0" styleClass="border">
                      <children>
@@ -97,87 +98,75 @@
                         </GridPane>
                      </children>
                   </VBox>
-               </children>
-            </VBox>
-            <VBox disable="true" maxHeight="257.0" maxWidth="320.0" minHeight="180.0" minWidth="-Infinity" prefHeight="205.0" prefWidth="320.0" styleClass="border">
-               <children>
-                  <Label styleClass="header2" text="Page Settings">
-                     <graphic>
-                        <FontIcon iconLiteral="enty-text-document" />
-                     </graphic>
-                  </Label>
-                  <GridPane hgap="5.0">
-                    <columnConstraints>
-                      <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="130.0" minWidth="10.0" prefWidth="45.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="211.0" minWidth="10.0" prefWidth="121.0" />
-                        <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="211.0" minWidth="2.0" prefWidth="39.0" />
-                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="78.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <VBox disable="true" maxHeight="257.0" maxWidth="320.0" minHeight="180.0" minWidth="-Infinity" prefHeight="205.0" prefWidth="320.0" styleClass="border">
                      <children>
-                        <Label text="Width:" GridPane.rowIndex="1" />
-                        <Label text="Height:" GridPane.rowIndex="2" />
-                        <Spinner fx:id="exportPageWidthSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Spinner fx:id="exportPageHeightSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <RadioButton mnemonicParsing="false" selected="true" text="Portrait" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="exportPageOrientation" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Landscape" toggleGroup="$exportPageOrientation" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <Spinner fx:id="exportPageMarginSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Margin:" GridPane.rowIndex="3" />
-                        <FontIcon GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <FontIcon iconLiteral="enty-document" iconSize="16" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <FontIcon iconLiteral="enty-document-landscape" iconSize="16" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="exportPaperSize" prefHeight="25.0" prefWidth="278.0" promptText="Page Size" GridPane.columnIndex="1" GridPane.columnSpan="3" />
-                        <Label text="Size:" />
+                        <Label styleClass="header2" text="Page Settings">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-text-document" />
+                           </graphic>
+                        </Label>
+                        <GridPane hgap="5.0">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="130.0" minWidth="10.0" prefWidth="45.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="211.0" minWidth="10.0" prefWidth="121.0" />
+                              <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="211.0" minWidth="2.0" prefWidth="39.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="78.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Width:" GridPane.rowIndex="1" />
+                              <Label text="Height:" GridPane.rowIndex="2" />
+                              <Spinner fx:id="exportPageWidthSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Spinner fx:id="exportPageHeightSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <RadioButton mnemonicParsing="false" selected="true" text="Portrait" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="exportPageOrientation" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton mnemonicParsing="false" text="Landscape" toggleGroup="$exportPageOrientation" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <Spinner fx:id="exportPageMarginSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="Margin:" GridPane.rowIndex="3" />
+                              <FontIcon GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <FontIcon iconLiteral="enty-document" iconSize="16" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <FontIcon iconLiteral="enty-document-landscape" iconSize="16" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <ComboBox fx:id="exportPaperSize" prefHeight="25.0" prefWidth="278.0" promptText="Page Size" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                              <Label text="Size:" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </GridPane>
+                        <CheckBox maxHeight="30.0" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" text="Two pieces per page" />
                      </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </GridPane>
-                  <CheckBox maxHeight="30.0" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" text="Two pieces per page" />
-               </children>
-            </VBox>
-            <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="278.0" spacing="10.0" styleClass="border">
-               <children>
-                  <Label styleClass="header2" text="Export Grouping">
-                     <graphic>
-                        <FontIcon iconLiteral="enty-flow-tree" />
-                     </graphic>
-                  </Label>
-                  <RadioButton mnemonicParsing="false" selected="true" text="One PDF with everything">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="exportFolderGrouping" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="One PDF per instrument" toggleGroup="$exportFolderGrouping" />
-                  <RadioButton mnemonicParsing="false" text="One PDF per piece grouped by instrument" toggleGroup="$exportFolderGrouping" />
-               </children>
-            </VBox>
-            <VBox maxWidth="416.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="360.0" styleClass="border">
-               <children>
-                  <Label styleClass="header2" text="Destination">
-                     <graphic>
-                        <FontIcon iconLiteral="enty-folder" />
-                     </graphic>
-                  </Label>
-                  <HBox prefHeight="25.0" prefWidth="112.0">
+                  </VBox>
+                  <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="200.0" prefWidth="320.0" spacing="10.0" styleClass="border">
                      <children>
-                        <TextField fx:id="exportDirectoryTextField" editable="false" prefHeight="25.0" prefWidth="677.0" />
-                        <Button maxWidth="87.0" minWidth="87.0" mnemonicParsing="false" onAction="#exportChooseDirectory" prefHeight="25.0" prefWidth="87.0" text="Open Folder" />
+                        <Label styleClass="header2" text="Export Grouping">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-flow-tree" />
+                           </graphic>
+                        </Label>
+                        <ListView fx:id="exportGroupingListView" prefHeight="200.0" prefWidth="200.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
-            </VBox>
+            </FlowPane>
+            <ScrollPane minWidth="500.0" prefHeight="587.0" prefWidth="500.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label styleClass="header2" text="Preview" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
          </children>
-      </FlowPane>
+      </HBox>
       <ButtonBar prefHeight="41.0" prefWidth="606.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
         <buttons>
             <Button cancelButton="true" layoutX="287.0" layoutY="10.0" mnemonicParsing="false" onAction="#finishCancel" prefHeight="40.0" prefWidth="120.0" styleClass="large_button" text="Cancel">

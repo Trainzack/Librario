@@ -224,7 +224,7 @@ public class MainController {
 		});
 		
 		// TODO: push into own class
-		setlistPieceView.setCellFactory(list -> new ReorderablePieceListCell() {
+		setlistPieceView.setCellFactory(list -> new ReorderableListCell<Piece>() {
 
 		    {
 		    	// Nothing here I guess?

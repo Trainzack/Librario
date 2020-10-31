@@ -1,6 +1,5 @@
 package eli.projects.spprototype.controller;
 
-import eli.projects.spprototype.model.Piece;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.text.FontSmoothingType;
@@ -12,11 +11,16 @@ import org.kordamp.ikonli.javafx.FontIcon;
  * https://stackoverflow.com/questions/28603224/sort-tableview-with-drag-and-drop-rows/28606524
  * @author Eli
  */
-public class ReorderablePieceListCell extends ListCell<Piece> {
+public class ReorderableListCell<T> extends ListCell<T> {
 
 	private static final DataFormat SERIALIZED_MIME_TYPE = new DataFormat("application/x-java-serialized-object");
 	
-	public ReorderablePieceListCell() {
+	
+	public ReorderableListCell() {
+		this(false);
+	}
+	
+	public ReorderableListCell(boolean deleteable) {
 		super();
 		
 		FontIcon dragGraphic = new FontIcon("enty-menu"); // "mdi-drag"
@@ -57,7 +61,7 @@ public class ReorderablePieceListCell extends ListCell<Piece> {
 			Dragboard dragBoard = event.getDragboard();
 			if (dragBoard.hasContent(SERIALIZED_MIME_TYPE)) {
 				int draggedIndex = (Integer) dragBoard.getContent(SERIALIZED_MIME_TYPE);
-				Piece draggedPiece = getListView().getItems().remove(draggedIndex);
+				T draggedItem = getListView().getItems().remove(draggedIndex);
 
 				int dropIndex; 
 
@@ -67,7 +71,7 @@ public class ReorderablePieceListCell extends ListCell<Piece> {
 					dropIndex = this.getIndex();
 				}
 
-				getListView().getItems().add(dropIndex, draggedPiece);
+				getListView().getItems().add(dropIndex, draggedItem);
 
 				event.setDropCompleted(true);
 				getListView().getSelectionModel().select(dropIndex);
@@ -75,6 +79,7 @@ public class ReorderablePieceListCell extends ListCell<Piece> {
 			}
 		});
 		
+		// TODO: If deleteable, let us delete items with a key press.
 		setOnKeyPressed(event -> {
 			System.out.println(event.getCode());
 		});

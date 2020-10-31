@@ -168,11 +168,11 @@
                                           </ContextMenu>
                                        </contextMenu>
                                        <columns>
-                                          <TableColumn fx:id="pieceComposerColumn" prefWidth="134.0" text="Composer" />
                                         <TableColumn fx:id="pieceTitleColumn" prefWidth="193.0" text="Title" />
-                                          <TableColumn fx:id="pieceArrangerColumn" prefWidth="138.0" text="Arranger" />
+                                          <TableColumn fx:id="pieceComposerColumn" prefWidth="180.0" text="Composer" />
+                                          <TableColumn fx:id="pieceArrangerColumn" prefWidth="170.0" text="Arranger" />
                                           <TableColumn fx:id="pieceYearColumn" prefWidth="75.0" text="Year" />
-                                        <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="136.0" text="Duration" />
+                                        <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="70.0" text="Duration" />
                                        </columns>
                                     </TableView2>
                                     <ToolBar fx:id="pieceButtonBar" disable="true" prefHeight="35.0" prefWidth="572.0">
