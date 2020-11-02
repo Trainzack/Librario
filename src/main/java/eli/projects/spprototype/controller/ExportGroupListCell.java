@@ -36,10 +36,11 @@ public class ExportGroupListCell extends ReorderableListCell<ExportGroup> {
 		
 		Node grabGraphic = this.getGraphic();
 		
+		enabledBox = new CheckBox();
+		
 		orderLabel = new Label(numberStrings[0]);
 		orderLabel.setMinWidth(20);
 		
-		enabledBox = new CheckBox();
 		
 		controlLabel1 = new Label();
 		controlLabel2 = new Label();
@@ -58,6 +59,7 @@ public class ExportGroupListCell extends ReorderableListCell<ExportGroup> {
 		});
 		
 		// When the order of this list changes, we need to update the item order text.
+		// TODO: This really belongs as part of a subclass of listView. As it is now, each item adds its own redundant listener.
 		this.listViewProperty().addListener((obs, oldList, newList) -> {
 			if (oldList != null) {
 				// I don't think we'll ever move a list cell from one listview to another, but if we do we would run into the problem of
@@ -72,7 +74,7 @@ public class ExportGroupListCell extends ReorderableListCell<ExportGroup> {
 		
 		subBox.setDisable(true);
 		
-		controlBox = new HBox(grabGraphic, orderLabel, enabledBox, subBox);
+		controlBox = new HBox(grabGraphic, enabledBox, orderLabel, subBox);
 		controlBox.setSpacing(10);
 		
 		// Make sure everything's vertically centered.
@@ -104,7 +106,6 @@ public class ExportGroupListCell extends ReorderableListCell<ExportGroup> {
 	 */
 	private void updateListItemOrder() {
 
-		System.out.println("Update!");
 		int enabledCount = 0;
 		for (ExportGroup g : this.getListView().getItems()) {
 			if (g.isEnabled()) {
@@ -131,7 +132,7 @@ public class ExportGroupListCell extends ReorderableListCell<ExportGroup> {
         	group = item;
         	controlLabel1.setText("Group ");
         	controlLabel2.setText(" by " + item.getName());
-        	
+        	// TODO: When dragging the top item to the bottom, a bunch of boxes don't get their selected property properly bound to the model. Fix!
         	this.enabledBox.setSelected(item.isEnabled());
         	item.getEnabledProperty().bind(this.enabledBox.selectedProperty());
         	item.getOrderProperty().addListener(orderListener);

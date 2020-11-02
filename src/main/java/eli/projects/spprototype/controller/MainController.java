@@ -141,6 +141,7 @@ public class MainController {
 		
 		libraryPieceTable.setItems(sortedPieces);
 		
+		libraryPieceTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
 		libraryPieceTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->
 			{ 
@@ -517,7 +518,11 @@ public class MainController {
 		//TODO: This and window close request should call the same function
 		boolean userWantsToQuit = App.showConfirmationDialog("Quit?", "Are you sure you want to quit?", "Quit");
 		// TODO: check to see if we have unsaved work
-		this.stage.close();
+		
+		if (userWantsToQuit) {
+			this.stage.close();	
+		}
+		
 	}
 	
 }

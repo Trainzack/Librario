@@ -18,6 +18,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -29,7 +30,7 @@ import javafx.stage.Stage;
 public class App extends Application
 {
 
-	public static final String WINDOW_NAME = "Eli's Senior Project";
+	public static final String WINDOW_NAME = "Ossia";
 	
 	// TODO: Put this in some kind of datamodel?
 	private static Library loadedLibrary;
@@ -72,6 +73,11 @@ public class App extends Application
 			
 			Scene scene = new Scene(root, 1280, 800);
 	        primaryStage.setScene(scene);
+	        
+	        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo.png")));
+	        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo32.png")));
+	        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo16.png")));
+	        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo48.png")));
 	        
 	        primaryStage.setTitle(WINDOW_NAME);
 		} catch (IOException e) {
