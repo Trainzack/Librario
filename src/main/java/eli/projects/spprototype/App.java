@@ -1,12 +1,17 @@
 package eli.projects.spprototype;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.Optional;
+
+import javax.activity.InvalidActivityException;
 
 import eli.projects.spprototype.controller.MainController;
 import eli.projects.spprototype.model.Library;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,6 +23,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -45,6 +51,9 @@ public class App extends Application
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		
+		// This lets us pop up a box whenever we throw an exception.
+		Thread.setDefaultUncaughtExceptionHandler(App::handleError);
 		
 		this.primaryStage = primaryStage;
 		
@@ -87,8 +96,19 @@ public class App extends Application
 
         
         primaryStage.show();
+
 	}
 	
+	private static void handleError(Thread t, Throwable e) {
+        if (Platform.isFxApplicationThread()) {
+        	ShowException(e, "An exception has occured.");
+        } else {
+            System.err.println("An unexpected error occurred in "+t);
+
+        }
+	}
+	
+	// TODO: method names not following proper capitalization.
 	public static void ShowTempAlert(String text) {
 		
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -110,6 +130,64 @@ public class App extends Application
 
 		alert.showAndWait();
 	}
+	
+	/**
+	 * Show a dialog box with the stack-trace of an exception inside.
+	 * @param e AThe exception to display in this box.
+	 * @param description A human-readable description of the problem.
+	 */
+	public static void ShowException(Throwable throwable, String description) {
+		ShowException(new Throwable[] {throwable}, description);
+	}
+	
+	
+	/**
+	 * Show a dialog box with the stack-trace of an exception inside.
+	 * @param e An array containing exceptions to display in this box.
+	 * @param description A human-readable description of the problem.
+	 */
+	public static void ShowException(Throwable throwables[], String description) {
+		
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("An Exception Has Occured"); //This may not always give good results, testing is needed.
+		
+		if (throwables.length > 1) {
+			alert.setHeaderText(throwables.length + " Exceptions Have Occured");
+		} else {
+			alert.setHeaderText("An Exception Has Occured");
+		}
+		alert.setContentText(description);
+		
+		StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        for (Throwable e : throwables) {e.printStackTrace(printWriter);};
+        String stackTrace = stringWriter.toString();
+        
+        TextArea stackTraceArea = new TextArea(stackTrace);
+        stackTraceArea.setEditable(false);
+        stackTraceArea.setWrapText(true);
+        
+        stackTraceArea.setMaxWidth(Double.MAX_VALUE);
+        stackTraceArea.setMinWidth(600);
+        stackTraceArea.setMaxHeight(Double.MAX_VALUE);
+        
+        alert.getDialogPane().setExpandableContent(stackTraceArea);
+        
+        try {
+			stringWriter.close();
+			printWriter.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+        
+		alert.showAndWait();
+        
+	}
+	
+	
+	
 	
 	/**
 	 * Show a confirmation dialog box.

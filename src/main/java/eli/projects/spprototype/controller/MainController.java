@@ -306,6 +306,7 @@ public class MainController {
 	
 	@FXML
 	private void newList() {
+		
 		Setlist list = library.addSetlist("New List"); 
 		setlistView.getSelectionModel().select(list);
 	}
@@ -458,8 +459,7 @@ public class MainController {
 			
 
 		} catch (IOException e) {
-			App.ShowError("Cannot Export", "Could not load Export page. This is a bug.");
-			e.printStackTrace();
+			App.ShowException(e, "Could not load Export page. This is a bug.");
 		}
 		
 	}
@@ -497,8 +497,7 @@ public class MainController {
 			
 
 		} catch (IOException e) {
-			App.ShowError("Cannot Export", "Could not load Export page. This is a bug.");
-			e.printStackTrace();
+			App.ShowException(e, "Could not load new section page. This is a bug.");
 		}
 	}
 	

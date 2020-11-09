@@ -126,9 +126,14 @@ public class ExportSettings {
 			destination = new File(destination, "ossia-test-output.pdf");
 		}
 		
-		document.save(destination);
+		try {
+			document.save(destination);	
+		} 
 		
-		document.close();
+		
+		finally {
+			document.close();
+		}
 		
 	}
 	
