@@ -1,6 +1,7 @@
 package eli.projects.spprototype.controller;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.controlsfx.control.SearchableComboBox;
 
@@ -262,9 +263,16 @@ public class ExportController {
         if (destination == null) {
         	// If they don't select a destination, then cancel the export! 
         } else {
-        	exportSettings.setExportDestination(destination);
-    		stage.close();
-    		App.ShowTempAlert("Export Successful.");
+        	try {
+	        	exportSettings.setExportDestination(destination);
+				exportSettings.export();
+	    		stage.close();
+	    		App.ShowTempAlert("Export Successful.");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				App.ShowError("Export Failed", "The export failed.");
+			}
     		
     		// TODO: Actually complete the export
         }

@@ -23,8 +23,6 @@ public class Library {
 
 	// This arraylist contains all of the pieces that this library contains
 	private ObservableList<Piece> pieces;
-	// This ObjectProperty contains the currently selected piece
-	private final ObjectProperty<Piece> currentPiece = new SimpleObjectProperty<Piece>(null);
 
 	// This arraylist contains all of the setlists that this library contains
 	private final ObservableList<Setlist> setlists;
@@ -64,18 +62,6 @@ public class Library {
 
 	public ObservableList<Piece> getPieces() {
 		return pieces;
-	}
-	
-	public final ObjectProperty<Piece> getCurrentPieceProperty() {
-		return currentPiece;
-	}
-	
-	public final Piece getCurrentPiece() {
-		return currentPiece.get();
-	}
-	
-	public final void setCurrentPiece(Piece piece) {
-		currentPiece.set(piece);
 	}
 	
 	public final void deletePiece(Piece piece) {

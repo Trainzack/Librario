@@ -1,6 +1,7 @@
 package eli.projects.spprototype.model;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.beans.property.BooleanProperty;
@@ -12,6 +13,9 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
 
 
 public class ExportSettings {
@@ -98,6 +102,33 @@ public class ExportSettings {
 		for (@SuppressWarnings("rawtypes") ObservableValue p : validityProperties ) {
 			p.addListener((obs, oldValue, newValue) -> evaluateValidity());
 		}
+		
+	}
+	
+	/**
+	 * This method executes the export that the settings found in this class control.
+	 * @throws IOException 
+	 */
+	public void export() throws IOException {
+		
+		// TODO: Observe export grouping settings
+		
+		PDDocument document = new PDDocument();
+		
+		PDPage page1 = new PDPage();
+		
+		document.addPage(page1);
+		
+		
+		File destination = this.getExportDestination();
+		
+		if (destination.isDirectory()) {
+			destination = new File(destination, "ossia-test-output.pdf");
+		}
+		
+		document.save(destination);
+		
+		document.close();
 		
 	}
 	

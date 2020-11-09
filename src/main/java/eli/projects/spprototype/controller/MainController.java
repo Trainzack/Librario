@@ -5,6 +5,7 @@ import eli.projects.spprototype.Utility;
 import eli.projects.spprototype.model.*;
 import eli.projects.spprototype.model.ExportSettings.SourceSelection;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
@@ -122,7 +123,7 @@ public class MainController {
 		this.stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent event) {
-				boolean userWantsToQuit = App.showConfirmationDialog("Quit?", "Are you sure you want to quit?", "Quit");
+				boolean userWantsToQuit = App.showConfirmationDialog("Quit?", "Are you sure you want to quit Ossia?", "Quit");
 				if (!userWantsToQuit) event.consume();
 			}
 		});
@@ -132,6 +133,11 @@ public class MainController {
 		this.exportSettings = new ExportSettings();
 		
 		/** Piece Table **/
+		
+		// When we type in the search box, update right away.
+		searchFilterField.textProperty().addListener((obs, oldValue, newValue) -> {
+			filterPieceTable();
+		});
 		
 		filteredPieces = new FilteredList<>(library.getPieces());
 		
@@ -143,15 +149,11 @@ public class MainController {
 		
 		libraryPieceTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
-		libraryPieceTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->
-			{ 
-				library.setCurrentPiece(newSelection);
-			});
-		
-		library.getCurrentPieceProperty().addListener((obs, oldPiece, newPiece) -> {
+		libraryPieceTable.getSelectionModel().selectedItemProperty().addListener((obs, oldPiece, newPiece) -> {
 			pieceButtonBar.setDisable(newPiece == null);
 			libraryPieceTable.getSelectionModel().select(newPiece);
 		});
+		
 
 		// Table Columns
 		pieceTitleColumn.setCellValueFactory(new PropertyValueFactory<Piece, String>("title"));
@@ -215,10 +217,10 @@ public class MainController {
 			
 			// When we select a piece on the right, select it in the main tableview.
 			if (newSelection != null) {
+				libraryPieceTable.getSelectionModel().clearSelection();
 				if (sortedPieces.contains(newSelection)) {
-					library.setCurrentPiece(newSelection);
-				} else {
-					library.setCurrentPiece(null);
+					libraryPieceTable.getSelectionModel().select(newSelection);
+					libraryPieceTable.scrollTo(newSelection);
 				}
 				
 			}
@@ -226,10 +228,6 @@ public class MainController {
 		
 		// TODO: push into own class
 		setlistPieceView.setCellFactory(list -> new ReorderableListCell<Piece>() {
-
-		    {
-		    	// Nothing here I guess?
-		    }
 
 		    @Override
 		    protected void updateItem(Piece item, boolean empty) {
@@ -289,7 +287,7 @@ public class MainController {
 	@FXML
 	private void filterPieceTable() {
 		
-		String searchString = searchFilterField.getText().toLowerCase();
+		String searchString = searchFilterField.getText().toLowerCase().trim();
 		if (searchString.isEmpty()) {
 			filteredPieces.setPredicate(piece -> true);
 		} else {
@@ -341,17 +339,24 @@ public class MainController {
 		if (library.getCurrentSetlist() == null) {
 			App.ShowError("Cannot add to list.", "No list is selected. Please select a list and try again.");
 		} else {
-			if (library.getCurrentPiece() == null) {
+			
+			ObservableList<Piece> selection = libraryPieceTable.getSelectionModel().getSelectedItems();
+			
+			if (selection.size() <= 0) {
 				// App.ShowError("Cannot add to list.", "No piece is selected. Please select a piece and try again.");
 			} else {
-				library.getCurrentSetlist().add(library.getCurrentPiece());	
+				for (Piece p : selection) {
+					library.getCurrentSetlist().add(p);	
+				}
 			}
 		}
 	}
 
 	@FXML
 	private void editSelectedPiece() {
-		if (library.getCurrentPiece() == null) {
+		
+		ObservableList<Piece> selection = libraryPieceTable.getSelectionModel().getSelectedItems();
+		if (selection.size() <= 0) {
 			// App.ShowError("Cannot edit piece.", "No piece is selected. Please select a piece and try again.");
 		} else {
 			App.ShowTempAlert("Action not yet implemented!");
@@ -360,17 +365,27 @@ public class MainController {
 
 	@FXML
 	private void deleteSelectedPiece() {
-		if (library.getCurrentPiece() == null) {
+		ObservableList<Piece> selection = libraryPieceTable.getSelectionModel().getSelectedItems();
+		
+		if (selection.size() <= 0) {
 			// App.ShowError("Cannot delete piece.", "No piece is selected. Please select a piece and try again.");
 		} else {
-			Piece selectedPiece = library.getCurrentPiece();
+			
+			String pieceCount = "" + selection.size() + " pieces";
+			
+			if (selection.size() == 1) {
+				pieceCount = selection.get(0).getTitle();
+			}
 			
 			boolean userWantsToDelete = App.showConfirmationDialog("Are you sure?", 
-					"Are you sure you want to delete " + selectedPiece.getTitle() + " from the library?", 
-					"Delete " + selectedPiece.getTitle());
+					"Are you sure you want to delete " + pieceCount + " from the library?", 
+					"Delete " + pieceCount);
 			// TODO: List how many setlists this piece is in, and warn that it will be removed from all of them.
 			if (userWantsToDelete) {
-				library.deletePiece(selectedPiece);
+				// We need to take the items out of the observable list before we start iterating over it, otherwise it skip some when we delete.
+				for (Piece p : selection.toArray(new Piece[selection.size()])) {
+					library.deletePiece(p);
+				}
 			}
 		}
 		
@@ -403,10 +418,12 @@ public class MainController {
 	
 	@FXML
 	private void exportSelectedPiece() {
-		if (library.getCurrentPiece() == null) {
+		ObservableList<Piece> selection = libraryPieceTable.getSelectionModel().getSelectedItems();
+		if (selection.size() <= 0) {
 			App.ShowError("Cannot export piece.", "No piece is selected. Please select a piece and try again.");
 		} else {
-			exportSettings.getSelectedExportPieceProperty().set(library.getCurrentPiece());
+			exportSettings.getSelectedExportPieceProperty().set(selection.get(0));
+			// TODO Undefined behavior here when multiple pieces are selected. Create list? Hmmm...
 			exportSettings.getSelectedSourceProperty().set(SourceSelection.PIECE);
 			
 			openExportPopup();
