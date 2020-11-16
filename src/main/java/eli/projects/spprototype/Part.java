@@ -8,6 +8,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
+import eli.projects.spprototype.model.DocumentAppendable;
 import eli.projects.spprototype.model.Piece;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -23,7 +24,7 @@ import javafx.beans.property.StringProperty;
  *
  */
 
-public class Part {
+public class Part implements DocumentAppendable {
 	
 	// The designation that applies to this piece
 	SimpleObjectProperty<PartDesignation> designation = new SimpleObjectProperty<>(this, "designation");

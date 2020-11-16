@@ -2,10 +2,14 @@ package eli.projects.spprototype.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.controlsfx.control.SearchableComboBox;
 
 import eli.projects.spprototype.App;
+import eli.projects.spprototype.ExportTask;
 import eli.projects.spprototype.model.Ensemble;
 import eli.projects.spprototype.model.ExportGroupType;
 import eli.projects.spprototype.model.ExportSettings;
@@ -14,15 +18,21 @@ import eli.projects.spprototype.model.Library;
 import eli.projects.spprototype.model.PaperSize;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -263,17 +273,47 @@ public class ExportController {
         if (destination == null) {
         	// If they don't select a destination, then cancel the export! 
         } else {
-        	try {
-	        	exportSettings.setExportDestination(destination);
-				exportSettings.export();
-	    		stage.close();
-	    		App.ShowTempAlert("Export Successful.");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				App.ShowError("Export Failed", "The export failed.");
-			}
+        	exportSettings.setExportDestination(destination);
+        	
+        	
+        	stage.close();
+        	
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Exporting");
+    		alert.setHeaderText("Currently exporting, please wait.");
+    		alert.initOwner(stage);
     		
+    		ProgressBar exportProgress = new ProgressBar(0.5);
+    		
+    		alert.setGraphic(exportProgress);
+            
+    		PDRectangle paperDimensions;
+    		
+    		if (exportSettings.getPaperSize() != PaperSize.CUSTOM) {
+    			paperDimensions = exportSettings.getPaperSize().getDimensions();
+    		} else {
+    			paperDimensions = new PDRectangle(10, 10); // TODO: This needs to grab from paperWidth and paperHeight.
+    		}
+    		
+    		ExportTask exportTask = new ExportTask(paperDimensions, library.getPieces(), exportSettings.getExportDestination());
+    		
+    		exportTask.messageProperty().addListener((obs, oldValue, newValue) -> {
+    			alert.setContentText(newValue);
+    		});
+    		
+    		Thread exportThread = new Thread(exportTask);
+    		exportThread.setDaemon(true);
+    		exportThread.start();
+    		
+    		exportProgress.progressProperty().bind(exportTask.progressProperty());
+
+    		
+    		
+    		alert.showAndWait();
+    		
+    		
+    		System.out.println("Done join.");
+		
     		// TODO: Actually complete the export
         }
 		

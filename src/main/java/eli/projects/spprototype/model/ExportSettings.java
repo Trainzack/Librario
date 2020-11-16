@@ -6,10 +6,12 @@ import java.util.ArrayList;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.FloatProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableFloatValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -110,50 +112,6 @@ public class ExportSettings {
 		// Check validity after every setting change
 		for (@SuppressWarnings("rawtypes") ObservableValue p : validityProperties ) {
 			p.addListener((obs, oldValue, newValue) -> evaluateValidity());
-		}
-		
-	}
-	
-	/**
-	 * This method executes the export that the settings found in this class control.
-	 * @throws IOException 
-	 */
-	public void export() throws IOException {
-		
-		// TODO: Observe export grouping settings
-		
-		PDDocument document = new PDDocument();
-		
-		PDRectangle paperDimensions;
-		
-		if (this.paperSize.get() != PaperSize.CUSTOM) {
-			paperDimensions = this.paperSize.get().getDimensions();
-		} else {
-			paperDimensions = new PDRectangle(10, 10); // TODO: This needs to grab from paperWidth and paperHeight.
-		}
-		
-		// TODO: if doing multiple pages in one, adjust dimensions here?
-		
-		for (Piece pi : this.library.getPieces()) {
-			for (Part pa : pi.getParts()) {
-				pa.appendPages(paperDimensions, document);
-			}
-		}
-		
-		
-		File destination = this.getExportDestination();
-		
-		if (destination.isDirectory()) {
-			destination = new File(destination, "ossia-test-output.pdf");
-		}
-		
-		try {
-			document.save(destination);	
-		} 
-		
-		
-		finally {
-			document.close();
 		}
 		
 	}

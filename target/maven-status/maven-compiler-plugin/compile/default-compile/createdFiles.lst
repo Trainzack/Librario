@@ -19,6 +19,7 @@ eli\projects\spprototype\Part.class
 eli\projects\spprototype\model\PieceGroup.class
 eli\projects\spprototype\OutputPlanner.class
 eli\projects\spprototype\model\Piece.class
+eli\projects\spprototype\ExportTask.class
 eli\projects\spprototype\controller\ReorderableListCell.class
 eli\projects\spprototype\model\PaperSize.class
 eli\projects\spprototype\controller\ExportController.class
