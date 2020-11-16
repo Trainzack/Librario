@@ -12,6 +12,7 @@ eli\projects\spprototype\PagePlan.class
 eli\projects\spprototype\model\ExportSettings.class
 eli\projects\spprototype\model\Section.class
 eli\projects\spprototype\controller\ExportGroupListCell$1.class
+eli\projects\spprototype\controller\MainController$4.class
 eli\projects\spprototype\model\PartGroup.class
 eli\projects\spprototype\model\Library.class
 eli\projects\spprototype\model\SectionGroup.class
@@ -22,6 +23,7 @@ eli\projects\spprototype\model\Piece.class
 eli\projects\spprototype\ExportTask.class
 eli\projects\spprototype\controller\ReorderableListCell.class
 eli\projects\spprototype\model\PaperSize.class
+eli\projects\spprototype\DocumentSource.class
 eli\projects\spprototype\controller\ExportController.class
 eli\projects\spprototype\controller\MainController$1.class
 eli\projects\spprototype\model\Instrument.class

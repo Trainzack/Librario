@@ -1,12 +1,15 @@
 package eli.projects.spprototype.controller;
 
 import eli.projects.spprototype.App;
+import eli.projects.spprototype.DocumentSource;
 import eli.projects.spprototype.Part;
 import eli.projects.spprototype.PartDesignation;
 import eli.projects.spprototype.Utility;
 import eli.projects.spprototype.model.*;
 import eli.projects.spprototype.model.ExportSettings.SourceSelection;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -17,12 +20,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Callback;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.controlsfx.control.tableview2.TableView2;
 
@@ -214,6 +220,25 @@ public class MainController {
 		
 		piecePartDesignationColumn.setCellValueFactory(new PropertyValueFactory<Part, PartDesignation>("designation"));
 		piecePartPageCountColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("pages"));
+		
+		TableColumn<Part, String> documentSourceColum = new TableColumn<>();
+		documentSourceColum.setText("PDF");
+		piecePartTable.getColumns().add(documentSourceColum);
+		
+		documentSourceColum.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Part, String>, ObservableValue<String>>() {
+			
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Part, String> param) {
+				// TODO Auto-generated method stub
+				String out = "";
+				for (DocumentSource d : param.getValue().getDocumentSources()) {
+					out += d.toString();
+				}
+				
+				return new SimpleStringProperty(out);
+			}
+
+		});
 		
 		
 		

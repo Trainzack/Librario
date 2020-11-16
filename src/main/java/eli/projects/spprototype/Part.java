@@ -3,6 +3,7 @@ package eli.projects.spprototype;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -21,9 +22,12 @@ import eli.projects.spprototype.model.DocumentAppendable;
 import eli.projects.spprototype.model.Piece;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * This class is one part of a specific piece.
@@ -35,13 +39,18 @@ import javafx.beans.property.StringProperty;
 
 public class Part implements DocumentAppendable {
 	
+	private static Random random = new Random();
+	
 	// The designation that applies to this piece
 	SimpleObjectProperty<PartDesignation> designation = new SimpleObjectProperty<>(this, "designation");
 	
 	// Which piece this part belongs to
 	private Piece piece;
 
-	SimpleIntegerProperty pages = new SimpleIntegerProperty(this, "pages");
+	private SimpleIntegerProperty pages = new SimpleIntegerProperty(this, "pages");
+	
+	private ObservableList<DocumentSource> documentSources = FXCollections.observableArrayList(new ArrayList<DocumentSource>());
+	
 	
 	// TODO: how to represent connection to PDF file?
 
@@ -56,6 +65,14 @@ public class Part implements DocumentAppendable {
 		this.piece = piece;
 		
 		this.pages.set(1); //TODO
+		
+		//TODO do document sources list listener to update page count
+		this.documentSources.add(new DocumentSource(new File("files/Test/" + random.nextInt(10) + ".pdf"), 0));
+		if (random.nextInt(2) == 0) {
+			this.pages.set(2);
+			this.documentSources.add(new DocumentSource(new File("files/Test/" + random.nextInt(10) + ".pdf"), 0));
+		}
+		
 	}
 	
 	// TODO: A method to assign certain pages from a PDF to this part.
@@ -84,8 +101,16 @@ public class Part implements DocumentAppendable {
 		return piece;
 	}
 	
-	public IntegerProperty getPageCount() {
+	public ReadOnlyIntegerProperty pagesProperty() {
 		return pages;
+	}
+	
+	public ObservableList<DocumentSource> getDocumentSources() {
+		return documentSources;
+	}
+	
+	public boolean noPDFAttached() {
+		return this.documentSources.size() <= 0;
 	}
 
 	public void appendPages(PDRectangle pageSize, PDDocument target) throws IOException {
@@ -94,14 +119,10 @@ public class Part implements DocumentAppendable {
 		
 		r.nextFloat();
 		
-		File samplePage = new File("files/Test/" + r.nextInt(10) + ".pdf");
 		
-		for (int i = 0; i < this.getPageCount().get(); i++) {
+		for (DocumentSource d : this.documentSources) {
 			
-			PDDocument source = PDDocument.load(samplePage);
-
 			PDPage page = new PDPage(pageSize);
-			
 			target.addPage(page);
 			
             try (PDPageContentStream contents = new PDPageContentStream(target, page))
@@ -114,37 +135,37 @@ public class Part implements DocumentAppendable {
                 
                 // Create a Form XObject from the source document using LayerUtility
                 LayerUtility layerUtility = new LayerUtility(target);
-                PDFormXObject form = layerUtility.importPageAsForm(source, 0);
                 
-                Matrix matrix = Matrix.getScaleInstance(0.5f, 0.5f);
+                PDFormXObject form = d.getDocumentForm(layerUtility);
+
+                Matrix matrix = Matrix.getScaleInstance(1.2f, 1.2f);
                 contents.transform(matrix);
                 contents.drawForm(form);
             }
-            
-            source.close();
+		}
+		
+		if (this.noPDFAttached()) {
 			
-			/*
-			PDPageContentStream contentStream = new PDPageContentStream(target, page1);
-
-			contentStream.setLeading(14.5f);
+			PDPage page = new PDPage(pageSize);
+			target.addPage(page);
 			
-			contentStream.moveTo(100, pageSize.getUpperRightY() - 100);
-			contentStream.beginText();
-			contentStream.setFont(org.apache.pdfbox.pdmodel.font.PDType1Font.TIMES_ROMAN, 16);
-			contentStream.newLineAtOffset(100, pageSize.getUpperRightY() - 100);
-			contentStream.showText("Placeholder!");
-			contentStream.newLine();
-			contentStream.showText("Piece: " + this.getPiece().getTitle());
-			contentStream.newLine();
-			contentStream.showText("Part: " + this.designation.get().toString());
-			contentStream.newLine();
-			contentStream.showText("Page: " + (i+1) + "/" + this.getPageCount().get());
-			contentStream.endText();
-			
-			contentStream.close();
-			
-			source.close();
-			*/
+			try (PDPageContentStream contentStream = new PDPageContentStream(target, page))
+			{
+				contentStream.setLeading(14.5f);
+				
+				contentStream.moveTo(100, pageSize.getUpperRightY() - 100);
+				contentStream.beginText();
+				contentStream.setFont(org.apache.pdfbox.pdmodel.font.PDType1Font.TIMES_ROMAN, 16);
+				contentStream.newLineAtOffset(100, pageSize.getUpperRightY() - 100);
+				contentStream.showText("Placeholder!");
+				contentStream.newLine();
+				contentStream.showText("Piece: " + this.getPiece().getTitle());
+				contentStream.newLine();
+				contentStream.showText("Part: " + this.designation.get().toString());
+				contentStream.endText();
+				
+				contentStream.close();
+			}
 		}
 		
 	}
@@ -159,9 +180,6 @@ public class Part implements DocumentAppendable {
 		return this.designation;
 	}
 	
-	public final IntegerProperty pagesProperty() {
-		return this.pages;
-	}
 	
 	@Override
 	public String toString() {

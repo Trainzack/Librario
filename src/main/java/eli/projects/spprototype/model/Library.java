@@ -143,10 +143,14 @@ public class Library {
 	 * Generates a library with fake testing data
 	 * @return
 	 */
-	public static Library generateTestingLibrary() {
+	public static Library generateTestingLibrary(int limit) {
 		ArrayList<Piece> pieces = new ArrayList<Piece>();
+		
+		int j = 0;
 		for (Piece p : Piece.getAllFakePieces()) {
+			if (++j > limit) break;
 			pieces.add(p);
+			
 		}
 		
 		ArrayList<Setlist> setlists = new ArrayList<Setlist>(1);

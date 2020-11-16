@@ -21,9 +21,9 @@ public class ExportTask extends Task<Void> {
 	
 	/**
 	 * 
-	 * @param paperDimensions
-	 * @param pieces
-	 * @param exportDestination
+	 * @param paperDimensions The size of the paper we are printing on
+	 * @param pieces The list of pieces that we want to export, in order
+	 * @param exportDestination The destination we want to export those pieces
 	 */
 	public ExportTask(PDRectangle paperDimensions, List<Piece> pieces, File exportDestination) {
 		super();
@@ -47,8 +47,8 @@ public class ExportTask extends Task<Void> {
 		
 		// TODO: Is there a cleaner way to get the number of pages for the progress bar?
 		
+		// Iterate over all of the pieces to find out the number of parts we need to add
 		int numberOfPagesToAdd = 0;
-		
 		for (Piece pi : pieces) {
 			for (Part pa : pi.getParts()) {
 				numberOfPagesToAdd += 1;
@@ -57,6 +57,7 @@ public class ExportTask extends Task<Void> {
 		
 		int pagesComplete = 0;
 		
+		// Iterate over all the parts to actually add them to the document
 		for (Piece pi : pieces) {
 			for (Part pa : pi.getParts()) {
                 if (isCancelled()) {

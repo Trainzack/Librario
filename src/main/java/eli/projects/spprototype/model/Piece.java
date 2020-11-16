@@ -155,7 +155,7 @@ public class Piece {
 					// Create a random number of parts [0-3] for each instrument.
 					for (int j = 0; j < r.nextInt(4); j++) {
 						Part p = new Part(new PartDesignation(j + 1, inst), nextPiece);
-						p.pagesProperty().set(r.nextInt(2) + 1);
+
 						nextPiece.parts.add(p);
 					}
 				}

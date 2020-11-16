@@ -13,6 +13,7 @@ public class Utility {
 	
 	/**
 	 * From the most copied stackoverflow post in history
+	 * @author aioobe & 
 	 * @param bytes
 	 * @return
 	 */
@@ -26,6 +27,8 @@ public class Utility {
 	        ci.next();
 	    }
 	    return String.format("%.1f %cB", bytes / 1000.0, ci.current());
+	    
 	}
+	
 }
 
