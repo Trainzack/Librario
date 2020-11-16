@@ -59,12 +59,19 @@ public class ExportTask extends Task<Void> {
 		
 		for (Piece pi : pieces) {
 			for (Part pa : pi.getParts()) {
-				updateMessage("Working on " + pi.getTitle() + " : " + pa.toString());
+                if (isCancelled()) {
+                    break;
+                }
+				updateMessage("Working on " + pa.toString());
 				
 				pa.appendPages(paperDimensions, document);
 				pagesComplete += 1;
-				updateProgress(pagesComplete / (0.0f + numberOfPagesToAdd), 1.1);
+				updateProgress(pagesComplete, numberOfPagesToAdd);
 			}
+            if (isCancelled()) {
+                updateMessage("Cancelled");
+                break;
+            }
 		}
 		
 		
@@ -74,15 +81,16 @@ public class ExportTask extends Task<Void> {
 		
 		try {
 			updateMessage("Saving to " + exportDestination.getPath());
-			updateProgress(1.0, 1.1);
+			updateProgress(-1, pagesComplete);
 			document.save(exportDestination);
 		} 
 		
 		
 		finally {
-			updateMessage("Export complete");
+			
+			updateMessage("Export complete. Size: " + Utility.humanReadableByteCountSI(exportDestination.length()));
 			document.close();
-			updateProgress(1.0, 1.0);
+			updateProgress(1, 1);
 		}
 		
 		

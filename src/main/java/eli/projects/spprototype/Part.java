@@ -1,12 +1,21 @@
 package eli.projects.spprototype;
 
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Random;
 
+import org.apache.pdfbox.multipdf.LayerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.common.PDStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
+import org.apache.pdfbox.util.Matrix;
 
 import eli.projects.spprototype.model.DocumentAppendable;
 import eli.projects.spprototype.model.Piece;
@@ -78,13 +87,44 @@ public class Part implements DocumentAppendable {
 	public IntegerProperty getPageCount() {
 		return pages;
 	}
-	
-	public void appendPages(PDRectangle pageSize, PDDocument doc) throws IOException {
+
+	public void appendPages(PDRectangle pageSize, PDDocument target) throws IOException {
+		
+		Random r = new Random();
+		
+		r.nextFloat();
+		
+		File samplePage = new File("files/Test/" + r.nextInt(10) + ".pdf");
 		
 		for (int i = 0; i < this.getPageCount().get(); i++) {
-			PDPage page1 = new PDPage(pageSize);
-			doc.addPage(page1);
-			PDPageContentStream contentStream = new PDPageContentStream(doc, page1);
+			
+			PDDocument source = PDDocument.load(samplePage);
+
+			PDPage page = new PDPage(pageSize);
+			
+			target.addPage(page);
+			
+            try (PDPageContentStream contents = new PDPageContentStream(target, page))
+            {
+                contents.beginText();
+                contents.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                contents.newLineAtOffset(2, PDRectangle.LETTER.getHeight() - 12);
+                contents.showText("Piece: " + this.getPiece().getTitle());
+                contents.endText();
+                
+                // Create a Form XObject from the source document using LayerUtility
+                LayerUtility layerUtility = new LayerUtility(target);
+                PDFormXObject form = layerUtility.importPageAsForm(source, 0);
+                
+                Matrix matrix = Matrix.getScaleInstance(0.5f, 0.5f);
+                contents.transform(matrix);
+                contents.drawForm(form);
+            }
+            
+            source.close();
+			
+			/*
+			PDPageContentStream contentStream = new PDPageContentStream(target, page1);
 
 			contentStream.setLeading(14.5f);
 			
@@ -103,6 +143,8 @@ public class Part implements DocumentAppendable {
 			
 			contentStream.close();
 			
+			source.close();
+			*/
 		}
 		
 	}
@@ -123,7 +165,7 @@ public class Part implements DocumentAppendable {
 	
 	@Override
 	public String toString() {
-		return this.piece.getTitle() + " " + this.designation.get().toString();
+		return this.piece.getTitle() + ": " + this.designation.get().toString();
 	}
 	
 	

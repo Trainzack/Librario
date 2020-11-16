@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Optional;
 
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.controlsfx.control.SearchableComboBox;
@@ -21,9 +22,11 @@ import eli.projects.spprototype.model.Setlist;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
@@ -278,10 +281,15 @@ public class ExportController {
         	
         	stage.close();
         	
-    		Alert alert = new Alert(AlertType.INFORMATION);
+    		Alert alert = new Alert(AlertType.CONFIRMATION);
     		alert.setTitle("Exporting");
     		alert.setHeaderText("Currently exporting, please wait.");
     		alert.initOwner(stage);
+    		
+    		Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    		Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+    		
+    		okButton.setDisable(true);
     		
     		ProgressBar exportProgress = new ProgressBar(0.5);
     		
@@ -300,21 +308,30 @@ public class ExportController {
     		exportTask.messageProperty().addListener((obs, oldValue, newValue) -> {
     			alert.setContentText(newValue);
     		});
+
+    		exportProgress.progressProperty().bind(exportTask.progressProperty());
+    		exportTask.stateProperty().addListener((obs, oldState, currentState) -> {
+    			if (currentState == Worker.State.SUCCEEDED || currentState == Worker.State.FAILED) {
+    				okButton.setDisable(false);
+    				cancelButton.setDisable(true);
+    			}
+    		});
     		
     		Thread exportThread = new Thread(exportTask);
     		exportThread.setDaemon(true);
     		exportThread.start();
     		
-    		exportProgress.progressProperty().bind(exportTask.progressProperty());
 
     		
     		
-    		alert.showAndWait();
+    		
+    		Optional<ButtonType> result = alert.showAndWait();
+    		
+    		if (result.get() == ButtonType.CANCEL) {
+    			exportTask.cancel();
+    		}
     		
     		
-    		System.out.println("Done join.");
-		
-    		// TODO: Actually complete the export
         }
 		
 	}
