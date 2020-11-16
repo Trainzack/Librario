@@ -1,56 +1,85 @@
 package eli.projects.spprototype.model;
 
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+
 public enum PaperSize {
 	
-	LETTER("Letter", 215.9, 279.4),
-	FOLIO("Folio/C4", 228.6, 304.8),
-	A4("A4", 210, 297),
-	A5("A5", 148, 210),
-	B4("B4", 240, 353),
-	B5("B5", 176, 250),
-	B6("B6", 125, 176),
-	CUSTOM("Custom", -1, -1);
+	LETTER("Letter", PDRectangle.LETTER),
+	LEGAL("Legal", PDRectangle.LEGAL),
+	FOLIO("Folio/C4", 228.6f, 304.8f),
+	A0("A0", PDRectangle.A0),
+	A1("A1", PDRectangle.A1),
+	A2("A2", PDRectangle.A2),
+	A3("A3", PDRectangle.A3),
+	A4("A4", PDRectangle.A4),
+	A5("A5", PDRectangle.A5),
+	A6("A6", PDRectangle.A6),
+	CUSTOM("Custom", null);
 	
 	
 	
 	private final String name;
 	
 	// Measurements stored as mm
-	private final double width;
-	private final double height;
+	private final PDRectangle dimensions;
 	
-	PaperSize(String name, double width, double height) {
+	PaperSize(String name, PDRectangle dimensions) {
 		this.name = name;
-		this.width = width;
-		this.height = height;
+		this.dimensions = dimensions;
+	}
+	
+	PaperSize(String name, float width, float height) {
+		this(name, new PDRectangle(width, height));
 	}
 	
 	public String getName() {
 		return this.name;
 	}
 	
+	public PDRectangle getDimensions() {
+		return this.dimensions;
+	}
+	
 	public double getWidthmm() {
-		return this.width;
+		
+		if (this.dimensions == null) return -1;
+		
+		return this.dimensions.getWidth()*25.4 / 72;
 	}
 	
 	public double getHeightmm() {
-		return this.height;
+		
+		if (this.dimensions == null) return -1;
+		
+		return this.dimensions.getHeight()*25.4 / 72;
 	}
 	
 	public double getWidthInch() {
-		return this.width * 25.4;
+		
+		if (this.dimensions == null) return -1;
+		
+		return this.dimensions.getWidth() / 72;
 	}
 	
 	public double getHeightInch() {
-		return this.height * 25.4;
+		
+		if (this.dimensions == null) return -1;
+		
+		return this.dimensions.getHeight() / 72;
 	}
 	
 	public double getWidthPt() {
-		return this.width * 2.834;
+		
+		if (this.dimensions == null) return -1;
+		
+		return this.dimensions.getWidth();
 	}
 	
 	public double getHeightPt() {
-		return this.height * 2.834;
+		
+		if (this.dimensions == null) return -1;
+		
+		return this.dimensions.getHeight();
 	}
 	
 	public String toString() {

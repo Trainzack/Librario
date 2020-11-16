@@ -1,6 +1,8 @@
 package eli.projects.spprototype.controller;
 
 import eli.projects.spprototype.App;
+import eli.projects.spprototype.Part;
+import eli.projects.spprototype.PartDesignation;
 import eli.projects.spprototype.Utility;
 import eli.projects.spprototype.model.*;
 import eli.projects.spprototype.model.ExportSettings.SourceSelection;
@@ -21,6 +23,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+
+import org.controlsfx.control.tableview2.TableView2;
 
 /**
  * Controls the Library
@@ -56,7 +60,7 @@ public class MainController {
 	
 	/** Piece Table **/
 	@FXML
-	private TableView<Piece> libraryPieceTable;
+	private TableView2<Piece> libraryPieceTable;
 
 	@FXML
 	private TableColumn<Piece, String> pieceTitleColumn;
@@ -72,6 +76,15 @@ public class MainController {
 	@FXML
 	private Node pieceButtonBar;
 	
+	/** Piece Details **/
+	
+	@FXML
+	private TableView2<Part> piecePartTable;
+	
+	@FXML
+	private TableColumn<Part, PartDesignation> piecePartDesignationColumn;
+	@FXML
+	private TableColumn<Part, Integer> piecePartPageCountColumn;
 	
 	/** Lists Section **/
 
@@ -130,7 +143,7 @@ public class MainController {
 		
 		
 		
-		this.exportSettings = new ExportSettings();
+		this.exportSettings = new ExportSettings(this.library);
 		
 		/** Piece Table **/
 		
@@ -151,7 +164,16 @@ public class MainController {
 		
 		libraryPieceTable.getSelectionModel().selectedItemProperty().addListener((obs, oldPiece, newPiece) -> {
 			pieceButtonBar.setDisable(newPiece == null);
-			libraryPieceTable.getSelectionModel().select(newPiece);
+			libraryPieceTable.getSelectionModel().select(newPiece); // Why does this line exist?
+			
+			if (newPiece != null) {
+				String parts = "Parts: ";
+				
+				for (Part p : newPiece.getParts()) {
+					parts += p.getDesignation().toString() + ", ";
+				}
+			}
+			
 		});
 		
 
@@ -172,6 +194,27 @@ public class MainController {
 				
 			}
 		});
+		
+		TableColumn<Piece, Integer> piecePartCountColum = new TableColumn<Piece, Integer>("Parts");
+		piecePartCountColum.setCellValueFactory(new PropertyValueFactory<Piece, Integer>("partCount"));
+		libraryPieceTable.getColumns().add(piecePartCountColum);
+		piecePartCountColum.setVisible(false);
+		
+		/** Piece Details **/
+
+		libraryPieceTable.getSelectionModel().selectedItemProperty().addListener((obs, oldPiece, newPiece) -> {
+			
+			if (newPiece != null) {
+				piecePartTable.setItems(newPiece.getParts());
+			} else {
+				piecePartTable.setItems(null);
+			}
+			
+		});
+		
+		piecePartDesignationColumn.setCellValueFactory(new PropertyValueFactory<Part, PartDesignation>("designation"));
+		piecePartPageCountColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("pages"));
+		
 		
 		
 		/** Setlists **/

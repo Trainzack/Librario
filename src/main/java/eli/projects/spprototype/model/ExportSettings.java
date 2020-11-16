@@ -16,6 +16,9 @@ import javafx.collections.ObservableList;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+
+import eli.projects.spprototype.Part;
 
 
 public class ExportSettings {
@@ -40,6 +43,8 @@ public class ExportSettings {
 		ENSEMBLE,
 		INSTRUMENT;
 	}
+	
+	private Library library;
 
 
 	// This controls where we want to export things to.
@@ -63,7 +68,7 @@ public class ExportSettings {
 	
 	
 	// Export Grouping
-	private ObservableList<ExportGroup> exportGroups;
+	private ObservableList<ExportGroupType> exportGroups;
 	
 	/**This list contains any properties that, when changed, may change the validity of the settings. **/ 
 	@SuppressWarnings("rawtypes")
@@ -79,8 +84,12 @@ public class ExportSettings {
 		};
 	
 	@SuppressWarnings("unchecked")
-	public ExportSettings() {
+	public ExportSettings(Library l) {
 
+		this.library = l; //TODO: Is it a good idea to couple these like this?
+		
+		this.paperSize.set(PaperSize.LETTER);
+		
 		paperSize.addListener((obs, oldValue, newValue) -> {
 			if (newValue != PaperSize.CUSTOM) {
 				this.paperWidth.set(newValue.getWidthmm());
@@ -96,7 +105,7 @@ public class ExportSettings {
 		//TODO do the same for paper height
 		//TODO paper size width change not done: Need to update spinners
 		
-		exportGroups = FXCollections.observableArrayList(ExportGroup.getOneOfEachExportGroup());
+		exportGroups = FXCollections.observableArrayList(ExportGroupType.getOneOfEachExportGroupType());
 		
 		// Check validity after every setting change
 		for (@SuppressWarnings("rawtypes") ObservableValue p : validityProperties ) {
@@ -115,9 +124,21 @@ public class ExportSettings {
 		
 		PDDocument document = new PDDocument();
 		
-		PDPage page1 = new PDPage();
+		PDRectangle paperDimensions;
 		
-		document.addPage(page1);
+		if (this.paperSize.get() != PaperSize.CUSTOM) {
+			paperDimensions = this.paperSize.get().getDimensions();
+		} else {
+			paperDimensions = new PDRectangle(10, 10); // TODO: This needs to grab from paperWidth and paperHeight.
+		}
+		
+		// TODO: if doing multiple pages in one, adjust dimensions here?
+		
+		for (Piece pi : this.library.getPieces()) {
+			for (Part pa : pi.getParts()) {
+				pa.appendPages(paperDimensions, document);
+			}
+		}
 		
 		
 		File destination = this.getExportDestination();
@@ -264,7 +285,7 @@ public class ExportSettings {
 
 	/** Export Groups **/
 	
-	public final ObservableList<ExportGroup> getExportGroups() {
+	public final ObservableList<ExportGroupType> getExportGroups() {
 		return exportGroups;
 	}
 	

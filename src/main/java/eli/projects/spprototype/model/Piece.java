@@ -5,10 +5,14 @@ import java.io.FilenameFilter;
 import java.util.Random;
 
 import eli.projects.spprototype.Part;
+import eli.projects.spprototype.PartDesignation;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 
 /**
  * This class represents one single piece of music.
@@ -41,6 +45,8 @@ public class Piece {
 	StringProperty year = new SimpleStringProperty(this, "year");
 	// The estimated duration of the piece in seconds
 	SimpleIntegerProperty duration = new SimpleIntegerProperty(this, "duration");
+	// The number of parts this piece has.
+	SimpleIntegerProperty partCount = new SimpleIntegerProperty(this, "partCount");
 	
 	
 	//TODO: Figure out what kind of metadata is desirable and how to store it here
@@ -55,7 +61,7 @@ public class Piece {
 	// Length of piece
 	// Key
 	
-	// private Part[] parts;
+	private ObservableList<Part> parts;
 
 	/**
 	 * This constructor creates a piece from a folder full of PDF files (like the kind I used to make)
@@ -93,6 +99,15 @@ public class Piece {
 		this.composer.set(composer);
 		this.year.set(year2);
 		this.duration.set(duration);
+		
+		this.parts = FXCollections.observableArrayList();
+		
+		// When we change the number of parts, update the part count property.
+		this.parts.addListener((ListChangeListener<? super Part>)(Change) -> {
+			this.partCount.set(parts.size());
+		});
+		
+		
 	}
 	
 	private static Piece[] fake_pieces;
@@ -133,7 +148,18 @@ public class Piece {
 				String arranger = SAMPLE_ARRANGERS[i];
 				String year = SAMPLE_YEARS[i];
 				int duration = r.nextInt(800) + 100;
-				fake_pieces[i] = new Piece(name, composer, arranger, year, duration);
+				Piece nextPiece = new Piece(name, composer, arranger, year, duration);
+				fake_pieces[i] = nextPiece;
+				
+				for (Instrument inst : Instrument.getInstruments()) {
+					// Create a random number of parts [0-3] for each instrument.
+					for (int j = 0; j < r.nextInt(4); j++) {
+						Part p = new Part(new PartDesignation(j + 1, inst), nextPiece);
+						p.pagesProperty().set(r.nextInt(2) + 1);
+						nextPiece.parts.add(p);
+					}
+				}
+				
 			}
 		}
 	}
@@ -162,6 +188,13 @@ public class Piece {
 		return this.duration;
 	}
 	
+	public final ObservableList<Part> getParts() {
+		return this.parts;
+	}
+	
+	public final IntegerProperty partCountProperty() {
+		return this.partCount;
+	}
 	
 	public String getTitle() {
 		return this.compositionTitle.getValue();

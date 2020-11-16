@@ -1,6 +1,6 @@
 package eli.projects.spprototype.controller;
 
-import eli.projects.spprototype.model.ExportGroup;
+import eli.projects.spprototype.model.ExportGroupType;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,7 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
-public class ExportGroupListCell extends ReorderableListCell<ExportGroup> {
+public class ExportGroupListCell extends ReorderableListCell<ExportGroupType> {
 
 	private CheckBox enabledBox;
 	private HBox controlBox;
@@ -22,7 +22,7 @@ public class ExportGroupListCell extends ReorderableListCell<ExportGroup> {
 	private Label controlLabel2;
 	private ChoiceBox<String> groupTypeChoiceBox;
 	
-	private ExportGroup group;
+	private ExportGroupType group;
 	
 	private ChangeListener<? super Number> orderListener; 
 	
@@ -67,7 +67,7 @@ public class ExportGroupListCell extends ReorderableListCell<ExportGroup> {
 				// Rather than fixing this (by keeping a reference to the listener we create and removing it when necessary), I will simply prevent it.
 				throw new Error("Cannot change ExportGroupListCell listview");
 			}
-			newList.getItems().addListener((ListChangeListener<ExportGroup>)(change) -> {
+			newList.getItems().addListener((ListChangeListener<ExportGroupType>)(change) -> {
 				updateListItemOrder();
 			});
 		});
@@ -107,7 +107,7 @@ public class ExportGroupListCell extends ReorderableListCell<ExportGroup> {
 	private void updateListItemOrder() {
 
 		int enabledCount = 0;
-		for (ExportGroup g : this.getListView().getItems()) {
+		for (ExportGroupType g : this.getListView().getItems()) {
 			if (g.isEnabled()) {
 				g.getOrderProperty().set(++enabledCount);
 			} else {
@@ -118,7 +118,7 @@ public class ExportGroupListCell extends ReorderableListCell<ExportGroup> {
 	}
 	
 	@Override
-	public void updateItem(ExportGroup item, boolean empty) {
+	public void updateItem(ExportGroupType item, boolean empty) {
         super.updateItem(item, empty);
         setEditable(false);
         

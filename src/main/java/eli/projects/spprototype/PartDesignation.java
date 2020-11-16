@@ -8,7 +8,7 @@ import eli.projects.spprototype.model.Instrument.InstrumentDoesNotExistException
  * 
  * Specifically, we want the instrument and the numeral.
  * 
- * Instances of this class should be immutable.
+ * Instances of this class are immutable.
  * 
  * @author Eli
  *

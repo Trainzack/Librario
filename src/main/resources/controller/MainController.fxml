@@ -203,113 +203,158 @@
                               </VBox>
                            </children>
                         </VBox>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <SplitPane dividerPositions="0.5" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <items>
-                                    <VBox prefHeight="551.0" prefWidth="222.0" styleClass="orgbox">
+                        <TabPane>
+                           <tabs>
+                              <Tab closable="false" styleClass="header2" text="Piece Details">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Lists" textAlignment="CENTER" wrapText="false">
-                                             <font>
-                                                <Font size="18.0" fx:id="x51" />
-                                             </font>
-                                             <graphic>
-                                                <FontIcon iconLiteral="enty-list" text="" />
-                                             </graphic>
-                                          </Label>
-                                          <VBox prefHeight="854.0" prefWidth="462.0">
+                                          <VBox prefHeight="551.0" prefWidth="222.0" styleClass="orgbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <ToolBar prefHeight="40.0" prefWidth="200.0">
-                                                  <items>
-                                                      <Button mnemonicParsing="false" onAction="#newList" text="Create New List" textOverrun="WORD_ELLIPSIS">
-                                                         <graphic>
-                                                            <FontIcon iconLiteral="enty-plus" />
-                                                         </graphic>
-                                                      </Button>
-                                                  </items>
-                                                </ToolBar>
-                                                <ListView fx:id="setlistView" prefHeight="821.0" prefWidth="462.0">
-                                                   <contextMenu>
-                                                      <ContextMenu>
-                                                        <items>
-                                                            <MenuItem mnemonicParsing="false" onAction="#deleteList" text="Delete">
-                                                               <graphic>
-                                                                  <FontIcon iconLiteral="enty-trash" />
-                                                               </graphic>
-                                                            </MenuItem>
-                                                            <MenuItem mnemonicParsing="false" onAction="#exportList" text="Export">
-                                                               <graphic>
-                                                                  <FontIcon iconLiteral="enty-export" />
-                                                               </graphic>
-                                                            </MenuItem>
-                                                        </items>
-                                                      </ContextMenu>
-                                                   </contextMenu>
-                                                </ListView>
-                                                <ToolBar fx:id="setlistButtonBar" disable="true" prefHeight="40.0" prefWidth="200.0">
-                                                  <items>
-                                                      <Button mnemonicParsing="false" onAction="#deleteList" text="Delete List">
-                                                         <graphic>
-                                                            <FontIcon iconLiteral="enty-trash" />
-                                                         </graphic>
-                                                      </Button>
-                                                      <Button mnemonicParsing="false" onAction="#exportList" text="Export List">
-                                                         <graphic>
-                                                            <FontIcon iconLiteral="enty-export" />
-                                                         </graphic>
-                                                      </Button>
-                                                  </items>
-                                                </ToolBar>
+                                                <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Selected Piece" textAlignment="CENTER" wrapText="false">
+                                                   <font>
+                                                      <Font size="18.0" fx:id="x512" />
+                                                   </font>
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="enty-music" />
+                                                   </graphic>
+                                                </Label>
+                                                <VBox prefHeight="854.0" prefWidth="462.0">
+                                                   <children>
+                                                      <ToolBar prefHeight="40.0" prefWidth="200.0" />
+                                                      <TableView2 fx:id="piecePartTable" editable="true">
+                                                         <columns>
+                                                            <TableColumn fx:id="piecePartDesignationColumn" editable="false" prefWidth="75.0" text="Part" />
+                                                            <TableColumn fx:id="piecePartPageCountColumn" editable="false" prefWidth="75.0" text="Pages" />
+                                                         </columns>
+                                                      </TableView2>
+                                                   </children>
+                                                </VBox>
                                              </children>
                                           </VBox>
                                        </children>
-                                    </VBox>
-                                    <VBox fx:id="listEditBox" disable="true" layoutX="10.0" layoutY="10.0" prefHeight="551.0" prefWidth="222.0" styleClass="orgbox">
+                                    </AnchorPane>
+                                </content>
+                                 <graphic>
+                                    <FontIcon iconLiteral="enty-music" />
+                                 </graphic>
+                              </Tab>
+                              <Tab closable="false" styleClass="header2" text="Lists">
+                                 <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Selected List" textAlignment="CENTER" wrapText="false">
-                                             <font>
-                                                <Font size="18.0" fx:id="x511" />
-                                             </font>
-                                             <graphic>
-                                                <FontIcon iconLiteral="enty-list" />
-                                             </graphic>
-                                          </Label>
-                                          <GridPane hgap="10.0" prefHeight="80.0" prefWidth="442.0" vgap="10.0">
-                                            <columnConstraints>
-                                              <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
-                                              <ColumnConstraints hgrow="ALWAYS" maxWidth="352.0" minWidth="10.0" prefWidth="352.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                              <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                                                <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                             <children>
-                                                <Label text="Name:" />
-                                                <TextField fx:id="setlistTitleField" promptText="Name" styleClass="header2" GridPane.columnIndex="1" />
-                                                <Label text="Pieces:" GridPane.rowIndex="1" />
-                                                <Label fx:id="setlistPieceCountLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                             </children>
-                                          </GridPane>
-                                          <VBox>
-                                             <children>
-                                                <ToolBar fx:id="setlistPieceButtonBar" disable="true">
-                                                   <items>
-                                                      <Button mnemonicParsing="false" onAction="#listRemovePiece" text="Remove Piece">
+                                          <SplitPane dividerPositions="0.5" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <items>
+                                                <VBox prefHeight="551.0" prefWidth="222.0" styleClass="orgbox">
+                                                   <children>
+                                                      <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Lists" textAlignment="CENTER" wrapText="false">
+                                                         <font>
+                                                            <Font size="18.0" fx:id="x51" />
+                                                         </font>
                                                          <graphic>
-                                                            <FontIcon iconLiteral="enty-minus" />
+                                                            <FontIcon iconLiteral="enty-list" text="" />
                                                          </graphic>
-                                                      </Button>
-                                                   </items>
-                                                </ToolBar>
-                                                <ListView fx:id="setlistPieceView" prefHeight="9999.0" prefWidth="442.0" />
-                                             </children>
-                                          </VBox>
+                                                      </Label>
+                                                      <VBox prefHeight="854.0" prefWidth="462.0">
+                                                         <children>
+                                                            <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                                              <items>
+                                                                  <Button mnemonicParsing="false" onAction="#newList" text="Create New List" textOverrun="WORD_ELLIPSIS">
+                                                                     <graphic>
+                                                                        <FontIcon iconLiteral="enty-plus" />
+                                                                     </graphic>
+                                                                  </Button>
+                                                              </items>
+                                                            </ToolBar>
+                                                            <ListView fx:id="setlistView" prefHeight="821.0" prefWidth="462.0">
+                                                               <contextMenu>
+                                                                  <ContextMenu>
+                                                                    <items>
+                                                                        <MenuItem mnemonicParsing="false" onAction="#deleteList" text="Delete">
+                                                                           <graphic>
+                                                                              <FontIcon iconLiteral="enty-trash" />
+                                                                           </graphic>
+                                                                        </MenuItem>
+                                                                        <MenuItem mnemonicParsing="false" onAction="#exportList" text="Export">
+                                                                           <graphic>
+                                                                              <FontIcon iconLiteral="enty-export" />
+                                                                           </graphic>
+                                                                        </MenuItem>
+                                                                    </items>
+                                                                  </ContextMenu>
+                                                               </contextMenu>
+                                                            </ListView>
+                                                            <ToolBar fx:id="setlistButtonBar" disable="true" prefHeight="40.0" prefWidth="200.0">
+                                                              <items>
+                                                                  <Button mnemonicParsing="false" onAction="#deleteList" text="Delete List">
+                                                                     <graphic>
+                                                                        <FontIcon iconLiteral="enty-trash" />
+                                                                     </graphic>
+                                                                  </Button>
+                                                                  <Button mnemonicParsing="false" onAction="#exportList" text="Export List">
+                                                                     <graphic>
+                                                                        <FontIcon iconLiteral="enty-export" />
+                                                                     </graphic>
+                                                                  </Button>
+                                                              </items>
+                                                            </ToolBar>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </VBox>
+                                                <VBox fx:id="listEditBox" disable="true" layoutX="10.0" layoutY="10.0" prefHeight="551.0" prefWidth="222.0" styleClass="orgbox">
+                                                   <children>
+                                                      <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Selected List" textAlignment="CENTER" wrapText="false">
+                                                         <font>
+                                                            <Font size="18.0" fx:id="x511" />
+                                                         </font>
+                                                         <graphic>
+                                                            <FontIcon iconLiteral="enty-list" />
+                                                         </graphic>
+                                                      </Label>
+                                                      <GridPane hgap="10.0" prefHeight="80.0" prefWidth="442.0" vgap="10.0">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
+                                                          <ColumnConstraints hgrow="ALWAYS" maxWidth="352.0" minWidth="10.0" prefWidth="352.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Label text="Name:" />
+                                                            <TextField fx:id="setlistTitleField" promptText="Name" styleClass="header2" GridPane.columnIndex="1" />
+                                                            <Label text="Pieces:" GridPane.rowIndex="1" />
+                                                            <Label fx:id="setlistPieceCountLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                         </children>
+                                                      </GridPane>
+                                                      <VBox>
+                                                         <children>
+                                                            <ToolBar fx:id="setlistPieceButtonBar" disable="true">
+                                                               <items>
+                                                                  <Button mnemonicParsing="false" onAction="#listRemovePiece" text="Remove Piece">
+                                                                     <graphic>
+                                                                        <FontIcon iconLiteral="enty-minus" />
+                                                                     </graphic>
+                                                                  </Button>
+                                                               </items>
+                                                            </ToolBar>
+                                                            <ListView fx:id="setlistPieceView" prefHeight="9999.0" prefWidth="442.0" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </VBox>
+                                             </items>
+                                          </SplitPane>
                                        </children>
-                                    </VBox>
-                                 </items>
-                              </SplitPane>
-                           </children>
-                        </AnchorPane>
+                                    </AnchorPane>
+                                 </content>
+                                 <graphic>
+                                    <FontIcon iconLiteral="enty-list" text="" />
+                                 </graphic>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
                   </items>
                 </SplitPane>
                </content>

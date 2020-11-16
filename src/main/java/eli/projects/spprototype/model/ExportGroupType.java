@@ -11,12 +11,12 @@ import javafx.beans.property.SimpleIntegerProperty;
  *
  */
 
-public abstract class ExportGroup {
+public abstract class ExportGroupType {
 	
 	private BooleanProperty enabled;
 	private IntegerProperty order;
 	
-	public ExportGroup() {
+	public ExportGroupType() {
 		
 		enabled = new SimpleBooleanProperty(false);
 		order = new SimpleIntegerProperty(-1);
@@ -63,8 +63,8 @@ public abstract class ExportGroup {
 	 * 
 	 * @return An array containing one of each type of export group
 	 */
-	public static ExportGroup[] getOneOfEachExportGroup() {
-		return new ExportGroup[] {
+	public static ExportGroupType[] getOneOfEachExportGroupType() {
+		return new ExportGroupType[] {
 			new PieceGroup(), 
 			new SectionGroup(),
 			new PartGroup(),
@@ -74,7 +74,7 @@ public abstract class ExportGroup {
 
 }
 
- class PieceGroup extends ExportGroup {
+ class PieceGroup extends ExportGroupType {
 
 	@Override
 	public String getName() {
@@ -83,7 +83,7 @@ public abstract class ExportGroup {
 	
 }
 
- class SectionGroup extends ExportGroup {
+ class SectionGroup extends ExportGroupType {
 
 	@Override
 	public String getName() {
@@ -92,7 +92,7 @@ public abstract class ExportGroup {
 	
 }
 
- class PartGroup extends ExportGroup {
+ class PartGroup extends ExportGroupType {
 
 	@Override
 	public String getName() {
@@ -101,7 +101,7 @@ public abstract class ExportGroup {
 	
 }
 
- class MusicianGroup extends ExportGroup {
+ class MusicianGroup extends ExportGroupType {
 
 	@Override
 	public String getName() {

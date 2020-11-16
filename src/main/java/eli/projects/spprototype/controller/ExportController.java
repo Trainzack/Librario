@@ -7,7 +7,7 @@ import org.controlsfx.control.SearchableComboBox;
 
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.model.Ensemble;
-import eli.projects.spprototype.model.ExportGroup;
+import eli.projects.spprototype.model.ExportGroupType;
 import eli.projects.spprototype.model.ExportSettings;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Library;
@@ -97,7 +97,7 @@ public class ExportController {
 	private ToggleGroup exportPageOrientation;
 
 	@FXML
-	private ListView<ExportGroup> exportGroupingListView;
+	private ListView<ExportGroupType> exportGroupingListView;
 	
 	
 	
