@@ -5,10 +5,10 @@ eli\projects\spprototype\controller\NewSectionController.class
 eli\projects\spprototype\model\Setlist$1.class
 eli\projects\spprototype\PartDesignation$InvalidPartDesignationException.class
 eli\projects\spprototype\Utility.class
-eli\projects\spprototype\model\DocumentAppendable.class
 eli\projects\spprototype\model\Ensemble.class
+eli\projects\spprototype\PageSettings.class
 eli\projects\spprototype\App.class
-eli\projects\spprototype\PagePlan.class
+eli\projects\spprototype\model\FormContentSource.class
 eli\projects\spprototype\model\ExportSettings.class
 eli\projects\spprototype\model\Section.class
 eli\projects\spprototype\controller\ExportGroupListCell$1.class
@@ -18,7 +18,6 @@ eli\projects\spprototype\model\Library.class
 eli\projects\spprototype\model\SectionGroup.class
 eli\projects\spprototype\Part.class
 eli\projects\spprototype\model\PieceGroup.class
-eli\projects\spprototype\OutputPlanner.class
 eli\projects\spprototype\model\Piece.class
 eli\projects\spprototype\ExportTask.class
 eli\projects\spprototype\controller\ReorderableListCell.class
@@ -36,9 +35,10 @@ eli\projects\spprototype\controller\MainController$2.class
 eli\projects\spprototype\Main.class
 eli\projects\spprototype\controller\ExportGroupListCell.class
 eli\projects\spprototype\model\Setlist.class
+eli\projects\spprototype\SimpleDocumentSource.class
 eli\projects\spprototype\controller\ExportController$1.class
 eli\projects\spprototype\model\MusicianGroup.class
 eli\projects\spprototype\App$1.class
 eli\projects\spprototype\controller\DoubleMMSpinnerValueFactory$1.class
 eli\projects\spprototype\model\ExportSettings$SourceSelection.class
-eli\projects\spprototype\PageLayout.class
+eli\projects\spprototype\OutputDocument.class

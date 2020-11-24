@@ -61,7 +61,7 @@ public class App extends Application
         String javafxVersion = System.getProperty("javafx.version");
 
         // TODO Testing code, should be replaced later.
-        loadedLibrary = Library.generateTestingLibrary(10);
+        loadedLibrary = Library.loadOldLibrary(); //Library.generateTestingLibrary(10);
 
 		try {
 			

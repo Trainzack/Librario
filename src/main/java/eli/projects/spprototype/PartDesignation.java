@@ -91,6 +91,7 @@ public class PartDesignation {
 	
 	@Override
 	public String toString() {
+		if (this.getNumeral() == 0) return this.getInstrument().getName();
 		return this.getInstrument().getName() + " " + this.getNumeral();
 	}
 	

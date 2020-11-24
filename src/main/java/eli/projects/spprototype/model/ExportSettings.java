@@ -1,8 +1,9 @@
 package eli.projects.spprototype.model;
 
 import java.io.File;
-import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -10,20 +11,22 @@ import javafx.beans.property.FloatProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableFloatValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
+import eli.projects.spprototype.ExportTask;
+import eli.projects.spprototype.PageSettings;
 import eli.projects.spprototype.Part;
 
 
 public class ExportSettings {
+	
+	private static final PDRectangle flipFolderPaperSize = new PDRectangle(480, 354); // Almost B6 paper, but a little smaller
 	
 	/**
 	 * Defines which source we are pulling pieces from
@@ -65,9 +68,14 @@ public class ExportSettings {
 	private ObjectProperty<SourceSelection> selectedSource = new SimpleObjectProperty<SourceSelection>();
 	private ObjectProperty<TargetSelection> selectedTarget = new SimpleObjectProperty<TargetSelection>();
 	
+	// Paper settings
 	private ObjectProperty<PaperSize> paperSize = new SimpleObjectProperty<PaperSize>(null);
 	private DoubleProperty paperWidth = new SimpleDoubleProperty();
 	
+	private FloatProperty paperMargin = new SimpleFloatProperty(10);
+	
+	private BooleanProperty doublePages = new SimpleBooleanProperty(false);
+	private BooleanProperty fitToPage = new SimpleBooleanProperty(false);
 	
 	// Export Grouping
 	private ObservableList<ExportGroupType> exportGroups;
@@ -240,11 +248,128 @@ public class ExportSettings {
 	public final void setPaperWidth(double w) {
 		paperWidth.set(w);
 	}
-
-	/** Export Groups **/
 	
-	public final ObservableList<ExportGroupType> getExportGroups() {
-		return exportGroups;
+	public final FloatProperty getPaperMarginProperty() {
+		return paperMargin;
+	}
+	
+	public final float getPaperMargin() {
+		return paperMargin.get();
+	}
+	
+	public final void setPaperMargin(float w) {
+		paperMargin.set(w);
+	}
+	
+
+	/** Paper Properties **/ 
+	
+	public final BooleanProperty getDoublePagesProperty() {
+		return doublePages;
+	}
+	
+	public final boolean getDoublePages() {
+		return doublePages.get();
+	}
+	
+	public final void setDoublePages(boolean dub) {
+		doublePages.set(dub);
+	}
+	
+
+	public final BooleanProperty getFitToPageProperty() {
+		return fitToPage;
+	}
+	
+	public final boolean getFitToPage() {
+		return fitToPage.get();
+	}
+	
+	public final void setFitToPage(boolean fit) {
+		fitToPage.set(fit);
+	}
+	
+	
+	
+	public ExportTask getExportTask() {
+		
+		PDRectangle paperDimensions;
+		
+		
+		// TODO: We should build these lists in real time, as they are updated
+		// And tie in the validity to them. If the list is empty, for example, it should become invalid.
+		
+		
+		List<Piece> exportPieces;
+		
+		
+		switch (this.selectedSource.get()) {
+		case LIST:
+			exportPieces = this.selectedExportSetlist.get().getPieceList();
+			break;
+		case PIECE:
+			exportPieces = new ArrayList<>(library.getPieces().size());
+			exportPieces.add(this.selectedExportPiece.get());
+			break;
+		default:
+			exportPieces = new ArrayList<>(library.getPieces().size());
+			break;
+			
+		}
+		
+		ArrayList<Part> exportParts = new ArrayList<>(exportPieces.size() * 5);
+		
+		// TODO add grouping
+
+		Ensemble exportEnsemble = this.selectedExportEnsemble.get();
+		Instrument exportInstrument = this.selectedExportInstrument.get();
+		
+		for (Piece p : exportPieces) {
+			
+			// TODO Execute this switch statement once to create a filter.
+			switch (this.selectedTarget.get()) {
+			case ALL:
+				exportParts.addAll(p.getParts());
+				break;
+			case ENSEMBLE:
+				throw new InvalidParameterException("Ensemble export is unimplemented.");
+				// break;
+			case INSTRUMENT:
+				for (Part pa : p.getParts()) {
+					if (exportInstrument == pa.getDesignation().getInstrument()) {
+						exportParts.add(pa);
+					}
+				}
+				break;
+			default:
+				break;
+			}
+			
+			// TODO: Filter parts
+		}
+		
+		if (getPaperSize() != PaperSize.CUSTOM) {
+			paperDimensions = getPaperSize().getDimensions();
+		} else {
+			paperDimensions = new PDRectangle(10, 10); // TODO: This needs to grab from paperWidth and paperHeight.
+		}
+		
+		float margins = this.getPaperMargin();
+		
+		if (getDoublePages()) {
+
+
+			PageSettings pageSettings = new PageSettings(paperDimensions, false, margins / 2);
+			PageSettings cutPageSettings = new PageSettings(flipFolderPaperSize, getFitToPage(), margins / 2, true); // TODO double check margins is proper.
+			
+			return new ExportTask(pageSettings, cutPageSettings, exportParts, getExportDestination());
+		} else {
+
+			PageSettings pageSettings = new PageSettings(paperDimensions, getFitToPage(), margins);
+			return new ExportTask(pageSettings, exportParts, getExportDestination());
+		}
+		
+		
 	}
 	
 }

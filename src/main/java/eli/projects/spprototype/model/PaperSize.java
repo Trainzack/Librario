@@ -44,28 +44,14 @@ public enum PaperSize {
 		
 		if (this.dimensions == null) return -1;
 		
-		return this.dimensions.getWidth()*25.4 / 72;
+		return Math.round(this.dimensions.getWidth()*25.4 / 72);
 	}
 	
 	public double getHeightmm() {
 		
 		if (this.dimensions == null) return -1;
 		
-		return this.dimensions.getHeight()*25.4 / 72;
-	}
-	
-	public double getWidthInch() {
-		
-		if (this.dimensions == null) return -1;
-		
-		return this.dimensions.getWidth() / 72;
-	}
-	
-	public double getHeightInch() {
-		
-		if (this.dimensions == null) return -1;
-		
-		return this.dimensions.getHeight() / 72;
+		return Math.round(this.dimensions.getHeight()*25.4 / 72);
 	}
 	
 	public double getWidthPt() {

@@ -1,9 +1,18 @@
 package eli.projects.spprototype.model;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+
+import eli.projects.spprototype.SimpleDocumentSource;
+import eli.projects.spprototype.Part;
+import eli.projects.spprototype.PartDesignation;
+import eli.projects.spprototype.PartDesignation.InvalidPartDesignationException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -170,6 +179,77 @@ public class Library {
 		
 		
 		return new Library(pieces, setlists, ensembles);
+	}
+	
+	public static Library loadOldLibrary() {
+		
+		File path = new File("D:/Sheet Music/Pep Band");
+		
+		ArrayList<Piece> pieces = new ArrayList<Piece>();
+
+		for (File pieceFolder : path.listFiles()) {
+			if (!pieceFolder.isDirectory()) continue;
+			
+			String name = pieceFolder.getName();
+			
+			Piece piece = new Piece(name, "Composer", "Arranger", "1998", 200);
+			
+			pieces.add(piece);
+			
+			for (File partFile : pieceFolder.listFiles()) {
+				if (partFile.isDirectory() || !partFile.getPath().toLowerCase().endsWith(".pdf")) continue;
+				
+				String partName = partFile.getName().toUpperCase().replaceAll(".PDF", "");
+				
+				int pageCount = 1;
+				
+				try {
+					PDDocument partDoc = PDDocument.load(partFile);
+					pageCount = partDoc.getNumberOfPages();
+					partDoc.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					continue;
+				}
+				
+				Part part;
+				try {
+					part = new Part(PartDesignation.ParseDesignation(partName), piece);
+					
+					//if (part.getDesignation().getInstrument().getId() != "TBN") continue; //TODO Temp filter
+					piece.getParts().add(part);
+					for (int i = 0; i < pageCount; i++) part.getDocumentSources().add(new SimpleDocumentSource(partFile, i));
+				} catch (InvalidPartDesignationException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Invalid part! " + partName + ", at " + partFile.getPath());
+				}
+				
+
+				
+				
+			}
+			
+		}
+		
+		Random r = new Random();
+		
+		ArrayList<Setlist> setlists = new ArrayList<Setlist>(1);
+		Setlist u = new Setlist("Books");
+		for (Piece p : pieces) {
+			if (r.nextBoolean()) u.add(p);
+		}
+		setlists.add(u);
+		
+		ArrayList<Ensemble> ensembles = new ArrayList<Ensemble>(1);
+		
+		for (int i = 0; i < 1; i++) {
+			ensembles.add(Ensemble.generateTestEnsemble());
+		}
+		
+		
+		return new Library(pieces, setlists, ensembles);
+		
 	}
 
 }

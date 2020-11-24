@@ -7,7 +7,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -32,7 +31,7 @@
       </Label>
       <HBox layoutY="30.0" prefHeight="621.0" prefWidth="700.0" spacing="10.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0">
          <children>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="612.0" prefWidth="325.0">
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="612.0" prefWidth="325.0" vgap="10.0">
                <children>
                   <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="115.0" prefWidth="320.0" styleClass="border">
                      <children>
@@ -91,7 +90,7 @@
                         </GridPane>
                      </children>
                   </VBox>
-                  <VBox disable="true" maxHeight="257.0" maxWidth="320.0" minHeight="180.0" minWidth="-Infinity" prefHeight="205.0" prefWidth="320.0" styleClass="border">
+                  <VBox maxHeight="257.0" maxWidth="320.0" minHeight="180.0" minWidth="-Infinity" prefHeight="227.0" prefWidth="320.0" styleClass="border">
                      <children>
                         <Label styleClass="header2" text="Page Settings">
                            <graphic>
@@ -134,19 +133,11 @@
                               <Insets />
                            </opaqueInsets>
                         </GridPane>
-                        <CheckBox maxHeight="30.0" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" text="Two pieces per page" />
+                        <CheckBox fx:id="exportPageDoublePages" maxHeight="30.0" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" text="Flip folder (two pieces per page)" />
+                        <CheckBox fx:id="exportPageFitToPage" layoutX="21.0" layoutY="167.0" maxHeight="30.0" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" text="Fit to page" />
                      </children>
                   </VBox>
-                  <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="215.0" prefWidth="320.0" spacing="10.0" styleClass="border">
-                     <children>
-                        <Label styleClass="header2" text="Output Grouping">
-                           <graphic>
-                              <FontIcon iconLiteral="enty-flow-tree" />
-                           </graphic>
-                        </Label>
-                        <ListView fx:id="exportGroupingListView" prefHeight="200.0" prefWidth="200.0" />
-                     </children>
-                  </VBox>
+                  <HBox prefHeight="386.0" prefWidth="200.0" />
                </children>
             </FlowPane>
           <AnchorPane minHeight="0.0" minWidth="500.0" prefHeight="673.0" prefWidth="500.0" styleClass="border">

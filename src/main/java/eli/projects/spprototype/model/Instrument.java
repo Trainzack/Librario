@@ -89,6 +89,10 @@ public class Instrument {
 		new Instrument("CYM", 		"Cymbals", new String[]{"DRUMS", "DMST", "SNARE", "TBN"}, "Percussion");
 		new Instrument("PERC", 		"Auxiliary Percussion", new String[] {}, "Percussion");
 		new Instrument("SNARE", 	"Snare", new String[]{"DRUMS", "TENDM", "DMST", "TBN"}, "Percussion" );
+
+		new Instrument("BELLS", 	"Bells", new String[]{"FLT"}, "Woodwind");
+		new Instrument("BASS", 		"Bass", new String[]{"TUBA", "BARSAX", "TBN"},  "Brass");
+		
 		
 		instruments_init = true;
 		

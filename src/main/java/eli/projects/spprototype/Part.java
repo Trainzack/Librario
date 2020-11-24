@@ -18,7 +18,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.util.Matrix;
 
-import eli.projects.spprototype.model.DocumentAppendable;
+import eli.projects.spprototype.model.FormContentSource;
 import eli.projects.spprototype.model.Piece;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -27,6 +27,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 /**
@@ -37,7 +38,7 @@ import javafx.collections.ObservableList;
  *
  */
 
-public class Part implements DocumentAppendable {
+public class Part implements FormContentSource {
 	
 	private static Random random = new Random();
 	
@@ -49,7 +50,7 @@ public class Part implements DocumentAppendable {
 
 	private SimpleIntegerProperty pages = new SimpleIntegerProperty(this, "pages");
 	
-	private ObservableList<DocumentSource> documentSources = FXCollections.observableArrayList(new ArrayList<DocumentSource>());
+	private ObservableList<SimpleDocumentSource> documentSources = FXCollections.observableArrayList(new ArrayList<SimpleDocumentSource>());
 	
 	
 	// TODO: how to represent connection to PDF file?
@@ -64,14 +65,16 @@ public class Part implements DocumentAppendable {
 		this.designation.set(designation);
 		this.piece = piece;
 		
-		this.pages.set(1); //TODO
+		this.documentSources.addListener((ListChangeListener)(change) -> {
+			this.pages.set(documentSources.size());
+		});
 		
 		//TODO do document sources list listener to update page count
-		this.documentSources.add(new DocumentSource(new File("files/Test/" + random.nextInt(10) + ".pdf"), 0));
-		if (random.nextInt(2) == 0) {
-			this.pages.set(2);
-			this.documentSources.add(new DocumentSource(new File("files/Test/" + random.nextInt(10) + ".pdf"), 0));
-		}
+		//this.documentSources.add(new DocumentSource(new File("files/Test/" + random.nextInt(10) + ".pdf"), 0));
+		//if (random.nextInt(2) == 0) {
+		//	this.pages.set(2);
+		//	this.documentSources.add(new DocumentSource(new File("files/Test/" + random.nextInt(10) + ".pdf"), 0));
+		//}
 		
 	}
 	
@@ -105,7 +108,7 @@ public class Part implements DocumentAppendable {
 		return pages;
 	}
 	
-	public ObservableList<DocumentSource> getDocumentSources() {
+	public ObservableList<SimpleDocumentSource> getDocumentSources() {
 		return documentSources;
 	}
 	
@@ -114,10 +117,6 @@ public class Part implements DocumentAppendable {
 	}
 
 	public void appendPages(PDRectangle pageSize, PDDocument target) throws IOException {
-		
-		Random r = new Random();
-		
-		r.nextFloat();
 		
 		
 		for (DocumentSource d : this.documentSources) {
@@ -184,6 +183,17 @@ public class Part implements DocumentAppendable {
 	@Override
 	public String toString() {
 		return this.piece.getTitle() + ": " + this.designation.get().toString();
+	}
+
+	@Override
+	public PDFormXObject[] getDocumentForms(LayerUtility layerUtility) throws IOException {
+		
+		PDFormXObject[] out = new PDFormXObject[this.documentSources.size()];
+		
+		for (int i = 0; i < out.length; i++) out[i] = this.documentSources.get(i).getDocumentForm(layerUtility);
+		
+		return out;
+		
 	}
 	
 	

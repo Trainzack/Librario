@@ -27,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
@@ -37,7 +38,9 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 
 /**
  * This class controls the export screen.
@@ -49,6 +52,8 @@ import javafx.stage.Stage;
  */
 
 public class ExportController {
+	
+	
 
 	private static final PaperSize DEFAULT_PAPER_SIZE = PaperSize.LETTER;
 	
@@ -109,9 +114,11 @@ public class ExportController {
 	@FXML
 	private ToggleGroup exportPageOrientation;
 
-	@FXML
-	private ListView<ExportGroupType> exportGroupingListView;
 	
+	@FXML
+	private CheckBox exportPageDoublePages;
+	@FXML
+	private CheckBox exportPageFitToPage;
 	
 	
 	@FXML
@@ -227,24 +234,53 @@ public class ExportController {
 		exportPageHeightSpinner.setValueFactory(new DoubleMMSpinnerValueFactory());
 		
 
-		// TODO: This is wrong. Export paper size should update the model, which should update the width and height settings in the model, which should then update the spinners.
+
 		exportPaperSize.valueProperty().addListener((obs, oldValue, newValue) -> {
-			exportPageWidthSpinner.getValueFactory().setValue(newValue.getWidthmm());
+			exportSettings.getPaperSizeProperty().set(newValue);
 		});
 		
-		exportPaperSize.valueProperty().addListener((obs, oldValue, newValue) -> {
+		exportSettings.getPaperSizeProperty().addListener((obs, oldValue, newValue) -> {
+			exportPaperSize.valueProperty().set(newValue);
+			exportPageWidthSpinner.getValueFactory().setValue(newValue.getWidthmm());
 			exportPageHeightSpinner.getValueFactory().setValue(newValue.getHeightmm());
 		});
 		
+		exportPaperSize.setValue(PaperSize.CUSTOM); // Change it so that we update all the change listeners.
 		exportPaperSize.setValue(DEFAULT_PAPER_SIZE);
-		// TODO: This is unconnected to the model.
-		exportPageMarginSpinner.getValueFactory().setValue(10.0);
 		
-		/* Export Folder Grouping */
-		exportGroupingListView.setCellFactory(list -> new ExportGroupListCell());
+		// TODO: Paper width and height is unconnected to the model.
 		
-		exportGroupingListView.setItems(exportSettings.getExportGroups());
+		exportSettings.getPaperMarginProperty().addListener((obs, oldValue, newValue) -> {
+			exportPageMarginSpinner.getValueFactory().setValue(new Double((float)newValue));	
+		});
 		
+		exportPageMarginSpinner.getValueFactory().valueProperty().addListener((obs, oldValue, newValue) -> {
+			exportSettings.setPaperMargin(newValue.floatValue());
+		});
+		
+		exportPageMarginSpinner.getValueFactory().setValue((double)exportSettings.getPaperMargin());
+		
+		
+		exportSettings.getFitToPageProperty().addListener((obs, oldValue, newValue) -> {
+			exportPageFitToPage.selectedProperty().set(newValue);
+		});
+
+		exportPageFitToPage.selectedProperty().addListener((obs, oldValue, newValue) -> {
+			exportSettings.getFitToPageProperty().set(newValue);
+		});
+		
+
+		exportPageFitToPage.setSelected(exportSettings.getFitToPage()); // Set initial value
+		
+		exportSettings.getDoublePagesProperty().addListener((obs, oldValue, newValue) -> {
+			exportPageDoublePages.selectedProperty().set(newValue);
+		});
+
+		exportPageDoublePages.selectedProperty().addListener((obs, oldValue, newValue) -> {
+			exportSettings.getDoublePagesProperty().set(newValue);
+		});
+
+		exportPageDoublePages.setSelected(exportSettings.getDoublePages()); // Set initial value
 		
 		/** Buttons **/
 		
@@ -267,11 +303,16 @@ public class ExportController {
 			App.ShowError("Export Failed", "The settings you chose for export were invalid. Additionally, the program should have prevented this.");
 		}
 		
-		DirectoryChooser dir = new DirectoryChooser();
-        dir.setTitle("Choose an export directory");
+		//DirectoryChooser dir = new DirectoryChooser();
+		FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save as PDF");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf"));
         // If the user has already selected a destination before, use that one!
-        if (exportSettings.getExportDestination() != null) dir.setInitialDirectory(exportSettings.getExportDestination());
-        File destination = dir.showDialog(this.stage);
+        if (exportSettings.getExportDestination() != null) { 
+        	fileChooser.setInitialDirectory(exportSettings.getExportDestination().getParentFile());
+        	fileChooser.setInitialFileName(exportSettings.getExportDestination().getName());
+        }
+        File destination = fileChooser.showSaveDialog(this.stage);
 
         if (destination == null) {
         	// If they don't select a destination, then cancel the export! 
@@ -295,15 +336,7 @@ public class ExportController {
     		
     		alert.setGraphic(exportProgress);
             
-    		PDRectangle paperDimensions;
-    		
-    		if (exportSettings.getPaperSize() != PaperSize.CUSTOM) {
-    			paperDimensions = exportSettings.getPaperSize().getDimensions();
-    		} else {
-    			paperDimensions = new PDRectangle(10, 10); // TODO: This needs to grab from paperWidth and paperHeight.
-    		}
-    		
-    		ExportTask exportTask = new ExportTask(paperDimensions, library.getPieces(), exportSettings.getExportDestination());
+    		ExportTask exportTask = exportSettings.getExportTask();
     		
     		exportTask.messageProperty().addListener((obs, oldValue, newValue) -> {
     			alert.setContentText(newValue);
@@ -314,15 +347,19 @@ public class ExportController {
     			if (currentState == Worker.State.SUCCEEDED || currentState == Worker.State.FAILED) {
     				okButton.setDisable(false);
     				cancelButton.setDisable(true);
+    				
+    			}
+    			
+    			if (currentState == Worker.State.SUCCEEDED) {
+
+    	    		okButton.setText("Finish");
+    	    		// TODO: Add "View Document" button.
     			}
     		});
     		
     		Thread exportThread = new Thread(exportTask);
     		exportThread.setDaemon(true);
     		exportThread.start();
-    		
-
-    		
     		
     		
     		Optional<ButtonType> result = alert.showAndWait();

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Random;
 
+import eli.projects.spprototype.SimpleDocumentSource;
 import eli.projects.spprototype.Part;
 import eli.projects.spprototype.PartDesignation;
 import javafx.beans.property.IntegerProperty;
@@ -157,12 +158,14 @@ public class Piece {
 						Part p = new Part(new PartDesignation(j + 1, inst), nextPiece);
 
 						nextPiece.parts.add(p);
+						
 					}
 				}
 				
 			}
 		}
 	}
+	
 	
 	
 	/*
