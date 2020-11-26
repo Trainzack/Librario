@@ -11,9 +11,12 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.util.Matrix;
 
+import eli.projects.spprototype.model.PaperSettings;
+import eli.projects.spprototype.model.PaperSettings.FinalPaperSettings;
+
 public class OutputDocument extends PDDocument {
 	
-	private PageSettings pageSettings;
+	private FinalPaperSettings pageSettings;
 	private LayerUtility layerUtility;
 
 	/**
@@ -22,7 +25,7 @@ public class OutputDocument extends PDDocument {
 	 * Use this if you want to call addDocumentSource
 	 * @param context The settings for every page in the document.
 	 */
-	public OutputDocument(PageSettings pageSettings) {
+	public OutputDocument(FinalPaperSettings pageSettings) {
 		super();
 		this.pageSettings = pageSettings;
 		
@@ -35,7 +38,7 @@ public class OutputDocument extends PDDocument {
 	 * @param source The document that we will take pages from and place them in our own.
 	 * @throws IOException 
 	 */
-	public OutputDocument(PageSettings pageSettings, OutputDocument source) throws IOException {
+	public OutputDocument(FinalPaperSettings pageSettings, OutputDocument source) throws IOException {
 		super();
 		this.pageSettings = pageSettings;
 		

@@ -1,26 +1,20 @@
 package eli.projects.spprototype.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Optional;
 
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.controlsfx.control.SearchableComboBox;
 
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.ExportTask;
 import eli.projects.spprototype.model.Ensemble;
-import eli.projects.spprototype.model.ExportGroupType;
 import eli.projects.spprototype.model.ExportSettings;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Library;
+import eli.projects.spprototype.model.PaperSettings;
 import eli.projects.spprototype.model.PaperSize;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.SimpleFloatProperty;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
@@ -29,15 +23,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -100,20 +91,9 @@ public class ExportController {
 	private SearchableComboBox<Instrument> exportTargetInstrumentComboBox;
 	
 	/* Page Size */
+	@FXML private GridPane mainPageSettings;
+	@FXML private PageSizeController mainPageSettingsController;
 	
-	@FXML
-	private ComboBox<PaperSize> exportPaperSize;
-	@FXML
-	private Spinner<Double> exportPageWidthSpinner;
-	@FXML
-	private Spinner<Double> exportPageHeightSpinner;
-	@FXML
-	private Spinner<Double> exportPageMarginSpinner;
-	
-	
-	@FXML
-	private ToggleGroup exportPageOrientation;
-
 	
 	@FXML
 	private CheckBox exportPageDoublePages;
@@ -135,6 +115,9 @@ public class ExportController {
 		
 		// This stage belongs to this window!
 		this.stage = _stage;
+
+		// Init sub models
+		mainPageSettingsController.initModel(exportSettings.getMainPaperSettings(), PaperSize.LETTER);
 		
 		
 		exportPieceSource.selectedToggleProperty(); //TODO: Figure out how to link this to the model.
@@ -227,39 +210,7 @@ public class ExportController {
 		
 		/* Page Settings */
 		
-		exportPaperSize.setItems(FXCollections.observableArrayList(PaperSize.values()));
-		
-		exportPageMarginSpinner.setValueFactory(new DoubleMMSpinnerValueFactory());
-		exportPageWidthSpinner.setValueFactory(new DoubleMMSpinnerValueFactory());
-		exportPageHeightSpinner.setValueFactory(new DoubleMMSpinnerValueFactory());
-		
 
-
-		exportPaperSize.valueProperty().addListener((obs, oldValue, newValue) -> {
-			exportSettings.getPaperSizeProperty().set(newValue);
-		});
-		
-		exportSettings.getPaperSizeProperty().addListener((obs, oldValue, newValue) -> {
-			exportPaperSize.valueProperty().set(newValue);
-			exportPageWidthSpinner.getValueFactory().setValue(newValue.getWidthmm());
-			exportPageHeightSpinner.getValueFactory().setValue(newValue.getHeightmm());
-		});
-		
-		exportPaperSize.setValue(PaperSize.CUSTOM); // Change it so that we update all the change listeners.
-		exportPaperSize.setValue(DEFAULT_PAPER_SIZE);
-		
-		// TODO: Paper width and height is unconnected to the model.
-		
-		exportSettings.getPaperMarginProperty().addListener((obs, oldValue, newValue) -> {
-			exportPageMarginSpinner.getValueFactory().setValue(new Double((float)newValue));	
-		});
-		
-		exportPageMarginSpinner.getValueFactory().valueProperty().addListener((obs, oldValue, newValue) -> {
-			exportSettings.setPaperMargin(newValue.floatValue());
-		});
-		
-		exportPageMarginSpinner.getValueFactory().setValue((double)exportSettings.getPaperMargin());
-		
 		
 		exportSettings.getFitToPageProperty().addListener((obs, oldValue, newValue) -> {
 			exportPageFitToPage.selectedProperty().set(newValue);

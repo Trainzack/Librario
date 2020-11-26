@@ -14,6 +14,7 @@ public enum PaperSize {
 	A4("A4", PDRectangle.A4),
 	A5("A5", PDRectangle.A5),
 	A6("A6", PDRectangle.A6),
+	FLIP_FOLDER("Flip Folder", 480, 354),
 	CUSTOM("Custom", null);
 	
 	
@@ -40,28 +41,28 @@ public enum PaperSize {
 		return this.dimensions;
 	}
 	
-	public double getWidthmm() {
+	public float getWidthmm() {
 		
 		if (this.dimensions == null) return -1;
 		
 		return Math.round(this.dimensions.getWidth()*25.4 / 72);
 	}
 	
-	public double getHeightmm() {
+	public float getHeightmm() {
 		
 		if (this.dimensions == null) return -1;
 		
 		return Math.round(this.dimensions.getHeight()*25.4 / 72);
 	}
 	
-	public double getWidthPt() {
+	public float getWidthPt() {
 		
 		if (this.dimensions == null) return -1;
 		
 		return this.dimensions.getWidth();
 	}
 	
-	public double getHeightPt() {
+	public float getHeightPt() {
 		
 		if (this.dimensions == null) return -1;
 		

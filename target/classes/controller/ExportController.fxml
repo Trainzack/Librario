@@ -5,10 +5,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
@@ -97,42 +95,7 @@
                               <FontIcon iconLiteral="enty-text-document" />
                            </graphic>
                         </Label>
-                        <GridPane hgap="5.0">
-                          <columnConstraints>
-                            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="130.0" minWidth="10.0" prefWidth="45.0" />
-                            <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="211.0" minWidth="10.0" prefWidth="121.0" />
-                              <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="211.0" minWidth="2.0" prefWidth="39.0" />
-                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="78.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label text="Width:" GridPane.rowIndex="1" />
-                              <Label text="Height:" GridPane.rowIndex="2" />
-                              <Spinner fx:id="exportPageWidthSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Spinner fx:id="exportPageHeightSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <RadioButton mnemonicParsing="false" selected="true" text="Portrait" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="exportPageOrientation" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton mnemonicParsing="false" text="Landscape" toggleGroup="$exportPageOrientation" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                              <Spinner fx:id="exportPageMarginSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label text="Margin:" GridPane.rowIndex="3" />
-                              <FontIcon GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                              <FontIcon iconLiteral="enty-document" iconSize="16" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <FontIcon iconLiteral="enty-document-landscape" iconSize="16" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <ComboBox fx:id="exportPaperSize" prefHeight="25.0" prefWidth="278.0" promptText="Page Size" GridPane.columnIndex="1" GridPane.columnSpan="3" />
-                              <Label text="Size:" />
-                           </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </GridPane>
+                        <fx:include fx:id="mainPageSettings" source="PageSizeController.fxml" />
                         <CheckBox fx:id="exportPageDoublePages" maxHeight="30.0" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" text="Flip folder (two pieces per page)" />
                         <CheckBox fx:id="exportPageFitToPage" layoutX="21.0" layoutY="167.0" maxHeight="30.0" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" text="Fit to page" />
                      </children>

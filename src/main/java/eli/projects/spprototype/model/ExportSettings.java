@@ -20,13 +20,11 @@ import javafx.collections.ObservableList;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
 import eli.projects.spprototype.ExportTask;
-import eli.projects.spprototype.PageSettings;
 import eli.projects.spprototype.Part;
+import eli.projects.spprototype.model.PaperSettings.FinalPaperSettings;
 
 
 public class ExportSettings {
-	
-	private static final PDRectangle flipFolderPaperSize = new PDRectangle(480, 354); // Almost B6 paper, but a little smaller
 	
 	/**
 	 * Defines which source we are pulling pieces from
@@ -49,6 +47,8 @@ public class ExportSettings {
 		INSTRUMENT;
 	}
 	
+	private PaperSettings mainPaperSettings = new PaperSettings();
+	
 	private Library library;
 
 
@@ -69,10 +69,6 @@ public class ExportSettings {
 	private ObjectProperty<TargetSelection> selectedTarget = new SimpleObjectProperty<TargetSelection>();
 	
 	// Paper settings
-	private ObjectProperty<PaperSize> paperSize = new SimpleObjectProperty<PaperSize>(null);
-	private DoubleProperty paperWidth = new SimpleDoubleProperty();
-	
-	private FloatProperty paperMargin = new SimpleFloatProperty(10);
 	
 	private BooleanProperty doublePages = new SimpleBooleanProperty(false);
 	private BooleanProperty fitToPage = new SimpleBooleanProperty(false);
@@ -89,31 +85,12 @@ public class ExportSettings {
 			selectedExportInstrument,
 			selectedSource,
 			selectedTarget,
-			paperSize,
-			paperWidth,
 		};
 	
 	@SuppressWarnings("unchecked")
 	public ExportSettings(Library l) {
 
 		this.library = l; //TODO: Is it a good idea to couple these like this?
-		
-		this.paperSize.set(PaperSize.LETTER);
-		
-		paperSize.addListener((obs, oldValue, newValue) -> {
-			if (newValue != PaperSize.CUSTOM) {
-				this.paperWidth.set(newValue.getWidthmm());
-				// TODO change height
-			}
-		});
-		
-		// If we change the paper size value away from what's specified, we are now using a custom paper size
-		paperWidth.addListener((obs, oldValue, newValue) ->{
-			if ((double)newValue != this.getPaperSize().getWidthmm()) this.paperSize.set(PaperSize.CUSTOM);
-		});
-		
-		//TODO do the same for paper height
-		//TODO paper size width change not done: Need to update spinners
 		
 		exportGroups = FXCollections.observableArrayList(ExportGroupType.getOneOfEachExportGroupType());
 		
@@ -221,53 +198,24 @@ public class ExportSettings {
 		exportDestination.set(destination);
 	}
 	
-	/** Paper Size **/
-	
-	public final ObjectProperty<PaperSize> getPaperSizeProperty() {
-		return paperSize;
-	}
-	
-	public final PaperSize getPaperSize() {
-		return paperSize.get();
-	}
-	
-	public final void setPaperSize(PaperSize p) {
-		paperSize.set(p);
-	}
-	
-	/** Paper Width **/
 
-	public final DoubleProperty getPaperWidthProperty() {
-		return paperWidth;
-	}
-	
-	public final double getPaperWidth() {
-		return paperWidth.get();
-	}
-	
-	public final void setPaperWidth(double w) {
-		paperWidth.set(w);
-	}
-	
-	public final FloatProperty getPaperMarginProperty() {
-		return paperMargin;
-	}
-	
-	public final float getPaperMargin() {
-		return paperMargin.get();
-	}
-	
-	public final void setPaperMargin(float w) {
-		paperMargin.set(w);
-	}
-	
+	/** Paper Properties **/
 
-	/** Paper Properties **/ 
+	
+	public PaperSettings getMainPaperSettings() {
+		return mainPaperSettings;
+	}
+
+	public void setMainPaperSettings(PaperSettings mainPaperSettings) {
+		this.mainPaperSettings = mainPaperSettings;
+	}
+	
+	
 	
 	public final BooleanProperty getDoublePagesProperty() {
 		return doublePages;
 	}
-	
+
 	public final boolean getDoublePages() {
 		return doublePages.get();
 	}
@@ -348,25 +296,28 @@ public class ExportSettings {
 			// TODO: Filter parts
 		}
 		
-		if (getPaperSize() != PaperSize.CUSTOM) {
-			paperDimensions = getPaperSize().getDimensions();
+		if (mainPaperSettings.getPaperSize() != PaperSize.CUSTOM) {
+			paperDimensions = mainPaperSettings.getPaperSize().getDimensions();
 		} else {
 			paperDimensions = new PDRectangle(10, 10); // TODO: This needs to grab from paperWidth and paperHeight.
 		}
 		
-		float margins = this.getPaperMargin();
+		// float margins = this.mainPaperSettings.getPaperMargin();
 		
 		if (getDoublePages()) {
 
-
-			PageSettings pageSettings = new PageSettings(paperDimensions, false, margins / 2);
-			PageSettings cutPageSettings = new PageSettings(flipFolderPaperSize, getFitToPage(), margins / 2, true); // TODO double check margins is proper.
+			PaperSettings cutPaperSettings = new PaperSettings();
+			cutPaperSettings.setPaperSize(PaperSize.FLIP_FOLDER);
+			
+			
+			FinalPaperSettings pageSettings = mainPaperSettings.getFinalSettings(false, false);
+			FinalPaperSettings cutPageSettings = cutPaperSettings.getFinalSettings(getFitToPage(), true);
 			
 			return new ExportTask(pageSettings, cutPageSettings, exportParts, getExportDestination());
 		} else {
 
-			PageSettings pageSettings = new PageSettings(paperDimensions, getFitToPage(), margins);
-			return new ExportTask(pageSettings, exportParts, getExportDestination());
+			FinalPaperSettings finalPageSettings = mainPaperSettings.getFinalSettings(getFitToPage(), false);
+			return new ExportTask(finalPageSettings, exportParts, getExportDestination());
 		}
 		
 		

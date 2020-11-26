@@ -4,26 +4,25 @@ package eli.projects.spprototype.controller;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.util.StringConverter;
 
-public class DoubleMMSpinnerValueFactory extends SpinnerValueFactory<Double> {
+public class FloatMMSpinnerValueFactory extends SpinnerValueFactory<Float> {
 
 
-	private double increment = 1.0;
+	private float increment = 1.0f;
 	
 	
-	
-	public DoubleMMSpinnerValueFactory() {
+	public FloatMMSpinnerValueFactory() {
 		super();
-		this.setValue(0.0);
-		this.setConverter(new StringConverter<Double>() {
+		this.setValue(0.0f);
+		this.setConverter(new StringConverter<Float>() {
 			
 			@Override
-			public String toString(Double object) {
+			public String toString(Float object) {
 				return object.toString() + " mm";
 			}
 			
 			@Override
-			public Double fromString(String string) {
-				return Double.valueOf(("0" + string).replaceAll("[^\\d.]", ""));
+			public Float fromString(String string) {
+				return Float.valueOf(("0" + string).replaceAll("[^\\d.]", ""));
 			}
 		});
 	}
@@ -33,14 +32,14 @@ public class DoubleMMSpinnerValueFactory extends SpinnerValueFactory<Double> {
 		if (!(this.getValue() == null) && this.getValue() > increment) {
 			this.setValue(this.getValue() - increment);
 		} else {
-			this.setValue(0.0);
+			this.setValue(0.0f);
 		}
 		
 	}
 
 	@Override
 	public void increment(int steps) {
-		if (this.getValue() == null) this.setValue(0.0);
+		if (this.getValue() == null) this.setValue(0.0f);
 		this.setValue(this.getValue() + increment);
 	}
 	

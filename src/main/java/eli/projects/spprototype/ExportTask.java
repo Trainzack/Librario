@@ -13,6 +13,8 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.util.Matrix;
 
+import eli.projects.spprototype.model.PaperSettings;
+import eli.projects.spprototype.model.PaperSettings.FinalPaperSettings;
 import eli.projects.spprototype.model.PaperSize;
 import eli.projects.spprototype.model.Piece;
 import javafx.concurrent.Task;
@@ -25,7 +27,7 @@ public class ExportTask extends Task<Void> {
 	
 	private OutputDocument document;
 	
-	private PageSettings imposedPageSettings;
+	private FinalPaperSettings imposedPageSettings;
 	
 	private boolean imposeOperation;
 	
@@ -36,7 +38,7 @@ public class ExportTask extends Task<Void> {
 	 * @param parts The list of parts that we want to export, in the order they will appear in the document.
 	 * @param exportDestination The destination we want to export those pieces
 	 */
-	public ExportTask(PageSettings pageSettings, List<Part> parts, File exportDestination) {
+	public ExportTask(FinalPaperSettings pageSettings, List<Part> parts, File exportDestination) {
 		super();
 		this.parts = parts;
 		this.exportDestination = exportDestination;
@@ -47,7 +49,7 @@ public class ExportTask extends Task<Void> {
 		imposedPageSettings = null;
 	}
 	
-	public ExportTask(PageSettings pageSettings, PageSettings cutPageSettings, List<Part> parts, File exportDestination) {
+	public ExportTask(FinalPaperSettings pageSettings, FinalPaperSettings cutPageSettings, List<Part> parts, File exportDestination) {
 		super();
 		this.parts = parts;
 		this.exportDestination = exportDestination;
