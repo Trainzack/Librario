@@ -57,6 +57,10 @@ public class PageSizeController {
 
 		paperSettings.getPaperSizeProperty().addListener((obs, oldValue, newValue) -> {
 			paperSizeCombo.valueProperty().set(newValue);
+			
+			if (newValue == PaperSize.CUSTOM) {
+				
+			}
 		});
 		
 		paperSizeCombo.setValue(PaperSize.CUSTOM); // Change it so that we update all the change listeners.
