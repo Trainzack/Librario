@@ -6,25 +6,43 @@
 	-fx-padding: 5;
 }
 
-.header {
-	-fx-font: 20 arial;
+.h1_padding {
 	-fx-padding: 10;
 }
 
-.header2 {
-	-fx-font: 14 arial;
+.h2_padding {
 	-fx-padding: 5;
 }
 
-.category_option1 {
+.text_size_h1 {
 	-fx-font: 20 arial;
-	-fx-padding: 10 10 10 0;
 }
 
-.category_option2 {
+.text_size_h2 {
 	-fx-font: 14 arial;
-	-fx-padding: 5 5 5 0;
 }
+
+
+.button_slick {
+	-fx-alignment: center-left;
+	
+	-fx-background-color: transparent;
+}
+
+.button_slick:hover 
+{
+	-fx-effect: dropshadow( two-pass-box , #00000011 , 5 , 0.0 , 0 , 0 );
+	-fx-background-color: #CCCCCC22;
+} 
+.button_slick:pressed
+{
+	-fx-background-color: #FFFFFFCC;
+}
+
+.listview_slick {
+	-fx-background-color: transparent;
+}
+
 
 .category_header2 {
 	-fx-font: 14 arial;
