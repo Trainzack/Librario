@@ -16,6 +16,22 @@
 	-fx-padding: 5;
 }
 
+.category_option1 {
+	-fx-font: 20 arial;
+	-fx-padding: 10 10 10 0;
+}
+
+.category_option2 {
+	-fx-font: 14 arial;
+	-fx-padding: 5 5 5 0;
+}
+
+.category_header2 {
+	-fx-font: 14 arial;
+	-fx-padding: 5 5 5 0;
+	-fx-text-fill: #666666
+}
+
 
 .orgbox {
 	-fx-padding: 10;
