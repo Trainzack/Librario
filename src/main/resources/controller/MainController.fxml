@@ -3,12 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -103,7 +106,22 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox prefHeight="45.0" prefWidth="250.0" styleClass="orgbox">
+                        <Label text="Ossia">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </padding>
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/ossiaLogo48.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <HBox prefHeight="45.0" prefWidth="250.0">
                            <children>
                               <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="312.0" promptText="Search" />
                               <Button fx:id="searchFilterButton" defaultButton="true" mnemonicParsing="false" onAction="#filterPieceTable" textOverrun="WORD_ELLIPSIS">
@@ -113,18 +131,55 @@
                               </Button>
                            </children>
                         </HBox>
-                        <HBox>
+                        <VBox>
                            <children>
-                              <Label styleClass="header" text="Library A">
+                              <AnchorPane>
+                                 <children>
+                                    <Label fx:id="labelLibrary" styleClass="category_option1" text="Default Library" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <graphic>
+                                          <FontIcon iconLiteral="enty-archive" wrappingWidth="20.0" />
+                                       </graphic>
+                                    </Label>
+                                    <Label fx:id="controlLibraryDropdown" layoutX="181.0" styleClass="header" AnchorPane.rightAnchor="0.0">
+                                       <graphic>
+                                          <FontIcon iconLiteral="enty-chevron-thin-down" wrappingWidth="20.0" />
+                                       </graphic>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <Label fx:id="labelPieces" styleClass="category_option2" text="Pieces">
                                  <graphic>
-                                    <FontIcon iconLiteral="enty-archive" wrappingWidth="20.0" />
+                                    <FontIcon iconLiteral="enty-beamed-note" wrappingWidth="20.0" />
+                                 </graphic>
+                              </Label>
+                              <Label fx:id="labelPieces1" styleClass="category_option2" text="Random Piece">
+                                 <graphic>
+                                    <FontIcon iconLiteral="enty-shuffle" wrappingWidth="20.0" />
                                  </graphic>
                               </Label>
                            </children>
-                        </HBox>
+                           <VBox.margin>
+                              <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <Label styleClass="category_header2" text="Recent Pieces" />
+                        <ListView prefHeight="200.0" prefWidth="200.0" />
+                        <Label layoutX="10.0" layoutY="176.0" styleClass="category_header2" text="Ensembles" />
+                        <ListView layoutX="10.0" layoutY="202.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Label layoutX="10.0" layoutY="402.0" styleClass="category_header2" text="Lists" />
+                        <ListView layoutX="10.0" layoutY="428.0" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </VBox>
                </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </padding>
             </AnchorPane>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <AnchorPane prefHeight="100.0" prefWidth="1233.0" />
