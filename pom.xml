@@ -84,6 +84,11 @@
 			<!-- <version>11.0.2</version> -->
 			<version>8.40.17</version>
 		</dependency>
+        <dependency>
+            <groupId>com.airhacks</groupId>
+            <artifactId>afterburner.fx</artifactId>
+            <version>1.6.0</version>
+        </dependency>
 
 	</dependencies>
 
@@ -149,6 +154,14 @@
 					<include>**/*.fxml</include>
 					<include>**/*.css</include>
 					<include>**/*.png</include>
+				</includes>
+			</resource>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.fxml</include>
+					<include>**/*.css</include>
 				</includes>
 			</resource>
 		</resources>

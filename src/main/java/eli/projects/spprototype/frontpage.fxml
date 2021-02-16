@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox minHeight="400.0" minWidth="400.0" prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.FrontpagePresenter">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem disable="true" mnemonicParsing="false" text="New Library" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Open Library" />
+            <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Close" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Save Library">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+            <MenuItem disable="true" mnemonicParsing="false" text="Save Library As…">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F12" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Export">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+            <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#quitProgram" text="Quit">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem disable="true" mnemonicParsing="false" text="Undo">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+            <MenuItem disable="true" mnemonicParsing="false" text="Redo">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+            <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Cut">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+            <MenuItem disable="true" mnemonicParsing="false" text="Copy">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+            <MenuItem disable="true" mnemonicParsing="false" text="Paste">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+            <MenuItem disable="true" mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Select All">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <HBox prefHeight="948.0" prefWidth="1280.0">
+         <children>
+            <AnchorPane maxWidth="250.0" minWidth="250.0" prefHeight="200.0" prefWidth="250.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label text="Ossia">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </padding>
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../resources/images/ossiaLogo48.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <VBox>
+                           <children>
+                              <AnchorPane>
+                                 <children>
+                                    <Button fx:id="controlLibraryDropdown" mnemonicParsing="false" prefHeight="51.0" prefWidth="34.0" AnchorPane.rightAnchor="0.0">
+                                       <graphic>
+                                          <FontIcon iconLiteral="enty-chevron-thin-down" wrappingWidth="20.0" />
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="text_size_h1" />
+                                          <String fx:value="button_slick" />
+                                       </styleClass>
+                                    </Button>
+                                    <Label fx:id="controlLibraryDropdown" layoutX="181.0" styleClass="header" AnchorPane.rightAnchor="0.0" />
+                                    <Button fx:id="controlLibrary" mnemonicParsing="false" prefHeight="51.0" prefWidth="187.0" text="Default Library">
+                                       <graphic>
+                                          <FontIcon iconLiteral="enty-archive" wrappingWidth="20.0" />
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="text_size_h1" />
+                                          <String fx:value="button_slick" />
+                                       </styleClass>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <Button fx:id="buttonPieces" mnemonicParsing="false" prefWidth="300.0" text="Pieces">
+                                 <graphic>
+                                    <FontIcon iconLiteral="enty-beamed-note" wrappingWidth="20.0" />
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="text_size_h2" />
+                                    <String fx:value="button_slick" />
+                                 </styleClass>
+                              </Button>
+                              <Button fx:id="buttonRandomPiece" mnemonicParsing="false" prefWidth="300.0" text="Random Piece">
+                                 <graphic>
+                                    <FontIcon iconLiteral="enty-shuffle" wrappingWidth="20.0" />
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="text_size_h2" />
+                                    <String fx:value="button_slick" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </VBox>
+                        <HBox prefHeight="45.0" prefWidth="250.0">
+                           <children>
+                              <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="312.0" promptText="Search" />
+                              <Button fx:id="searchButton" defaultButton="true" mnemonicParsing="false" textOverrun="WORD_ELLIPSIS">
+                                 <graphic>
+                                    <FontIcon iconLiteral="enty-magnifying-glass" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label styleClass="category_header2" text="Recent Pieces" />
+                        <ListView prefHeight="0.0" prefWidth="235.0" styleClass="listview_slick" />
+                        <Label layoutX="10.0" layoutY="176.0" styleClass="category_header2" text="Ensembles" />
+                        <ListView layoutX="10.0" layoutY="202.0" prefHeight="0.0" prefWidth="235.0" styleClass="listview_slick" />
+                        <Label layoutX="10.0" layoutY="402.0" styleClass="category_header2" text="Lists" />
+                        <ListView fx:id="setlistSidebarListView" layoutX="10.0" layoutY="428.0" prefHeight="179.0" prefWidth="235.0" styleClass="listview_slick" />
+                     </children>
+                  </VBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </padding>
+            </AnchorPane>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <AnchorPane fx:id="vistaPane" prefHeight="100.0" prefWidth="1233.0" />
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" />
+    <HBox alignment="CENTER_LEFT" prefWidth="974.0" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Version: N/A" HBox.hgrow="ALWAYS">
+          <font>
+            <Font size="11.0" fx:id="x3" />
+          </font>
+          <textFill>
+            <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+        <Label fx:id="rightStatus" font="$x3" maxWidth="-1.0" textFill="$x4" HBox.hgrow="NEVER" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>

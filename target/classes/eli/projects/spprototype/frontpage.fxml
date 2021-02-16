@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox minHeight="400.0" minWidth="400.0" prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.controller.MainController">
+<VBox minHeight="400.0" minWidth="400.0" prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.FrontpagePresenter">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -42,7 +42,7 @@
                         <KeyCodeCombination alt="UP" code="F12" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-            <MenuItem mnemonicParsing="false" onAction="#openExportPopup" text="Export">
+            <MenuItem mnemonicParsing="false" text="Export">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -117,7 +117,7 @@
                            <graphic>
                               <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/ossiaLogo48.png" />
+                                    <Image url="@../../../../resources/images/ossiaLogo48.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -173,7 +173,7 @@
                         <HBox prefHeight="45.0" prefWidth="250.0">
                            <children>
                               <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="312.0" promptText="Search" />
-                              <Button fx:id="searchFilterButton" defaultButton="true" mnemonicParsing="false" onAction="#filterPieceTable" textOverrun="WORD_ELLIPSIS">
+                              <Button fx:id="searchButton" defaultButton="true" mnemonicParsing="false" textOverrun="WORD_ELLIPSIS">
                                  <graphic>
                                     <FontIcon iconLiteral="enty-magnifying-glass" />
                                  </graphic>
@@ -185,7 +185,7 @@
                         <Label layoutX="10.0" layoutY="176.0" styleClass="category_header2" text="Ensembles" />
                         <ListView layoutX="10.0" layoutY="202.0" prefHeight="0.0" prefWidth="235.0" styleClass="listview_slick" />
                         <Label layoutX="10.0" layoutY="402.0" styleClass="category_header2" text="Lists" />
-                        <ListView layoutX="10.0" layoutY="428.0" prefHeight="0.0" prefWidth="235.0" styleClass="listview_slick" />
+                        <ListView fx:id="setlistSidebarListView" layoutX="10.0" layoutY="428.0" prefHeight="179.0" prefWidth="235.0" styleClass="listview_slick" />
                      </children>
                   </VBox>
                </children>
@@ -200,7 +200,7 @@
                </padding>
             </AnchorPane>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <AnchorPane prefHeight="100.0" prefWidth="1233.0" />
+            <AnchorPane fx:id="vistaPane" prefHeight="100.0" prefWidth="1233.0" />
          </children>
       </HBox>
       <Separator prefWidth="200.0" />

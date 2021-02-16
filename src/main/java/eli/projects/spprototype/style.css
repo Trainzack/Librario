@@ -1,0 +1,64 @@
+
+
+
+.large_button {
+	-fx-font: 16 arial;
+	-fx-padding: 5;
+}
+
+.h1_padding {
+	-fx-padding: 10;
+}
+
+.h2_padding {
+	-fx-padding: 5;
+}
+
+.text_size_h1 {
+	-fx-font: 20 arial;
+}
+
+.text_size_h2 {
+	-fx-font: 14 arial;
+}
+
+
+.button_slick {
+	-fx-alignment: center-left;
+	
+	-fx-background-color: transparent;
+}
+
+.button_slick:hover 
+{
+	-fx-effect: dropshadow( two-pass-box , #00000011 , 5 , 0.0 , 0 , 0 );
+	-fx-background-color: #CCCCCC22;
+} 
+.button_slick:pressed
+{
+	-fx-background-color: #FFFFFFCC;
+}
+
+.listview_slick {
+	-fx-background-color: transparent;
+}
+
+
+.category_header2 {
+	-fx-font: 14 arial;
+	-fx-padding: 5 5 5 0;
+	-fx-text-fill: #666666
+}
+
+
+.orgbox {
+	-fx-padding: 10;
+	-fx-spacing: 10;
+}
+
+.border {
+	-fx-border-color: #bbbbbb;
+    -fx-border-width: 1px;
+	-fx-border-radius: 5px;
+	-fx-padding: 10;
+}

@@ -4,11 +4,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.activity.InvalidActivityException;
 
-import eli.projects.spprototype.controller.MainController;
+import com.airhacks.afterburner.injection.Injector;
+
+import eli.projects.spprototype.controller.PiecesController;
+import eli.projects.spprototype.infrastructure.InMemoryListService;
 import eli.projects.spprototype.model.Library;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -29,6 +34,7 @@ import javafx.stage.Stage;
 
 /**
  * https://kordamp.org/ikonli/cheat-sheet-entypo.html
+ * https://www.wimdeblauwe.com/blog/2015/2015-03-24-introduction-to-using-javafx-with-afterburner.fx/
  * @author Eli
  *
  */
@@ -55,45 +61,36 @@ public class App extends Application
 		// This lets us pop up a box whenever we throw an exception.
 		Thread.setDefaultUncaughtExceptionHandler(App::handleError);
 		
+		Map<Object, Object> context = new HashMap<>();
+		
+		
+		
+		context.put("primaryStage", primaryStage);
+		context.put("listService", new InMemoryListService(7));
+		
 		this.primaryStage = primaryStage;
 		
         String javaVersion = System.getProperty("java.version");
         String javafxVersion = System.getProperty("javafx.version");
 
+        
+        
         // TODO Testing code, should be replaced later.
-        loadedLibrary = Library.loadOldLibrary(); //Library.generateTestingLibrary(10);
+        //loadedLibrary = Library.loadOldLibrary(); //Library.generateTestingLibrary(10);
 
-		try {
-			
-			URL fxmlLocation = getClass().getResource("/controller/MainController.fxml");
-			
-			System.out.println(fxmlLocation);
-					
-			FXMLLoader apploader = new FXMLLoader(fxmlLocation);
-	        
-			assert apploader.getLocation() != null;
-			
-			Parent root = apploader.load();
-			
-			MainController libraryController = apploader.getController();
-			
-	        libraryController.initModel(loadedLibrary, primaryStage);
-	        
-			
-			Scene scene = new Scene(root, 1280, 800);
-	        primaryStage.setScene(scene);
-	        
-	        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo.png")));
-	        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo32.png")));
-	        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo16.png")));
-	        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo48.png")));
-	        
-	        primaryStage.setTitle(WINDOW_NAME);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+        
+        Injector.setConfigurationSource(context::get);
+        
+        FrontpageView mainView = new FrontpageView();
+ 
+		Scene scene = new Scene(mainView.getView(), 1280, 800);
+        primaryStage.setScene(scene);  
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo32.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo16.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo48.png")));
+        
+        primaryStage.setTitle(WINDOW_NAME);
         
         primaryStage.show();
 

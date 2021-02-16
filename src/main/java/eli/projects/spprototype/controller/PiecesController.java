@@ -33,12 +33,12 @@ import java.util.List;
 import org.controlsfx.control.tableview2.TableView2;
 
 /**
- * Controls the Library
+ * This is the controller in charge of displaying all the pieces inside of the library. Currently nonfunctional.
  * 
  * @author Eli
  *
  */
-public class MainController {
+public class PiecesController {
 
 
 	
@@ -137,15 +137,7 @@ public class MainController {
 
 		this.library = _library;
 		this.stage = _stage;
-		
-		// Request confirmation before closing window.
-		this.stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
-				boolean userWantsToQuit = App.showConfirmationDialog("Quit?", "Are you sure you want to quit Ossia?", "Quit");
-				if (!userWantsToQuit) event.consume();
-			}
-		});
+
 		
 		
 		
@@ -597,16 +589,6 @@ public class MainController {
 		}
 	}
 
-	@FXML
-	private void quitProgram() {
-		//TODO: This and window close request should call the same function
-		boolean userWantsToQuit = App.showConfirmationDialog("Quit?", "Are you sure you want to quit?", "Quit");
-		// TODO: check to see if we have unsaved work
-		
-		if (userWantsToQuit) {
-			this.stage.close();	
-		}
-		
-	}
+
 	
 }

@@ -38,6 +38,7 @@ public class Setlist {
 	}
 	/**
 	 * Generates a new UserSetlist filled with testing data.
+	 * DEPRECATED, TODO REMOVE
 	 * @return
 	 */
 	public static Setlist generateTestUserSetlist() {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox fx:id="listEditBox" prefHeight="1000.0" prefWidth="1000.0" styleClass="orgbox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.vista.SetlistPresenter">
+   <children>
+      <Label fx:id="titleLabel" alignment="CENTER" style="&#10;" styleClass="header2" text="Selected List" textAlignment="CENTER" wrapText="false">
+         <font>
+            <Font size="18.0" fx:id="x511" />
+         </font>
+         <graphic>
+            <FontIcon iconLiteral="enty-list" />
+         </graphic>
+      </Label>
+      <GridPane hgap="10.0" prefHeight="80.0" prefWidth="442.0" vgap="10.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="352.0" minWidth="10.0" prefWidth="352.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Name:" />
+            <TextField fx:id="titleField" promptText="Name" styleClass="header2" GridPane.columnIndex="1" />
+            <Label text="Pieces:" GridPane.rowIndex="1" />
+            <Label fx:id="pieceCountLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <VBox>
+         <children>
+            <ListView fx:id="pieceView" prefHeight="9999.0" prefWidth="442.0" />
+         </children>
+      </VBox>
+   </children>
+</VBox>
