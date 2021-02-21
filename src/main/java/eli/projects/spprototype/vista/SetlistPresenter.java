@@ -8,30 +8,29 @@ import javax.inject.Inject;
 import eli.projects.spprototype.controller.ReorderableListCell;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
-public class SetlistPresenter implements Initializable {
-
-	@Inject
-	Setlist list;
+public class SetlistPresenter extends Vista implements Initializable {
 	
-	@FXML
-	Label titleLabel;
+	@Inject private Setlist list;
 	
-	@FXML
-	TextField titleField;
-	
-	@FXML
-	Label pieceCountLabel;
-	
-	@FXML
-	ListView<Piece> pieceView;
+	@FXML private Label titleLabel;
+	@FXML private TextField titleField;
+	@FXML private Label pieceCountLabel;
+	@FXML private ListView<Piece> pieceView;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		
 		// TODO Make interactive
+		
 		
 		titleLabel.textProperty().set(list.getName());
 		titleField.textProperty().set(list.getName());
@@ -40,6 +39,7 @@ public class SetlistPresenter implements Initializable {
 		
 		pieceView.setItems(list.getPieceList());
 		
+		// Allow the cells to be reordered.
 		pieceView.setCellFactory(list -> new ReorderableListCell<Piece>() {
 
 		    @Override
@@ -53,7 +53,30 @@ public class SetlistPresenter implements Initializable {
 		    }
 		});
 		
+		// Update list name when changing the name textfield
+		this.registerListener(titleField.textProperty(),
+				(obs, oldText, newText) -> {
+			list.setName(titleField.textProperty().get());
+		});
 		
+	}
+
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ReadOnlyStringProperty getTitleProperty() {
+		// TODO Auto-generated method stub
+		return list.getNameProperty();
+	}
+
+	@Override
+	public ReadOnlyStringProperty getIconLiteralProperty() {
+		// TODO Auto-generated method stub
+		return new SimpleStringProperty("enty-list");
 	}
 
 }

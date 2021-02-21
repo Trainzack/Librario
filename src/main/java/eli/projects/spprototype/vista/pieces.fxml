@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.tableview2.TableView2?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox prefHeight="551.0" prefWidth="577.0" styleClass="orgbox" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.vista.PiecesPresenter">
+   <children>
+      <HBox>
+         <children>
+            <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Pieces" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="18.0" fx:id="x5" />
+               </font>
+               <graphic>
+                  <FontIcon iconLiteral="enty-beamed-note" />
+               </graphic>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
+         <children>
+            <Label styleClass="category_header2" text="Filter " />
+            <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="312.0" promptText="title, arranger, or composer" />
+         </children>
+      </HBox>
+      <VBox>
+         <children>
+            <TableView2 fx:id="pieceTable" editable="true" prefHeight="707.0" prefWidth="770.0" tableMenuButtonVisible="true">
+               <contextMenu>
+                  <ContextMenu>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-edit" />
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#deleteSelectedPiece" text="Delete">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-trash" />
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#exportSelectedPiece" text="Export">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-export" />
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#addPieceToList" text="Add To List">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-add-to-list" />
+                           </graphic>
+                        </MenuItem>
+                     </items>
+                  </ContextMenu>
+               </contextMenu>
+               <columns>
+                  <TableColumn fx:id="pieceTitleColumn" prefWidth="193.0" text="Title" />
+                  <TableColumn fx:id="pieceComposerColumn" prefWidth="180.0" text="Composer" />
+                  <TableColumn fx:id="pieceArrangerColumn" prefWidth="170.0" text="Arranger" />
+                  <TableColumn fx:id="pieceYearColumn" prefWidth="75.0" text="Year" />
+                  <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="70.0" text="Duration" />
+               </columns>
+            </TableView2>
+            <ToolBar fx:id="pieceButtonBar" disable="true" prefHeight="35.0" prefWidth="572.0">
+               <items>
+                  <Button mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit Piece" textOverrun="WORD_ELLIPSIS">
+                     <graphic>
+                        <FontIcon iconLiteral="enty-edit" />
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#deleteSelectedPiece" text="Delete Piece" textOverrun="WORD_ELLIPSIS">
+                     <graphic>
+                        <FontIcon iconLiteral="enty-trash" />
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#exportSelectedPiece" text="Export Piece" textOverrun="WORD_ELLIPSIS">
+                     <graphic>
+                        <FontIcon iconLiteral="enty-export" />
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#addPieceToList" text="Add To List" textOverrun="WORD_ELLIPSIS">
+                     <graphic>
+                        <FontIcon iconLiteral="enty-add-to-list" />
+                     </graphic>
+                  </Button>
+               </items>
+            </ToolBar>
+         </children>
+      </VBox>
+   </children>
+</VBox>

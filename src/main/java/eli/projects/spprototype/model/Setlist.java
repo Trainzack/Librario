@@ -3,6 +3,8 @@ package eli.projects.spprototype.model;
 import java.util.ArrayList;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -14,7 +16,7 @@ import javafx.collections.ObservableList;
  */
 public class Setlist {
 	
-	private String name;
+	private StringProperty name = new SimpleStringProperty();
 	
 	// This variable contains the pieces that are in this setlist.
 	private ObservableList<Piece> observableList;
@@ -25,7 +27,7 @@ public class Setlist {
 	public Setlist(String name) {
 		super();
 		
-		this.name = name;
+		this.name.set(name);
 		observableList = FXCollections.observableArrayList(new ArrayList<Piece>());
 		
 		observableList.addListener(new ListChangeListener<Piece>() {
@@ -65,6 +67,14 @@ public class Setlist {
 	}
 
 	public String getName() {
+		return name.get();
+	}
+	
+	public void setName(String name) {
+		this.name.set(name);
+	}
+	
+	public StringProperty getNameProperty() {
 		return name;
 	}
 	
@@ -72,9 +82,7 @@ public class Setlist {
 		return numberOfPieces;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	
 	public boolean isUserList() {
 		return true;

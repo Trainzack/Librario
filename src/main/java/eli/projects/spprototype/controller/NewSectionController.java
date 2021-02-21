@@ -10,6 +10,11 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 
+/**
+ * @deprecated
+ * @author Eli
+ *
+ */
 public class NewSectionController {
 
 	@FXML

@@ -37,7 +37,7 @@ import javafx.stage.Stage;
  * This class controls the export screen.
  * 
  * It is part of the view of the MainController.
- * 
+ * @deprecated
  * @author Eli
  *
  */

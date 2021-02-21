@@ -1,12 +1,10 @@
-/**
- * 
- */
 package eli.projects.spprototype.vista;
 
 /**
+ * 
  * @author Eli
  *
  */
-public class SetlistView extends AbstractVistaView {
+public class PieceView extends AbstractVistaView {
 
 }

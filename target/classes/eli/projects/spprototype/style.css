@@ -22,6 +22,12 @@
 	-fx-font: 14 arial;
 }
 
+.category_header2 {
+	-fx-font: 14 arial;
+	-fx-padding: 5 5 5 0;
+	-fx-text-fill: #666666
+}
+
 
 .button_slick {
 	-fx-alignment: center-left;
@@ -29,25 +35,35 @@
 	-fx-background-color: transparent;
 }
 
-.button_slick:hover 
+.button_slick:hover, .listview_slick .list-cell:hover
 {
 	-fx-effect: dropshadow( two-pass-box , #00000011 , 5 , 0.0 , 0 , 0 );
 	-fx-background-color: #CCCCCC22;
 } 
-.button_slick:pressed
+.button_slick:pressed, .listview_slick .list-cell:pressed
 {
 	-fx-background-color: #FFFFFFCC;
+	-fx-text-fill: #000000;
 }
 
 .listview_slick {
 	-fx-background-color: transparent;
 }
 
+.listview_slick .list-cell {
+	-fx-background-color: transparent;
+}
 
-.category_header2 {
-	-fx-font: 14 arial;
-	-fx-padding: 5 5 5 0;
-	-fx-text-fill: #666666
+.listview_slick .list-cell:empty {
+    -fx-opacity: 0;
+}
+
+.listview_select .list-cell:selected {
+	
+	-fx-effect: dropshadow( two-pass-box , #00000011 , 5 , 0.0 , 0 , 0 );
+	-fx-background-color: #FFFFFFCC;
+	-fx-text-fill: #000000;
+	-fx-font-weight: bold;
 }
 
 

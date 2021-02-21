@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox fx:id="listEditBox" prefHeight="1000.0" prefWidth="1000.0" styleClass="orgbox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.vista.SetlistPresenter">
+<VBox fx:id="listEditBox" prefHeight="1000.0" prefWidth="1000.0" styleClass="orgbox" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.vista.SetlistPresenter">
    <children>
       <Label fx:id="titleLabel" alignment="CENTER" style="&#10;" styleClass="header2" text="Selected List" textAlignment="CENTER" wrapText="false">
          <font>

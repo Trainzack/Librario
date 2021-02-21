@@ -126,30 +126,30 @@
                            <children>
                               <AnchorPane>
                                  <children>
-                                    <Button fx:id="controlLibraryDropdown" mnemonicParsing="false" prefHeight="51.0" prefWidth="34.0" AnchorPane.rightAnchor="0.0">
+                                    <Button fx:id="controlLibrarySettings" mnemonicParsing="false" prefHeight="51.0" prefWidth="34.0" AnchorPane.rightAnchor="0.0">
                                        <graphic>
-                                          <FontIcon iconLiteral="enty-chevron-thin-down" wrappingWidth="20.0" />
+                                          <FontIcon iconLiteral="enty-cog" wrappingWidth="20.0" />
                                        </graphic>
                                        <styleClass>
                                           <String fx:value="text_size_h1" />
                                           <String fx:value="button_slick" />
                                        </styleClass>
                                     </Button>
-                                    <Label fx:id="controlLibraryDropdown" layoutX="181.0" styleClass="header" AnchorPane.rightAnchor="0.0" />
-                                    <Button fx:id="controlLibrary" mnemonicParsing="false" prefHeight="51.0" prefWidth="187.0" text="Default Library">
+                                    <Button fx:id="controlLibrary" graphicTextGap="8.0" mnemonicParsing="false" onAction="#openPieces" prefHeight="51.0" prefWidth="187.0" text="Default Library">
                                        <graphic>
                                           <FontIcon iconLiteral="enty-archive" wrappingWidth="20.0" />
                                        </graphic>
                                        <styleClass>
-                                          <String fx:value="text_size_h1" />
+                                          <String fx:value="h2_padding" />
                                           <String fx:value="button_slick" />
+                                          <String fx:value="text_size_h1" />
                                        </styleClass>
                                     </Button>
                                  </children>
                               </AnchorPane>
-                              <Button fx:id="buttonPieces" mnemonicParsing="false" prefWidth="300.0" text="Pieces">
+                              <Button fx:id="buttonPieces" mnemonicParsing="false" onAction="#openPieces" prefWidth="300.0" text="Pieces">
                                  <graphic>
-                                    <FontIcon iconLiteral="enty-beamed-note" wrappingWidth="20.0" />
+                                    <FontIcon iconLiteral="enty-beamed-note" text="" wrappingWidth="20.0" />
                                  </graphic>
                                  <styleClass>
                                     <String fx:value="text_size_h2" />
@@ -172,8 +172,8 @@
                         </VBox>
                         <HBox prefHeight="45.0" prefWidth="250.0">
                            <children>
-                              <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="312.0" promptText="Search" />
-                              <Button fx:id="searchButton" defaultButton="true" mnemonicParsing="false" textOverrun="WORD_ELLIPSIS">
+                              <TextField fx:id="searchField" prefHeight="25.0" prefWidth="312.0" promptText="Search" />
+                              <Button fx:id="searchButton" defaultButton="true" mnemonicParsing="false" onAction="#search" textOverrun="WORD_ELLIPSIS">
                                  <graphic>
                                     <FontIcon iconLiteral="enty-magnifying-glass" />
                                  </graphic>
@@ -181,11 +181,23 @@
                            </children>
                         </HBox>
                         <Label styleClass="category_header2" text="Recent Pieces" />
-                        <ListView prefHeight="0.0" prefWidth="235.0" styleClass="listview_slick" />
+                        <ListView fx:id="pieceSidebarListView" prefHeight="0.0" prefWidth="235.0">
+                           <styleClass>
+                              <String fx:value="listview_slick" />
+                              <String fx:value="listview_select" />
+                           </styleClass></ListView>
                         <Label layoutX="10.0" layoutY="176.0" styleClass="category_header2" text="Ensembles" />
-                        <ListView layoutX="10.0" layoutY="202.0" prefHeight="0.0" prefWidth="235.0" styleClass="listview_slick" />
+                        <ListView fx:id="ensembleSidebarListView" layoutX="10.0" layoutY="202.0" prefHeight="151.0" prefWidth="235.0">
+                           <styleClass>
+                              <String fx:value="listview_slick" />
+                              <String fx:value="listview_select" />
+                           </styleClass></ListView>
                         <Label layoutX="10.0" layoutY="402.0" styleClass="category_header2" text="Lists" />
-                        <ListView fx:id="setlistSidebarListView" layoutX="10.0" layoutY="428.0" prefHeight="179.0" prefWidth="235.0" styleClass="listview_slick" />
+                        <ListView fx:id="setlistSidebarListView" layoutX="10.0" layoutY="428.0" prefHeight="179.0" prefWidth="235.0">
+                           <styleClass>
+                              <String fx:value="listview_slick" />
+                              <String fx:value="listview_select" />
+                           </styleClass></ListView>
                      </children>
                   </VBox>
                </children>
@@ -200,13 +212,27 @@
                </padding>
             </AnchorPane>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <AnchorPane fx:id="vistaPane" prefHeight="100.0" prefWidth="1233.0" />
+            <VBox>
+               <children>
+                  <HBox alignment="CENTER_LEFT" styleClass="text_size_h1">
+                     <children>
+                        <Button fx:id="backButton" mnemonicParsing="false" onAction="#goToPreviousVista" text="Back">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-arrow-left" />
+                           </graphic>
+                        </Button>
+                        <HBox fx:id="vistaStackHbox" alignment="CENTER_LEFT" />
+                     </children>
+                  </HBox>
+                  <AnchorPane fx:id="vistaPane" prefHeight="99999.0" prefWidth="99999.0" />
+               </children>
+            </VBox>
          </children>
       </HBox>
       <Separator prefWidth="200.0" />
     <HBox alignment="CENTER_LEFT" prefWidth="974.0" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Version: N/A" HBox.hgrow="ALWAYS">
+        <Label fx:id="leftStatus" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Version: N/A" HBox.hgrow="ALWAYS">
           <font>
             <Font size="11.0" fx:id="x3" />
           </font>

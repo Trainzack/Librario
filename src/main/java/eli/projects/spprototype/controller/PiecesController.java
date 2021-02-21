@@ -33,8 +33,9 @@ import java.util.List;
 import org.controlsfx.control.tableview2.TableView2;
 
 /**
- * This is the controller in charge of displaying all the pieces inside of the library. Currently nonfunctional.
+ * This is the controller in charge of displaying all the pieces inside of the library.
  * 
+ * @deprecated
  * @author Eli
  *
  */

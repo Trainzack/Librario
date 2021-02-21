@@ -13,8 +13,6 @@ import javafx.collections.ObservableList;
  * This is intended for use with the setlists stored in the library.
  *
  */
-public interface ListService {
-
-	ObservableList<Setlist> getSetlists();
+public interface ListService extends ObservableListService<Setlist> {
 	
 }

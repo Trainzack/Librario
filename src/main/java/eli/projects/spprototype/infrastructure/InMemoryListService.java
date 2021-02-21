@@ -10,8 +10,10 @@ import javax.management.AttributeList;
 
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Callback;
 
 /**
  * @author Eli
@@ -38,12 +40,23 @@ public class InMemoryListService implements ListService {
 			fakeSetlists.add(fakeSetlist);
 		}
 		
-		lists = FXCollections.observableArrayList(fakeSetlists);
+		// Add all the properties that would make classes observing this list want to update what they're doing.
+		Callback<Setlist, Observable[]> extractor = new Callback<Setlist, Observable[]>() {
+
+			@Override
+			public Observable[] call(Setlist list) {
+				return new Observable[] {list.getLengthProperty(), list.getNameProperty()};
+			}
+			
+		};
+		
+		lists = FXCollections.observableArrayList(extractor);
+		lists.addAll(fakeSetlists);
 		
 	} 
 	
 	@Override
-	public ObservableList<Setlist> getSetlists() {
+	public ObservableList<Setlist> getItems() {
 		
 		return lists;
 	}

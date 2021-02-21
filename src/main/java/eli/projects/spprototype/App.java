@@ -7,13 +7,16 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 
 import javax.activity.InvalidActivityException;
 
 import com.airhacks.afterburner.injection.Injector;
 
 import eli.projects.spprototype.controller.PiecesController;
+import eli.projects.spprototype.infrastructure.InMemoryEnsembleService;
 import eli.projects.spprototype.infrastructure.InMemoryListService;
+import eli.projects.spprototype.infrastructure.InMemoryPieceService;
 import eli.projects.spprototype.model.Library;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -31,6 +34,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * https://kordamp.org/ikonli/cheat-sheet-entypo.html
@@ -61,18 +65,35 @@ public class App extends Application
 		// This lets us pop up a box whenever we throw an exception.
 		Thread.setDefaultUncaughtExceptionHandler(App::handleError);
 		
+		// Request confirmation before closing window.
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				boolean userWantsToQuit = App.confirmQuit();
+				if (!userWantsToQuit) event.consume();
+			}
+		});
+		
+		// Set up the context for depedancy injection
 		Map<Object, Object> context = new HashMap<>();
-		
-		
-		
 		context.put("primaryStage", primaryStage);
-		context.put("listService", new InMemoryListService(7));
+		
+		context.put("ensembleService", 	new InMemoryEnsembleService(5));
+		context.put("listService", 		new InMemoryListService(7));
+		context.put("pieceService", 	new InMemoryPieceService());
+		
+		final Properties properties = new Properties();
+		properties.load(getClass().getResourceAsStream("/project.properties"));
+		
+		assert !properties.isEmpty();
+		// System.out.println(properties.getProperty("artifactId"));
+		
+		context.put("javaVersion",  	System.getProperty("java.version"));
+		context.put("javafxVersion",  	System.getProperty("javafx.version"));
+		context.put("appVersion",	  	properties.getProperty("version"));
 		
 		this.primaryStage = primaryStage;
 		
-        String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
-
         
         
         // TODO Testing code, should be replaced later.
@@ -206,6 +227,15 @@ public class App extends Application
 
 		Optional<ButtonType> result = alert.showAndWait();
 		return (result.get() == buttonTypeAction);
+	}
+	
+	/**
+	 * Show the dialogue box asking if the user wants to quit.
+	 * @return True if they want to quit, false otherwise
+	 */
+	public static boolean confirmQuit() {
+		// TODO: Check if unsaved work?
+		return App.showConfirmationDialog("Quit?", "Are you sure you want to quit?", "Quit");
 	}
 	
 	
