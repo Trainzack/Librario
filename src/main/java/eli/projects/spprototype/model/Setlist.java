@@ -38,21 +38,7 @@ public class Setlist {
 			}
 		});
 	}
-	/**
-	 * Generates a new UserSetlist filled with testing data.
-	 * DEPRECATED, TODO REMOVE
-	 * @return
-	 */
-	public static Setlist generateTestUserSetlist() {
-		
-		Setlist out = new Setlist("Test List");
-		
-		for (Piece p : Piece.generateFakePieces(4)) {
-			out.add(p);
-		}
-		
-		return out;
-	}
+
 
 	public ObservableList<Piece> getPieceList() {
 		return observableList;

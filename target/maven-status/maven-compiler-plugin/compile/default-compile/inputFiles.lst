@@ -4,7 +4,6 @@ C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototyp
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\Library.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\EnsemblePresenter.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\EnsembleService.java
-C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\controller\PiecesController.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\PiecePresenter.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\LibraryView.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\InMemoryListService.java
@@ -21,6 +20,7 @@ C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototyp
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\VistaManager.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\AbstractVistaView.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\Ensemble.java
+C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\InstrumentService.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\controller\NewSectionController.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\FrontpageView.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\ExportSettings.java
@@ -51,5 +51,6 @@ C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototyp
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\controller\PageSizeController.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\LibraryService.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\Utility.java
+C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\InMemoryInstrumentService.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\EnsembleView.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\Vista.java

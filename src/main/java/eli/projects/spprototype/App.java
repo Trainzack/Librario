@@ -1,5 +1,6 @@
 package eli.projects.spprototype;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -14,7 +15,6 @@ import javax.activity.InvalidActivityException;
 
 import com.airhacks.afterburner.injection.Injector;
 
-import eli.projects.spprototype.controller.PiecesController;
 import eli.projects.spprototype.infrastructure.InMemoryEnsembleService;
 import eli.projects.spprototype.infrastructure.InMemoryLibraryService;
 import eli.projects.spprototype.infrastructure.InMemoryListService;
@@ -82,11 +82,9 @@ public class App extends Application
 		Map<Object, Object> context = new HashMap<>();
 		context.put("primaryStage", primaryStage);
 		
-		context.put("libraryService", 	new InMemoryLibraryService(30));
-		context.put("ensembleService", 	new InMemoryEnsembleService(5));
-		context.put("listService", 		new InMemoryListService(7));
-		context.put("pieceService", 	new InMemoryPieceService());
-		
+
+		File path = new File("D:/Sheet Music/Pep Band");
+		context.put("libraryService", 	new InMemoryLibraryService(path));
 		
 		context.put("javaVersion",  	System.getProperty("java.version"));
 		context.put("javafxVersion",  	System.getProperty("javafx.version"));

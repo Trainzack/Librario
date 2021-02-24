@@ -38,14 +38,15 @@ public class PiecePresenter extends Vista implements Initializable {
 
 	@Inject private Piece piece;
 	
-	@FXML private TableView2 partTable;
-	@FXML private TableColumn partDesignationColumn;
-	@FXML private TableColumn partPageCountColumn;
+	@FXML private TableView2<Part> partTable;
+	@FXML private TableColumn<Part, PartDesignation> partDesignationColumn;
+	@FXML private TableColumn<Part, Integer> partPageCountColumn;
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		partTable.setItems(piece.getParts());
 		
 		partDesignationColumn.setCellValueFactory(new PropertyValueFactory<Part, PartDesignation>("designation"));
 		partPageCountColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("pages"));

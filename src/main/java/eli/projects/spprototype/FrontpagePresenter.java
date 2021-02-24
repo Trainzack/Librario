@@ -34,12 +34,13 @@ public class FrontpagePresenter implements Initializable {
 	@Inject private Stage primaryStage;
 	
 	
-	@Inject private EnsembleService ensembleService;
 	
 	// This is the service that provides us the lists we display.
 	@Inject private LibraryService libraryService;
-	@Inject private ListService listService;
-	@Inject private PieceService pieceService;
+	
+	private EnsembleService ensembleService;
+	private ListService listService;
+	private PieceService pieceService;
 	
 	// Version information
 	@Inject private String javaVersion;
@@ -70,6 +71,10 @@ public class FrontpagePresenter implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		ensembleService = libraryService.getLibrary().getEnsembleService();
+		listService = libraryService.getLibrary().getListService();
+		pieceService = libraryService.getLibrary().getPieceService();
+		
 		leftStatus.setText("Version " + appVersion);
 		rightStatus.setText("Java " + javaVersion + ", JavaFX " + javafxVersion);
 
@@ -82,6 +87,7 @@ public class FrontpagePresenter implements Initializable {
 		
 		// -------------- Sidebars --------------------------
 		
+		@SuppressWarnings("rawtypes")
 		ListView[] sidebars = {
 				ensembleSidebarListView,
 				setlistSidebarListView,
@@ -90,6 +96,8 @@ public class FrontpagePresenter implements Initializable {
 		// ------------- Ensemble Sidebar -------------------		
 		
 		ensembleSidebarListView.setItems(ensembleService.getItems());
+		
+		
 		
 		ensembleSidebarListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			
@@ -105,6 +113,7 @@ public class FrontpagePresenter implements Initializable {
 				AbstractVistaView ensembleView = new EnsembleView();
 				
 		        vistaManager.setVista(ensembleView);
+		        setlistSidebarListView.getSelectionModel().clearSelection();
 			}
 		});		
 		
@@ -128,6 +137,7 @@ public class FrontpagePresenter implements Initializable {
 				
 		        
 		        vistaManager.setVista(listView);
+				ensembleSidebarListView.getSelectionModel().clearSelection();
 			}
 		});
 		
@@ -170,6 +180,7 @@ public class FrontpagePresenter implements Initializable {
 	@FXML
 	private void openRandomPiece() {
 		List<Piece> l = pieceService.getItems();
+		if (l.size() < 1) return;
 		Piece selectedPiece = l.get(App.randomGenerator.nextInt(l.size()));
 		Map<Object, Object> context = new HashMap<>();
 		context.put("piece", selectedPiece);

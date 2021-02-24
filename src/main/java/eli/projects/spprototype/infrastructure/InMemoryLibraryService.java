@@ -3,6 +3,7 @@
  */
 package eli.projects.spprototype.infrastructure;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -27,6 +28,10 @@ public class InMemoryLibraryService implements LibraryService {
 	
 
 	private Library library;
+	
+	public InMemoryLibraryService(File path) {
+		library = Library.loadOldLibrary(path);
+	}
 	
 	/**
 	 * Instantiates a made up library for testing purposes

@@ -23,15 +23,41 @@ import javafx.util.Callback;
  *
  */
 public class InMemoryListService implements ListService {
-	
-	private BooleanProperty saved = new SimpleBooleanProperty(true);
 
 	private ObservableList<Setlist> lists;
 	
-	/*
-	 * Instantiates a list with made up pieces (not part of any library)
+	/**
+	 * Instantiates an empty in-memory service.
+	 */
+	public InMemoryListService() {
+		// Add all the properties that would make classes observing this list want to update what they're doing.
+		Callback<Setlist, Observable[]> extractor = new Callback<Setlist, Observable[]>() {
+
+			@Override
+			public Observable[] call(Setlist list) {
+				return new Observable[] {list.getLengthProperty(), list.getNameProperty()};
+			}
+			
+		};
+		
+		lists = FXCollections.observableArrayList(extractor);
+	}
+	
+	/**
+	 * Instantiates an in-memory service containing the given Setlists.
+	 * @param lists The setlists to include in this service.
+	 */
+	public InMemoryListService(List<Setlist> lists) {
+		this();
+		this.lists.addAll(lists);
+	}
+	
+	/**
+	 * Instantiates a list with made up Setlists (not part of any library)
+	 * @param listCount The number of setlists to invent
 	 */
 	public InMemoryListService(int listCount) {
+		this();
 		
 		ArrayList<Setlist> fakeSetlists = new ArrayList<Setlist>();
 		
@@ -45,17 +71,6 @@ public class InMemoryListService implements ListService {
 			fakeSetlists.add(fakeSetlist);
 		}
 		
-		// Add all the properties that would make classes observing this list want to update what they're doing.
-		Callback<Setlist, Observable[]> extractor = new Callback<Setlist, Observable[]>() {
-
-			@Override
-			public Observable[] call(Setlist list) {
-				return new Observable[] {list.getLengthProperty(), list.getNameProperty()};
-			}
-			
-		};
-		
-		lists = FXCollections.observableArrayList(extractor);
 		lists.addAll(fakeSetlists);
 		
 	} 

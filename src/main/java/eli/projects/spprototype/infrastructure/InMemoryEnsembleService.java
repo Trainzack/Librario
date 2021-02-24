@@ -29,18 +29,11 @@ public class InMemoryEnsembleService implements EnsembleService {
 
 	private ObservableList<Ensemble> ensembles;
 	
-	/*
-	 * Instantiates a list with made up pieces (not part of any library)
+	
+	/**
+	 * Instantiates an empty in-memory service.
 	 */
-	public InMemoryEnsembleService(int ensembleCount) {
-		
-		ArrayList<Ensemble> fakeEnsembles = new ArrayList<Ensemble>();
-		
-		for (int i = 0; i < ensembleCount; i++) { 
-
-			fakeEnsembles.add(Ensemble.generateTestEnsemble());
-		}
-		
+	public InMemoryEnsembleService() {
 		// Add all the properties that would make classes observing this list want to update what they're doing.
 		Callback<Ensemble, Observable[]> extractor = new Callback<Ensemble, Observable[]>() {
 
@@ -52,6 +45,33 @@ public class InMemoryEnsembleService implements EnsembleService {
 		};
 		
 		ensembles = FXCollections.observableArrayList(extractor);
+	}
+	
+	/**
+	 * Instantiates an in-memory service containing the given ensembles.
+	 * @param ensembles The ensembles to include in this service.
+	 */
+	public InMemoryEnsembleService(List<Ensemble> ensembles) {
+		this();
+		this.ensembles.addAll(FXCollections.observableArrayList(ensembles));
+	}
+	
+	
+	/**
+	 * Instantiates a list with made up ensembles (not part of any library)
+	 * @param ensembleCount The number of ensembles to invent
+	 */
+	public InMemoryEnsembleService(int ensembleCount) {
+		this();
+		
+		ArrayList<Ensemble> fakeEnsembles = new ArrayList<Ensemble>();
+		
+		for (int i = 0; i < ensembleCount; i++) { 
+
+			fakeEnsembles.add(Ensemble.generateTestEnsemble());
+		}
+		
+
 		ensembles.addAll(fakeEnsembles);
 		
 	} 

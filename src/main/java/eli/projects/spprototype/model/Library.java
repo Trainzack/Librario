@@ -10,6 +10,8 @@ import java.util.Random;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import eli.projects.spprototype.SimpleDocumentSource;
+import eli.projects.spprototype.infrastructure.*;
+import eli.projects.spprototype.App;
 import eli.projects.spprototype.Part;
 import eli.projects.spprototype.PartDesignation;
 import eli.projects.spprototype.PartDesignation.InvalidPartDesignationException;
@@ -31,122 +33,75 @@ import javafx.collections.ObservableList;
  *
  */
 public class Library {
-
-	// This arraylist contains all of the pieces that this library contains
-	private ObservableList<Piece> pieces;
-
-	// This arraylist contains all of the setlists that this library contains
-	private final ObservableList<Setlist> setlists;
-	// This ObjectProperty contains the currently selected setlist
-	@Deprecated private final ObjectProperty<Setlist> currentSetlist = new SimpleObjectProperty<Setlist>(null);
 	
 	
-	// This arraylist contains all of the ensembles that this library contains
-	private ObservableList<Ensemble> ensembles;
-	// This ObjectProperty contains the currently selected ensemble
-	@Deprecated private final ObjectProperty<Ensemble> currentEnsemble = new SimpleObjectProperty<Ensemble>(null);
+	private PieceService pieceService;
+	private ListService listService;
+	private EnsembleService ensembleService;
+	private InstrumentService instrumentService;
 	
 	private StringProperty title = new SimpleStringProperty("Untitled Library");
 	
-	/**
-	 * TODO: This needs a name variable for save file names
-	 * @param pieces
-	 * @param setlists A list of setlists. Should *NOT* include the librarysetlist.
-	 * @param ensembles
-	 */
-	public Library(ArrayList<Piece> pieces, ArrayList<Setlist> setlists, ArrayList<Ensemble> ensembles) {
-		super();
-		this.pieces = FXCollections.observableArrayList(pieces);
-		this.setlists = FXCollections.observableArrayList(setlists);
-		this.ensembles = FXCollections.observableArrayList(ensembles);
-		
-	}
 	
-	public Library(Piece[] pieces, Setlist[] setlists, Ensemble[] ensembles) {
-		this(
-				new ArrayList<Piece>(Arrays.asList(pieces)),
-				new ArrayList<Setlist>(Arrays.asList(setlists)),
-				new ArrayList<Ensemble>(Arrays.asList(ensembles))
-			);
+	public Library(PieceService pieceService, ListService listService, EnsembleService ensembleService,
+			InstrumentService instrumentService) {
+		super();
+		this.pieceService = pieceService;
+		this.listService = listService;
+		this.ensembleService = ensembleService;
+		this.instrumentService = instrumentService;
 	}
-
 
 	/** Pieces **/
+	
+	public PieceService getPieceService() {
+		return this.pieceService;
+	}
 
 	public ObservableList<Piece> getPieces() {
-		return pieces;
-	}
-	
-	/**
-	 * @deprecated
-	 * Replace with service
-	 * @param piece
-	 */
-	public final void deletePiece(Piece piece) {
-		// TODO: remove this piece from all setlists!
-		this.pieces.remove(piece);
+		return this.pieceService.getItems();
 	}
 
 	/** Setlists **/
 	
 	public ObservableList<Setlist> getSetlists() {
-		return setlists;
+		return this.listService.getItems();
 	}
 	
-	public final ObjectProperty<Setlist> getCurrentSetlistProperty() {
-		return currentSetlist;
+	public ListService getListService() {
+		return this.listService;
 	}
 	
-	public final Setlist getCurrentSetlist() {
-		return currentSetlist.get();
-	}	
 	/**
 	 * Creates a new empty setlist
 	 * @param name The name of the setlist
 	 * @return The setlist that we add
 	 */
 	public Setlist addSetlist(String name) {
-		Setlist out = new Setlist(name);;
-		this.setlists.add(out);
-		// TODO: This needs to update the undo stack
+		Setlist out = new Setlist(name);
+		this.listService.getItems().add(out);
 		return out;
-	}
-	
-	public final void setCurrentSetlist(Setlist setlist) {
-		currentSetlist.set(setlist);
-	}
-	
-	public final void deleteCurrentSetlist() {
-		setlists.remove(this.getCurrentSetlist());
-		currentSetlist.set(null);
 	}
 	
 	/** Ensembles **/
 	
 	public ObservableList<Ensemble> getEnsembles() {
-		return ensembles;
+		return this.ensembleService.getItems();
 	}
 
-	public final ObjectProperty<Ensemble> getCurrentEnsembleProperty() {
-		return currentEnsemble;
-	}
-	
-	public final Ensemble getCurrentEnsemble() {
-		return currentEnsemble.get();
-	}
-	
-	public final void setCurrentEnsemble(Ensemble ensemble) {
-		currentEnsemble.set(ensemble);
+	public EnsembleService getEnsembleService() {
+		return this.ensembleService;
 	}
 	
 	public final void addNewEnsemble() {
-		ensembles.add(new Ensemble("New Ensemble"));
+		this.ensembleService.getItems().add(new Ensemble("New Ensemble"));
 	}
 	
-	public final void deleteCurrentEnsemble() {
-		ensembles.remove(currentEnsemble.get());
+	public final void deleteEnsemble(Ensemble e) {
+		this.ensembleService.deleteItem(e);
 	}
 	
+	/** Title **/
 	
 	public String getTitle() {
 		return this.title.get();
@@ -163,8 +118,11 @@ public class Library {
 	/** Instruments **/
 	
 	public ObservableList<Instrument> getInstruments() {
-		// TODO: At some point, we want all libraries to have their own instruments.
-		return FXCollections.observableArrayList(Instrument.getInstruments());
+		return this.instrumentService.getItems();
+	}
+	
+	public InstrumentService getInstrumentService() {
+		return this.instrumentService;
 	}
 
 	
@@ -172,40 +130,41 @@ public class Library {
 	
 	/**
 	 * Generates a library with fake testing data
-	 * @return
+	 * @return A library with made-up testing data
+	 * @param limit The maximum number of pieces allowed in this testing library (-1 for no limit)
 	 */
 	public static Library generateTestingLibrary(int limit) {
 		ArrayList<Piece> pieces = new ArrayList<Piece>();
 		
 		int j = 0;
 		for (Piece p : Piece.getAllFakePieces()) {
-			if (++j > limit) break;
+			if (limit > 0 && ++j > limit) break;
 			pieces.add(p);
 			
 		}
 		
 		ArrayList<Setlist> setlists = new ArrayList<Setlist>(1);
 
-		Setlist u = Setlist.generateTestUserSetlist();
-		u.setName("Fall Concert Program 2019");
-		setlists.add(u);
-		u = Setlist.generateTestUserSetlist();
-		u.setName("Spring Concert Program 2020");
-		setlists.add(u);
+		for (String s : new String[] {"Fall Concert Program 2019", "Spring Concert Program 2020", "Fall Concert Program 2020"} ) {
+			Setlist u = new Setlist(s);
+			setlists.add(u);
+			for (int i = 0; i < 4; i ++) {
+				u.add(pieces.get(App.randomGenerator.nextInt(pieces.size())));
+			}
+		}
+
 		
 		ArrayList<Ensemble> ensembles = new ArrayList<Ensemble>(1);
 		
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 5; i++) {
 			ensembles.add(Ensemble.generateTestEnsemble());
 		}
 		
-		
-		return new Library(pieces, setlists, ensembles);
+		return new Library(new InMemoryPieceService(pieces), new InMemoryListService(setlists), new InMemoryEnsembleService(ensembles), new InMemoryInstrumentService());
 	}
 	
-	public static Library loadOldLibrary() {
+	public static Library loadOldLibrary(File path) {
 		
-		File path = new File("D:/Sheet Music/Pep Band");
 		
 		ArrayList<Piece> pieces = new ArrayList<Piece>();
 
@@ -269,8 +228,14 @@ public class Library {
 			ensembles.add(Ensemble.generateTestEnsemble());
 		}
 		
-		
-		return new Library(pieces, setlists, ensembles);
+		Library output = new Library(
+				new InMemoryPieceService(pieces),
+				new InMemoryListService(setlists),
+				new InMemoryEnsembleService(ensembles),
+				new InMemoryInstrumentService()
+			); 
+		output.setTitle("BPB Library");
+		return  output;
 		
 	}
 
