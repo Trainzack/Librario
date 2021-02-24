@@ -13,6 +13,8 @@ import eli.projects.spprototype.model.Library;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
 import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
@@ -22,6 +24,7 @@ import javafx.util.Callback;
  *
  */
 public class InMemoryLibraryService implements LibraryService {
+	
 
 	private Library library;
 	
@@ -37,9 +40,11 @@ public class InMemoryLibraryService implements LibraryService {
 	public Library getLibrary() {
 		return library;
 	}
+	
 
 	@Override
-	public boolean saveLibrary() {
+	public boolean save() {
+		// We have no disk-representation, so we just fake this.
 		return false;
 	}
 

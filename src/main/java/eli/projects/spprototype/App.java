@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.activity.InvalidActivityException;
 
@@ -15,6 +16,7 @@ import com.airhacks.afterburner.injection.Injector;
 
 import eli.projects.spprototype.controller.PiecesController;
 import eli.projects.spprototype.infrastructure.InMemoryEnsembleService;
+import eli.projects.spprototype.infrastructure.InMemoryLibraryService;
 import eli.projects.spprototype.infrastructure.InMemoryListService;
 import eli.projects.spprototype.infrastructure.InMemoryPieceService;
 import eli.projects.spprototype.model.Library;
@@ -46,6 +48,8 @@ import javafx.stage.WindowEvent;
 public class App extends Application
 {
 
+	public static final Random randomGenerator = new Random();
+	
 	public static final String WINDOW_NAME = "Ossia";
 	
 	// TODO: Put this in some kind of datamodel?
@@ -78,18 +82,20 @@ public class App extends Application
 		Map<Object, Object> context = new HashMap<>();
 		context.put("primaryStage", primaryStage);
 		
+		context.put("libraryService", 	new InMemoryLibraryService(30));
 		context.put("ensembleService", 	new InMemoryEnsembleService(5));
 		context.put("listService", 		new InMemoryListService(7));
 		context.put("pieceService", 	new InMemoryPieceService());
 		
+		
+		context.put("javaVersion",  	System.getProperty("java.version"));
+		context.put("javafxVersion",  	System.getProperty("javafx.version"));
+		
+
 		final Properties properties = new Properties();
 		properties.load(getClass().getResourceAsStream("/project.properties"));
 		
 		assert !properties.isEmpty();
-		// System.out.println(properties.getProperty("artifactId"));
-		
-		context.put("javaVersion",  	System.getProperty("java.version"));
-		context.put("javafxVersion",  	System.getProperty("javafx.version"));
 		context.put("appVersion",	  	properties.getProperty("version"));
 		
 		this.primaryStage = primaryStage;

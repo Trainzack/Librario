@@ -2,6 +2,7 @@ package eli.projects.spprototype;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -10,6 +11,7 @@ import javax.inject.Inject;
 import com.airhacks.afterburner.injection.Injector;
 
 import eli.projects.spprototype.infrastructure.EnsembleService;
+import eli.projects.spprototype.infrastructure.LibraryService;
 import eli.projects.spprototype.infrastructure.ListService;
 import eli.projects.spprototype.infrastructure.PieceService;
 import eli.projects.spprototype.model.Ensemble;
@@ -35,6 +37,7 @@ public class FrontpagePresenter implements Initializable {
 	@Inject private EnsembleService ensembleService;
 	
 	// This is the service that provides us the lists we display.
+	@Inject private LibraryService libraryService;
 	@Inject private ListService listService;
 	@Inject private PieceService pieceService;
 	
@@ -46,13 +49,12 @@ public class FrontpagePresenter implements Initializable {
 	// This is the pane that will contain the other controllers we load in.
 	@FXML private AnchorPane vistaPane;
 	
-
-	@FXML private Button buttonPieces;
+	@FXML private Button controlLibrary;
 	
 	@FXML private TextField searchField;
 	@FXML private Button searchButton;
 	
-	@FXML private ListView<Piece> pieceSidebarListView;
+	//@FXML private ListView<Piece> pieceSidebarListView;
 	@FXML private ListView<Ensemble> ensembleSidebarListView;
 	@FXML private ListView<Setlist> setlistSidebarListView;
 	
@@ -70,21 +72,20 @@ public class FrontpagePresenter implements Initializable {
 		
 		leftStatus.setText("Version " + appVersion);
 		rightStatus.setText("Java " + javaVersion + ", JavaFX " + javafxVersion);
+
+		controlLibrary.textProperty().bind(libraryService.getLibrary().getTitleProperty());
 		
-		vistaManager = new VistaManager(vistaPane, backButton, vistaStackHbox);
-		ListView[] sidebars = {
-				pieceSidebarListView,
-				ensembleSidebarListView,
-				setlistSidebarListView,
-		};
 		
 		// ------------- Vista Manager ----------------------
 		
+		vistaManager = new VistaManager(vistaPane, backButton, vistaStackHbox);
 		
+		// -------------- Sidebars --------------------------
 		
-		// ------------- Pieces Sidebar ---------------------
-		
-
+		ListView[] sidebars = {
+				ensembleSidebarListView,
+				setlistSidebarListView,
+		};
 		
 		// ------------- Ensemble Sidebar -------------------		
 		
@@ -101,7 +102,7 @@ public class FrontpagePresenter implements Initializable {
 				
 				Injector.setConfigurationSource(context::get);
 		        
-		        EnsembleView ensembleView = new EnsembleView();
+				AbstractVistaView ensembleView = new EnsembleView();
 				
 		        vistaManager.setVista(ensembleView);
 			}
@@ -123,7 +124,7 @@ public class FrontpagePresenter implements Initializable {
 				
 				Injector.setConfigurationSource(context::get);
 		        
-		        SetlistView listView = new SetlistView();
+				AbstractVistaView listView = new SetlistView();
 				
 		        
 		        vistaManager.setVista(listView);
@@ -156,12 +157,41 @@ public class FrontpagePresenter implements Initializable {
 		Map<Object, Object> context = new HashMap<>();
 		context.put("primaryStage", primaryStage);
 		context.put("pieceService", pieceService);
+		context.put("vistaManager", vistaManager);
 		
 		Injector.setConfigurationSource(context::get);
         
-        PiecesView piecesView = new PiecesView();
+		AbstractVistaView piecesView = new PiecesView();
 		
         vistaManager.setVista(piecesView);
+	}
+	
+	
+	@FXML
+	private void openRandomPiece() {
+		List<Piece> l = pieceService.getItems();
+		Piece selectedPiece = l.get(App.randomGenerator.nextInt(l.size()));
+		Map<Object, Object> context = new HashMap<>();
+		context.put("piece", selectedPiece);
+		
+		Injector.setConfigurationSource(context::get);
+        PieceView pieceView = new PieceView();
+		
+        vistaManager.setVista(pieceView);
+	}
+	
+	@FXML
+	private void openLibrarySettings() {
+		Map<Object, Object> context = new HashMap<>();
+		context.put("primaryStage", primaryStage);
+		context.put("libraryService", libraryService);
+		context.put("vistaManager", vistaManager);
+		
+		Injector.setConfigurationSource(context::get);
+        
+        AbstractVistaView newVista = new LibraryView();
+		
+        vistaManager.setVista(newVista);
 	}
 	
 	@FXML
@@ -173,6 +203,7 @@ public class FrontpagePresenter implements Initializable {
 	private void goToPreviousVista() {
 		vistaManager.popVista();
 	}
+
 	
 	
 

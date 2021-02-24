@@ -1,5 +1,11 @@
+.title {
+	-fx-font: 40 arial;
+	-fx-effect: dropshadow( two-pass-box , #FFFFFFFF , 15 , 0.0 , 0 , 0 );
+}
 
-
+.sidebar {
+	-fx-background-color: linear-gradient(from 85% 50% to 100% 50.01%, #F4F4F4, #E6E6E6);
+}
 
 .large_button {
 	-fx-font: 16 arial;

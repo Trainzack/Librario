@@ -3,8 +3,12 @@
  */
 package eli.projects.spprototype.infrastructure;
 
+import java.util.List;
+
 import eli.projects.spprototype.model.Piece;
 import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
@@ -14,6 +18,8 @@ import javafx.util.Callback;
  *
  */
 public class InMemoryPieceService implements PieceService {
+	
+	private BooleanProperty saved = new SimpleBooleanProperty(true);
 
 	private ObservableList<Piece> pieces;
 	
@@ -43,6 +49,25 @@ public class InMemoryPieceService implements PieceService {
 	public ObservableList<Piece> getItems() {
 		
 		return pieces;
+	}
+
+	@Override
+	public void deleteItem(Piece item) {
+		pieces.remove(item);
+		
+	}
+
+	@Override
+	public void deleteItems(List<Piece> items) {
+		pieces.removeAll(items);
+		
+	}
+	
+
+	@Override
+	public boolean save() {
+		// We have no disk-representation, so we just fake this.
+		return false;
 	}
 
 }

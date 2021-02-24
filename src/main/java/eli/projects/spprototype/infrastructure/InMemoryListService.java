@@ -4,6 +4,7 @@
 package eli.projects.spprototype.infrastructure;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.management.AttributeList;
@@ -11,6 +12,8 @@ import javax.management.AttributeList;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
 import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
@@ -20,6 +23,8 @@ import javafx.util.Callback;
  *
  */
 public class InMemoryListService implements ListService {
+	
+	private BooleanProperty saved = new SimpleBooleanProperty(true);
 
 	private ObservableList<Setlist> lists;
 	
@@ -59,6 +64,25 @@ public class InMemoryListService implements ListService {
 	public ObservableList<Setlist> getItems() {
 		
 		return lists;
+	}
+
+	@Override
+	public void deleteItem(Setlist item) {
+		lists.remove(item);
+		
+	}
+
+	@Override
+	public void deleteItems(List<Setlist> items) {
+		lists.removeAll(items);
+		
+	}
+	
+
+	@Override
+	public boolean save() {
+		// We have no disk-representation, so we just fake this.
+		return false;
 	}
 
 }

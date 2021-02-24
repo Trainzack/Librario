@@ -1,6 +1,7 @@
 package eli.projects.spprototype.infrastructure;
 
 import eli.projects.spprototype.model.Library;
+import javafx.beans.property.BooleanProperty;
 
 public interface LibraryService {
 	
@@ -10,9 +11,10 @@ public interface LibraryService {
 	 */
 	Library getLibrary();
 	
+	
 	/**
-	 * Saves the library to the place it originates.
+	 * Saves this service to disk
 	 * @return true if the save was successful, false otherwise. 
 	 */
-	boolean saveLibrary();
+	boolean save();
 }

@@ -5,10 +5,11 @@ C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototyp
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\EnsemblePresenter.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\EnsembleService.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\controller\PiecesController.java
+C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\PiecePresenter.java
+C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\LibraryView.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\InMemoryListService.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\DocumentSource.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\package-info.java
-C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\Vistable.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\Setlist.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\controller\ReorderableListCell.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\Piece.java
@@ -37,11 +38,13 @@ C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototyp
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\ExportTask.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\SetlistView.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\package-info.java
+C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\PieceView.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\Part.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\InMemoryLibraryService.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\controller\ExportGroupListCell.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\Section.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\PiecesPresenter.java
+C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\LibraryPresenter.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\controller\FloatMMSpinnerValueFactory.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\SimpleDocumentSource.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\SetlistPresenter.java

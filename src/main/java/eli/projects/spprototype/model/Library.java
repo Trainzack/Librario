@@ -15,6 +15,8 @@ import eli.projects.spprototype.PartDesignation;
 import eli.projects.spprototype.PartDesignation.InvalidPartDesignationException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -36,13 +38,15 @@ public class Library {
 	// This arraylist contains all of the setlists that this library contains
 	private final ObservableList<Setlist> setlists;
 	// This ObjectProperty contains the currently selected setlist
-	private final ObjectProperty<Setlist> currentSetlist = new SimpleObjectProperty<Setlist>(null);
+	@Deprecated private final ObjectProperty<Setlist> currentSetlist = new SimpleObjectProperty<Setlist>(null);
 	
 	
 	// This arraylist contains all of the ensembles that this library contains
 	private ObservableList<Ensemble> ensembles;
 	// This ObjectProperty contains the currently selected ensemble
-	private final ObjectProperty<Ensemble> currentEnsemble = new SimpleObjectProperty<Ensemble>(null);
+	@Deprecated private final ObjectProperty<Ensemble> currentEnsemble = new SimpleObjectProperty<Ensemble>(null);
+	
+	private StringProperty title = new SimpleStringProperty("Untitled Library");
 	
 	/**
 	 * TODO: This needs a name variable for save file names
@@ -73,6 +77,11 @@ public class Library {
 		return pieces;
 	}
 	
+	/**
+	 * @deprecated
+	 * Replace with service
+	 * @param piece
+	 */
 	public final void deletePiece(Piece piece) {
 		// TODO: remove this piece from all setlists!
 		this.pieces.remove(piece);
@@ -136,6 +145,19 @@ public class Library {
 	
 	public final void deleteCurrentEnsemble() {
 		ensembles.remove(currentEnsemble.get());
+	}
+	
+	
+	public String getTitle() {
+		return this.title.get();
+	}
+	
+	public StringProperty getTitleProperty() {
+		return this.title;
+	}
+	
+	public void setTitle(String title) {
+		this.title.set(title);
 	}
 	
 	/** Instruments **/

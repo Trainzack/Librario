@@ -20,7 +20,6 @@ public class SetlistPresenter extends Vista implements Initializable {
 	
 	@Inject private Setlist list;
 	
-	@FXML private Label titleLabel;
 	@FXML private TextField titleField;
 	@FXML private Label pieceCountLabel;
 	@FXML private ListView<Piece> pieceView;
@@ -32,7 +31,6 @@ public class SetlistPresenter extends Vista implements Initializable {
 		// TODO Make interactive
 		
 		
-		titleLabel.textProperty().set(list.getName());
 		titleField.textProperty().set(list.getName());
 		
 		pieceCountLabel.textProperty().set(""+list.getLengthProperty().get());

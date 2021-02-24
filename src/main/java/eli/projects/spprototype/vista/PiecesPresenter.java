@@ -1,11 +1,15 @@
 package eli.projects.spprototype.vista;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
 import org.controlsfx.control.tableview2.TableView2;
+
+import com.airhacks.afterburner.injection.Injector;
 
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.Part;
@@ -33,6 +37,7 @@ public class PiecesPresenter extends Vista implements Initializable {
 	private FilteredList<Piece> filteredPieces;
 	
 	@Inject private PieceService pieceService;
+	@Inject private VistaManager vistaManager;
 	
 	@FXML private TextField searchFilterField;
 	
@@ -46,8 +51,7 @@ public class PiecesPresenter extends Vista implements Initializable {
 	
 	@FXML private ToolBar pieceButtonBar;
 	
-	//@Inject Ensemble ensemble;
-	
+	@FXML private Label selectionCountLabel;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -74,13 +78,7 @@ public class PiecesPresenter extends Vista implements Initializable {
 			pieceButtonBar.setDisable(newPiece == null);
 			pieceTable.getSelectionModel().select(newPiece); // Why does this line exist?
 			
-			if (newPiece != null) {
-				String parts = "Parts: ";
-				
-				for (Part p : newPiece.getParts()) {
-					parts += p.getDesignation().toString() + ", ";
-				}
-			}
+			selectionCountLabel.setText(Utility.pluralizer("piece", pieceTable.getSelectionModel().getSelectedCells().size()) + " selected");
 			
 		});
 		
@@ -134,16 +132,25 @@ public class PiecesPresenter extends Vista implements Initializable {
 		
 		ObservableList<Piece> selection = pieceTable.getSelectionModel().getSelectedItems();
 		if (selection.size() <= 0) {
-			// App.ShowError("Cannot edit piece.", "No piece is selected. Please select a piece and try again.");
+			
+			
+			
 		} else {
-			App.ShowTempAlert("Action not yet implemented!");
+			Piece selectedPiece = selection.get(0);
+			Map<Object, Object> context = new HashMap<>();
+			context.put("piece", selectedPiece);
+			
+			Injector.setConfigurationSource(context::get);
+	        PieceView pieceView = new PieceView();
+			
+	        vistaManager.pushVista(pieceView);
 		}
 	}
 
 	@FXML
 	private void deleteSelectedPiece() {
-		/** TODO update
-		ObservableList<Piece> selection = libraryPieceTable.getSelectionModel().getSelectedItems();
+		
+		ObservableList<Piece> selection = pieceTable.getSelectionModel().getSelectedItems();
 		
 		if (selection.size() <= 0) {
 			// App.ShowError("Cannot delete piece.", "No piece is selected. Please select a piece and try again.");
@@ -160,13 +167,9 @@ public class PiecesPresenter extends Vista implements Initializable {
 					"Delete " + pieceCount);
 			// TODO: List how many setlists this piece is in, and warn that it will be removed from all of them.
 			if (userWantsToDelete) {
-				// We need to take the items out of the observable list before we start iterating over it, otherwise it skip some when we delete.
-				for (Piece p : selection.toArray(new Piece[selection.size()])) {
-					library.deletePiece(p);
-				}
+				pieceService.deleteItems(selection);
 			}
 		}
-		**/
 
 	}
 	

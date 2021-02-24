@@ -20,9 +20,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class EnsemblePresenter extends Vista implements Initializable {
-
-	@FXML 
-	private Label nameLabel;
 	
 	@FXML
 	private TextField nameField;
@@ -52,7 +49,6 @@ public class EnsemblePresenter extends Vista implements Initializable {
 		
 		sectionTableView.setItems(ensemble.getSections());
 		nameField.setText(ensemble.getName());
-		nameLabel.setText(ensemble.getName());
 		membersLabel.setText(ensemble.getNumberOfMembers() + " members");
 
 		

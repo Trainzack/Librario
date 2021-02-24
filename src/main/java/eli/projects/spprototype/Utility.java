@@ -30,5 +30,19 @@ public class Utility {
 	    
 	}
 	
+	/**
+	 * Adds 's' to the end of 'type' depending on count 
+	 * @param type What kind of thing we're counting
+	 * @param count How many of that thing there are
+	 * @return A string containing the count, then the type properly pluralized.
+	 */
+	public static String pluralizer(String type, int count) {
+		if (Math.abs(count) == 1) {
+			return count + " " + type;
+		} else {
+			return count + " " + type + "s";
+		}
+	}
+	
 }
 

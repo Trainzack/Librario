@@ -51,7 +51,7 @@ public class VistaManager {
 	 */
 	public void setVista(AbstractVistaView vista) {
 		clearVistaStack();
-		addVista(vista);
+		pushVista(vista);
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class VistaManager {
 	 * @param vista
 	 * @param node
 	 */
-	private void addVista(AbstractVistaView vista) {
+	public void pushVista(AbstractVistaView vista) {
 		vistaStack.add(vista);
 		Parent node = vista.getView();
 		selectedIndex = vistaStack.size() - 1;

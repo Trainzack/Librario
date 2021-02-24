@@ -9,24 +9,11 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.tableview2.TableView2?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <VBox prefHeight="551.0" prefWidth="577.0" styleClass="orgbox" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.vista.PiecesPresenter">
    <children>
-      <HBox>
-         <children>
-            <Label alignment="CENTER" style="&#10;" styleClass="header2" text="Pieces" textAlignment="CENTER" wrapText="false">
-               <font>
-                  <Font size="18.0" fx:id="x5" />
-               </font>
-               <graphic>
-                  <FontIcon iconLiteral="enty-beamed-note" />
-               </graphic>
-            </Label>
-         </children>
-      </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
          <children>
             <Label styleClass="category_header2" text="Filter " />
@@ -72,17 +59,18 @@
             </TableView2>
             <ToolBar fx:id="pieceButtonBar" disable="true" prefHeight="35.0" prefWidth="572.0">
                <items>
-                  <Button mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit Piece" textOverrun="WORD_ELLIPSIS">
+                  <Label fx:id="selectionCountLabel" text="0 pieces selected" />
+                  <Button mnemonicParsing="false" onAction="#editSelectedPiece" text="Edit" textOverrun="WORD_ELLIPSIS">
                      <graphic>
                         <FontIcon iconLiteral="enty-edit" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#deleteSelectedPiece" text="Delete Piece" textOverrun="WORD_ELLIPSIS">
+                  <Button mnemonicParsing="false" onAction="#deleteSelectedPiece" text="Delete" textOverrun="WORD_ELLIPSIS">
                      <graphic>
                         <FontIcon iconLiteral="enty-trash" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#exportSelectedPiece" text="Export Piece" textOverrun="WORD_ELLIPSIS">
+                  <Button mnemonicParsing="false" onAction="#exportSelectedPiece" text="Export" textOverrun="WORD_ELLIPSIS">
                      <graphic>
                         <FontIcon iconLiteral="enty-export" />
                      </graphic>
