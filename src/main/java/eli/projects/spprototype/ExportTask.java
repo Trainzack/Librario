@@ -15,6 +15,7 @@ import org.apache.pdfbox.util.Matrix;
 
 import eli.projects.spprototype.model.PaperSettings;
 import eli.projects.spprototype.model.PaperSettings.FinalPaperSettings;
+import eli.projects.util.StringUtils;
 import eli.projects.spprototype.model.PaperSize;
 import eli.projects.spprototype.model.Piece;
 import javafx.concurrent.Task;
@@ -122,7 +123,7 @@ public class ExportTask extends Task<Void> {
 			
 			
 			document.close();
-			updateMessage("Export complete. Size: " + Utility.humanReadableByteCountSI(exportDestination.length()) + ". Parts: " + numberOfPartsAlreadyAdded + ". Pages: " + document.getNumberOfPages() + ".");
+			updateMessage("Export complete. Size: " + StringUtils.humanReadableByteCountSI(exportDestination.length()) + ". Parts: " + numberOfPartsAlreadyAdded + ". Pages: " + document.getNumberOfPages() + ".");
 			updateProgress(1, 1);
 		}
 		

@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.tableview2.TableView2?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <VBox prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.vista.PiecePresenter">
    <children>
-      <ToolBar prefHeight="70.0" prefWidth="200.0" />
+      <Button mnemonicParsing="false" onAction="#exportPiece" styleClass="large_button" stylesheets="@../style.css" text="Export">
+         <graphic>
+            <FontIcon iconLiteral="enty-export" />
+         </graphic>
+      </Button>
       <TableView2 fx:id="partTable" editable="true" prefHeight="1000.0" prefWidth="1000.0">
          <columns>
             <TableColumn fx:id="partDesignationColumn" editable="false" prefWidth="75.0" text="Part" />

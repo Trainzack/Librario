@@ -5,6 +5,7 @@ package eli.projects.spprototype.infrastructure;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import eli.projects.spprototype.model.Piece;
@@ -48,7 +49,7 @@ public class InMemoryPieceService implements PieceService {
 	 * Create a pieceService containing the given pieces
 	 * @param pieces The pieces to be served by the piece service
 	 */
-	public InMemoryPieceService(List<Piece> pieces) {
+	public InMemoryPieceService(Collection<Piece> pieces) {
 		this();
 		this.pieces.addAll(pieces);
 	}
@@ -79,12 +80,22 @@ public class InMemoryPieceService implements PieceService {
 	}
 
 	@Override
-	public void deleteItems(List<Piece> items) {
+	public void deleteItems(Collection<Piece> items) {
 		pieces.removeAll(items);
 		
 	}
-	
 
+	@Override
+	public void addItem(Piece item) {
+		pieces.add(item);
+		
+	}
+
+	@Override
+	public void addItems(Collection<Piece> items) {
+		pieces.addAll(items);
+		
+	}
 	@Override
 	public boolean save() {
 		// We have no disk-representation, so we just fake this.

@@ -110,15 +110,11 @@ public class VistaManager {
 			
 			for(int i = 0; i < vistaStack.size(); i++) {
 				Vista v = (Vista) vistaStack.get(i).getPresenter();
-				String title = "";
-				if (i == vistaStack.size() - 1) {
-					title = v.getTitleProperty().get();
+				Label l = new Label(v.getTitleProperty().get(), new FontIcon(v.getIconLiteralProperty().get()));
+				if (i != vistaStack.size() - 1) {
+					l.getStyleClass().add("text_size_h2");
 				}
-				vistaStackHbox.getChildren().add(new Label(
-						title,
-						new FontIcon(v.getIconLiteralProperty().get())
-					)
-						);
+				vistaStackHbox.getChildren().add(l);
 				if (i < vistaStack.size() - 1) {
 					vistaStackHbox.getChildren().add(new FontIcon(DELIMINATOR_ICON_LITERAL));
 				}

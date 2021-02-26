@@ -1,9 +1,9 @@
-package eli.projects.spprototype;
+package eli.projects.util;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
-public class Utility {
+public class StringUtils {
 	
 	public static String intToDuration(int duration) {
 		return ((duration/60 %60 < 10) ? "0"  : "") + (duration / 60) + 

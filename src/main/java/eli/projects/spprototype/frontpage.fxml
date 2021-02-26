@@ -172,17 +172,37 @@
                            </children>
                         </HBox>
                         <Label layoutX="10.0" layoutY="176.0" styleClass="category_header2" text="Ensembles" />
-                        <ListView fx:id="ensembleSidebarListView" layoutX="10.0" layoutY="202.0" prefHeight="151.0" prefWidth="235.0">
-                           <styleClass>
-                              <String fx:value="listview_slick" />
-                              <String fx:value="listview_select" />
-                           </styleClass></ListView>
+                        <VBox>
+                           <children>
+                              <ListView fx:id="ensembleSidebarListView" prefHeight="151.0" prefWidth="235.0">
+                                 <styleClass>
+                                    <String fx:value="listview_slick" />
+                                    <String fx:value="listview_select" />
+                                 </styleClass>
+                              </ListView>
+                              <Button mnemonicParsing="false" onAction="#createNewEnsemble" prefWidth="10000.0" styleClass="button_slick" text="New Ensemble">
+                                 <graphic>
+                                    <FontIcon iconLiteral="enty-plus" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </VBox>
                         <Label layoutX="10.0" layoutY="402.0" styleClass="category_header2" text="Lists" />
-                        <ListView fx:id="setlistSidebarListView" layoutX="10.0" layoutY="428.0" prefHeight="179.0" prefWidth="235.0">
-                           <styleClass>
-                              <String fx:value="listview_slick" />
-                              <String fx:value="listview_select" />
-                           </styleClass></ListView>
+                        <VBox>
+                           <children>
+                              <ListView fx:id="setlistSidebarListView" prefHeight="179.0" prefWidth="235.0">
+                                 <styleClass>
+                                    <String fx:value="listview_slick" />
+                                    <String fx:value="listview_select" />
+                                 </styleClass>
+                              </ListView>
+                              <Button mnemonicParsing="false" onAction="#createNewList" prefWidth="10000.0" styleClass="button_slick" text="New List">
+                                 <graphic>
+                                    <FontIcon iconLiteral="enty-plus" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
                </children>

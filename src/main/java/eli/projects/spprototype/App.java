@@ -35,6 +35,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.input.DataFormat;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -47,10 +48,11 @@ import javafx.stage.WindowEvent;
 
 public class App extends Application
 {
+	
 
 	public static final Random randomGenerator = new Random();
 	
-	public static final String WINDOW_NAME = "Ossia";
+	public static final String WINDOW_NAME = "Librario";
 	
 	// TODO: Put this in some kind of datamodel?
 	private static Library loadedLibrary;
@@ -80,11 +82,15 @@ public class App extends Application
 		
 		// Set up the context for depedancy injection
 		Map<Object, Object> context = new HashMap<>();
+		context.put("context", context);
 		context.put("primaryStage", primaryStage);
 		
 
 		File path = new File("D:/Sheet Music/Pep Band");
-		context.put("libraryService", 	new InMemoryLibraryService(path));
+		context.put("libraryService", 	new InMemoryLibraryService(path)); // Load test library from filesystem
+		//context.put("libraryService", 	new InMemoryLibraryService(-1)); // Make up test library (no PDFS)
+		
+		
 		
 		context.put("javaVersion",  	System.getProperty("java.version"));
 		context.put("javafxVersion",  	System.getProperty("javafx.version"));

@@ -4,6 +4,7 @@
 package eli.projects.spprototype.infrastructure;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -47,7 +48,7 @@ public class InMemoryListService implements ListService {
 	 * Instantiates an in-memory service containing the given Setlists.
 	 * @param lists The setlists to include in this service.
 	 */
-	public InMemoryListService(List<Setlist> lists) {
+	public InMemoryListService(Collection<Setlist> lists) {
 		this();
 		this.lists.addAll(lists);
 	}
@@ -88,12 +89,23 @@ public class InMemoryListService implements ListService {
 	}
 
 	@Override
-	public void deleteItems(List<Setlist> items) {
+	public void deleteItems(Collection<Setlist> items) {
 		lists.removeAll(items);
 		
 	}
-	
 
+	@Override
+	public void addItem(Setlist item) {
+		lists.add(item);
+		
+	}
+
+	@Override
+	public void addItems(Collection<Setlist> items) {
+		lists.addAll(items);
+		
+	}
+	
 	@Override
 	public boolean save() {
 		// We have no disk-representation, so we just fake this.

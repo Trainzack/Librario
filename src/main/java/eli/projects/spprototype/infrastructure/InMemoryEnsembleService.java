@@ -4,6 +4,7 @@
 package eli.projects.spprototype.infrastructure;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -51,7 +52,7 @@ public class InMemoryEnsembleService implements EnsembleService {
 	 * Instantiates an in-memory service containing the given ensembles.
 	 * @param ensembles The ensembles to include in this service.
 	 */
-	public InMemoryEnsembleService(List<Ensemble> ensembles) {
+	public InMemoryEnsembleService(Collection<Ensemble> ensembles) {
 		this();
 		this.ensembles.addAll(FXCollections.observableArrayList(ensembles));
 	}
@@ -89,9 +90,21 @@ public class InMemoryEnsembleService implements EnsembleService {
 	}
 
 	@Override
-	public void deleteItems(List<Ensemble> items) {
+	public void deleteItems(Collection<Ensemble> items) {
 		ensembles.removeAll(items);
 		
+	}
+	
+
+	@Override
+	public void addItem(Ensemble item) {
+		ensembles.add(item);
+		
+	}
+
+	@Override
+	public void addItems(Collection<Ensemble> items) {
+		ensembles.addAll(items);
 	}
 
 	@Override
@@ -99,5 +112,7 @@ public class InMemoryEnsembleService implements EnsembleService {
 		// We have no disk-representation, so we just fake this.
 		return false;
 	}
+
+
 
 }

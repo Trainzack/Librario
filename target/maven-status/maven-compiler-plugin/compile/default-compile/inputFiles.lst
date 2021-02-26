@@ -9,6 +9,7 @@ C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototyp
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\InMemoryListService.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\DocumentSource.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\package-info.java
+C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\ExportView.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\Setlist.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\controller\ReorderableListCell.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\Piece.java
@@ -22,6 +23,7 @@ C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototyp
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\Ensemble.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\InstrumentService.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\controller\NewSectionController.java
+C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\util\DataFormats.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\FrontpageView.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\ExportSettings.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\controller\ExportController.java
@@ -32,8 +34,10 @@ C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototyp
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\ExportGroupType.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\FormContentSource.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\model\Instrument.java
+C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\ExportPresenter.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\OutputDocument.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\Main.java
+C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\util\package-info.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\ListService.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\ExportTask.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\SetlistView.java
@@ -48,9 +52,9 @@ C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototyp
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\controller\FloatMMSpinnerValueFactory.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\SimpleDocumentSource.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\SetlistPresenter.java
+C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\util\StringUtils.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\controller\PageSizeController.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\LibraryService.java
-C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\Utility.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\infrastructure\InMemoryInstrumentService.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\EnsembleView.java
 C:\Users\Eli\eclipse-workspace\spprototype\src\main\java\eli\projects\spprototype\vista\Vista.java

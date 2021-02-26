@@ -13,13 +13,14 @@ import com.airhacks.afterburner.injection.Injector;
 
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.Part;
-import eli.projects.spprototype.Utility;
 import eli.projects.spprototype.infrastructure.PieceService;
 import eli.projects.spprototype.model.Ensemble;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Section;
 import eli.projects.spprototype.model.Setlist;
+import eli.projects.util.DataFormats;
+import eli.projects.util.StringUtils;
 import javafx.fxml.Initializable;
 import javafx.beans.property.Property;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -28,9 +29,15 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 
 public class PiecesPresenter extends Vista implements Initializable {
 
@@ -38,6 +45,8 @@ public class PiecesPresenter extends Vista implements Initializable {
 	
 	@Inject private PieceService pieceService;
 	@Inject private VistaManager vistaManager;
+	
+	@Inject private Map<Object, Object> context;
 	
 	@FXML private TextField searchFilterField;
 	
@@ -78,8 +87,27 @@ public class PiecesPresenter extends Vista implements Initializable {
 			pieceButtonBar.setDisable(newPiece == null);
 			pieceTable.getSelectionModel().select(newPiece); // Why does this line exist?
 			
-			selectionCountLabel.setText(Utility.pluralizer("piece", pieceTable.getSelectionModel().getSelectedCells().size()) + " selected");
+			selectionCountLabel.setText(StringUtils.pluralizer("piece", pieceTable.getSelectionModel().getSelectedCells().size()) + " selected");
 			
+		});
+		
+		// Row dragging
+		pieceTable.setOnDragDetected(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent event) {
+					// A drag was detected, start drag and drop.
+					Dragboard db = pieceTable.startDragAndDrop(TransferMode.ANY);
+					
+					Piece selection = pieceTable.getSelectionModel().getSelectedItem();
+					
+					ClipboardContent content = new ClipboardContent();
+					content.putString(selection.getTitle());
+					content.put(DataFormats.PIECE_MIME_TYPE, selection);
+					db.setContent(content);
+					
+					event.consume();
+				}
 		});
 		
 
@@ -95,7 +123,7 @@ public class PiecesPresenter extends Vista implements Initializable {
 				if (empty || item == null) {
 					setText(null);
 				} else {
-					setText(Utility.intToDuration(item));
+					setText(StringUtils.intToDuration(item));
 				}
 				
 			}
@@ -137,12 +165,11 @@ public class PiecesPresenter extends Vista implements Initializable {
 			
 		} else {
 			Piece selectedPiece = selection.get(0);
-			Map<Object, Object> context = new HashMap<>();
+			
 			context.put("piece", selectedPiece);
 			
 			Injector.setConfigurationSource(context::get);
 	        PieceView pieceView = new PieceView();
-			
 	        vistaManager.pushVista(pieceView);
 		}
 	}

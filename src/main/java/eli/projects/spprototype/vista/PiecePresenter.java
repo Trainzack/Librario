@@ -1,19 +1,26 @@
 package eli.projects.spprototype.vista;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
 import org.controlsfx.control.tableview2.TableView2;
 
+import com.airhacks.afterburner.injection.Injector;
+
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.DocumentSource;
 import eli.projects.spprototype.Part;
 import eli.projects.spprototype.PartDesignation;
-import eli.projects.spprototype.Utility;
+import eli.projects.spprototype.infrastructure.LibraryService;
 import eli.projects.spprototype.infrastructure.PieceService;
 import eli.projects.spprototype.model.Ensemble;
+import eli.projects.spprototype.model.ExportSettings;
+import eli.projects.spprototype.model.ExportSettings.SourceSelection;
+import eli.projects.util.StringUtils;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Section;
@@ -32,11 +39,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class PiecePresenter extends Vista implements Initializable {
 
 	@Inject private Piece piece;
+	@Inject private Stage primaryStage;
+	@Inject private LibraryService libraryService;
+	@Inject private Map<Object, Object> context;
+	@Inject private VistaManager vistaManager;
 	
 	@FXML private TableView2<Part> partTable;
 	@FXML private TableColumn<Part, PartDesignation> partDesignationColumn;
@@ -69,6 +81,25 @@ public class PiecePresenter extends Vista implements Initializable {
 			}
 
 		});
+	}
+	
+	@FXML
+	public void exportPiece() {
+		// TODO wrap this in factory
+		
+		ExportSettings es = new ExportSettings(this.libraryService.getLibrary());
+		es.getSelectedSourceProperty().set(SourceSelection.PIECE);
+		es.getSelectedExportPieceProperty().set(piece);
+		
+		context.put("primaryStage", primaryStage);
+		context.put("exportSettings", es);
+		
+		Injector.setConfigurationSource(context::get);
+		
+        
+		AbstractVistaView exportView = new ExportView();
+		
+        vistaManager.pushVista(exportView);
 	}
 
 	@Override

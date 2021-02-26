@@ -34,6 +34,7 @@ public class ExportSettings {
 	public enum SourceSelection {
 		LIST,
 		PIECE,
+		PIECES,
 	}
 	
 	/**
@@ -61,6 +62,8 @@ public class ExportSettings {
 	// These four control the selected target/source objects 
 	private ObjectProperty<Setlist> selectedExportSetlist = new SimpleObjectProperty<Setlist>(null);
 	private ObjectProperty<Piece> selectedExportPiece = new SimpleObjectProperty<Piece>(null);
+	private ObjectProperty<List<Piece>> selectedExportPieces = new SimpleObjectProperty<>(null);
+	
 	private ObjectProperty<Ensemble> selectedExportEnsemble = new SimpleObjectProperty<Ensemble>(null);
 	private ObjectProperty<Instrument> selectedExportInstrument = new SimpleObjectProperty<Instrument>(null);
 	
@@ -124,6 +127,9 @@ public class ExportSettings {
 					break;
 				case PIECE:
 					fullProperty = this.selectedExportPiece.get();
+					break;
+				case PIECES:
+					fullProperty = this.selectedExportPieces.get();
 					break;
 			}
 			if (fullProperty == null) invalid = true;

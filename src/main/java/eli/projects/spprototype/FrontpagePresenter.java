@@ -18,11 +18,16 @@ import eli.projects.spprototype.model.Ensemble;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
 import eli.projects.spprototype.vista.*;
+import eli.projects.util.DataFormats;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -46,6 +51,8 @@ public class FrontpagePresenter implements Initializable {
 	@Inject private String javaVersion;
 	@Inject private String javafxVersion;
 	@Inject private String appVersion;
+	
+	@Inject private Map<Object, Object> context;
 	
 	// This is the pane that will contain the other controllers we load in.
 	@FXML private AnchorPane vistaPane;
@@ -75,6 +82,7 @@ public class FrontpagePresenter implements Initializable {
 		listService = libraryService.getLibrary().getListService();
 		pieceService = libraryService.getLibrary().getPieceService();
 		
+		
 		leftStatus.setText("Version " + appVersion);
 		rightStatus.setText("Java " + javaVersion + ", JavaFX " + javafxVersion);
 
@@ -84,6 +92,7 @@ public class FrontpagePresenter implements Initializable {
 		// ------------- Vista Manager ----------------------
 		
 		vistaManager = new VistaManager(vistaPane, backButton, vistaStackHbox);
+		context.put("vistaManager", vistaManager);
 		
 		// -------------- Sidebars --------------------------
 		
@@ -104,15 +113,12 @@ public class FrontpagePresenter implements Initializable {
 			if (newSelection != null) {
 				
 				// TODO wrap this in factory
-				Map<Object, Object> context = new HashMap<>();
-				context.put("primaryStage", primaryStage);
 				context.put("ensemble", newSelection);
-				
+
 				Injector.setConfigurationSource(context::get);
-		        
 				AbstractVistaView ensembleView = new EnsembleView();
-				
 		        vistaManager.setVista(ensembleView);
+		        
 		        setlistSidebarListView.getSelectionModel().clearSelection();
 			}
 		});		
@@ -127,25 +133,42 @@ public class FrontpagePresenter implements Initializable {
 			if (newSelection != null) {
 				
 				// TODO wrap this in factory
-				Map<Object, Object> context = new HashMap<>();
-				context.put("primaryStage", primaryStage);
 				context.put("list", newSelection);
-				
+
 				Injector.setConfigurationSource(context::get);
-		        
 				AbstractVistaView listView = new SetlistView();
-				
-		        
 		        vistaManager.setVista(listView);
+		        
 				ensembleSidebarListView.getSelectionModel().clearSelection();
 			}
 		});
 		
+		setlistSidebarListView.setOnDragOver(new EventHandler<DragEvent>() {
+
+			@Override
+			public void handle(DragEvent event) {
+				if (event.getGestureSource() != setlistSidebarListView) {
+					Dragboard db = event.getDragboard();
+					if (db.hasContent(DataFormats.PIECE_MIME_TYPE)) {
+						event.acceptTransferModes(TransferMode.LINK);
+					}
+				}
+				event.consume();
+				
+			}
+			
+		});
+		
+		// TODO: Add other sidebar drag events, as per https://docs.oracle.com/javafx/2/drag_drop/jfxpub-drag_drop.htm
+		// Note: The PIECE reference probably won't work right due to unserialized properties, so may need to make an ID or hashing system
+		
+		
+		// ---------------- All Sidebar ListViews ------------
 		
 		// Set all sidebars to be of the same height.
 		for (ListView l : sidebars) {
 
-			l.prefHeightProperty().bind(Bindings.size((ObservableList) l.itemsProperty().get()).multiply(SIDEBAR_LIST_CELL_HEIGHT));
+			l.prefHeightProperty().bind(Bindings.size((ObservableList) l.itemsProperty().get()).multiply(SIDEBAR_LIST_CELL_HEIGHT).add(1));
 		}
 		
 	}
@@ -164,15 +187,10 @@ public class FrontpagePresenter implements Initializable {
 	
 	@FXML
 	private void openPieces() {
-		Map<Object, Object> context = new HashMap<>();
-		context.put("primaryStage", primaryStage);
 		context.put("pieceService", pieceService);
-		context.put("vistaManager", vistaManager);
-		
+
 		Injector.setConfigurationSource(context::get);
-        
 		AbstractVistaView piecesView = new PiecesView();
-		
         vistaManager.setVista(piecesView);
 	}
 	
@@ -182,26 +200,20 @@ public class FrontpagePresenter implements Initializable {
 		List<Piece> l = pieceService.getItems();
 		if (l.size() < 1) return;
 		Piece selectedPiece = l.get(App.randomGenerator.nextInt(l.size()));
-		Map<Object, Object> context = new HashMap<>();
 		context.put("piece", selectedPiece);
 		
 		Injector.setConfigurationSource(context::get);
         PieceView pieceView = new PieceView();
-		
         vistaManager.setVista(pieceView);
 	}
 	
 	@FXML
 	private void openLibrarySettings() {
-		Map<Object, Object> context = new HashMap<>();
-		context.put("primaryStage", primaryStage);
+		
 		context.put("libraryService", libraryService);
-		context.put("vistaManager", vistaManager);
 		
 		Injector.setConfigurationSource(context::get);
-        
         AbstractVistaView newVista = new LibraryView();
-		
         vistaManager.setVista(newVista);
 	}
 	
@@ -209,6 +221,17 @@ public class FrontpagePresenter implements Initializable {
 	private void search() {
 		App.ShowTempAlert("You searched for " + searchField.getText() + "!");
 	}
+	
+	@FXML
+	private void createNewList() {
+		listService.addItem(new Setlist("Untitled Setlist"));
+	}
+	
+	@FXML
+	private void createNewEnsemble() {
+		ensembleService.addItem(new Ensemble("Untitled Ensemble"));
+	}
+	
 	
 	@FXML
 	private void goToPreviousVista() {

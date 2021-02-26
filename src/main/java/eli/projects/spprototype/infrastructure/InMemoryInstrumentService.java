@@ -1,5 +1,6 @@
 package eli.projects.spprototype.infrastructure;
 
+import java.util.Collection;
 import java.util.List;
 
 import eli.projects.spprototype.model.Instrument;
@@ -22,9 +23,21 @@ public class InMemoryInstrumentService implements InstrumentService {
 	}
 
 	@Override
-	public void deleteItems(List<Instrument> items) {
+	public void deleteItems(Collection<Instrument> items) {
 		instruments.removeAll(items);
 
+	}
+
+	@Override
+	public void addItem(Instrument item) {
+		instruments.add(item);
+		
+	}
+
+	@Override
+	public void addItems(Collection<Instrument> items) {
+		instruments.addAll(items);
+		
 	}
 
 	@Override

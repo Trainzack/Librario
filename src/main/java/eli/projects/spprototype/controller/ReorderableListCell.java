@@ -13,7 +13,8 @@ import org.kordamp.ikonli.javafx.FontIcon;
  */
 public class ReorderableListCell<T> extends ListCell<T> {
 
-	private static final DataFormat SERIALIZED_MIME_TYPE = new DataFormat("application/x-java-serialized-object");
+	// This type belongs here, as opposed to util.DataFormats because it is specific to this class
+	private static final DataFormat SERIALIZED_MIME_TYPE = new DataFormat("application/x-java-serialized-object-reorderable-list-cell-index");
 	
 	
 	public ReorderableListCell() {

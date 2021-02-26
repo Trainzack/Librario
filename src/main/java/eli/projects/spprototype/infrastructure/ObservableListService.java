@@ -3,6 +3,7 @@
  */
 package eli.projects.spprototype.infrastructure;
 
+import java.util.Collection;
 import java.util.List;
 
 import eli.projects.spprototype.model.Ensemble;
@@ -35,7 +36,19 @@ public interface ObservableListService <E> {
 	 * Deletes the given list of items from the service
 	 * @param items A list containing the items to delete from the service
 	 */
-	void deleteItems(List<E> items);
+	void deleteItems(Collection<E> items);
+	
+	/**
+	 * Adds the given item to the service
+	 * @param item The item to add to the service
+	 */
+	void addItem(E item);
+	
+	/**
+	 * Adds the given list of items to the service
+	 * @param items A list containing the items to add to the service
+	 */
+	void addItems(Collection<E> items);
 	
 	
 	/**
