@@ -60,7 +60,6 @@ eli\projects\spprototype\vista\LibraryView.class
 eli\projects\spprototype\vista\Vista.class
 eli\projects\spprototype\FrontpagePresenter$1.class
 eli\projects\util\StringUtils.class
-eli\projects\spprototype\model\PaperSettings$1.class
 eli\projects\spprototype\ExportTask.class
 eli\projects\spprototype\infrastructure\InMemoryEnsembleService$1.class
 eli\projects\spprototype\vista\ExportPresenter.class

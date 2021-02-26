@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox minHeight="400.0" minWidth="400.0" prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.FrontpagePresenter">
+<VBox minHeight="400.0" minWidth="400.0" prefHeight="900.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.FrontpagePresenter">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -107,7 +107,7 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label styleClass="title" text="Ossia">
+                        <Label styleClass="title" text="Librario">
                            <font>
                               <Font size="40.0" />
                            </font>
@@ -124,38 +124,7 @@
                         </Label>
                         <VBox>
                            <children>
-                              <AnchorPane>
-                                 <children>
-                                    <Button mnemonicParsing="false" onAction="#openLibrarySettings" prefHeight="51.0" prefWidth="34.0" AnchorPane.rightAnchor="0.0">
-                                       <graphic>
-                                          <FontIcon iconLiteral="enty-cog" wrappingWidth="20.0" />
-                                       </graphic>
-                                       <styleClass>
-                                          <String fx:value="text_size_h1" />
-                                          <String fx:value="button_slick" />
-                                       </styleClass>
-                                    </Button>
-                                    <Button fx:id="controlLibrary" graphicTextGap="8.0" mnemonicParsing="false" onAction="#openPieces" prefHeight="51.0" prefWidth="187.0" text="Default Library">
-                                       <graphic>
-                                          <FontIcon iconLiteral="enty-archive" wrappingWidth="20.0" />
-                                       </graphic>
-                                       <styleClass>
-                                          <String fx:value="h2_padding" />
-                                          <String fx:value="button_slick" />
-                                          <String fx:value="text_size_h1" />
-                                       </styleClass>
-                                    </Button>
-                                 </children>
-                              </AnchorPane>
-                              <Button fx:id="buttonRandomPiece" mnemonicParsing="false" onAction="#openRandomPiece" prefWidth="300.0" text="Random Piece">
-                                 <graphic>
-                                    <FontIcon iconLiteral="enty-shuffle" wrappingWidth="20.0" />
-                                 </graphic>
-                                 <styleClass>
-                                    <String fx:value="text_size_h2" />
-                                    <String fx:value="button_slick" />
-                                 </styleClass>
-                              </Button>
+                              <AnchorPane />
                            </children>
                            <VBox.margin>
                               <Insets />
@@ -171,6 +140,26 @@
                               </Button>
                            </children>
                         </HBox>
+                        <AnchorPane maxHeight="12.0" prefHeight="0.0" prefWidth="255.0">
+                           <children>
+                              <Label styleClass="category_header2" text="Library" />
+                              <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openLibrarySettings" styleClass="button_slick" text="Edit" underline="true" AnchorPane.rightAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <VBox>
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#openPieces" prefHeight="25.0" prefWidth="938.0" styleClass="button_slick" text="Pieces">
+                                 <graphic>
+                                    <FontIcon iconLiteral="enty-archive" wrappingWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="buttonRandomPiece" mnemonicParsing="false" onAction="#openRandomPiece" prefWidth="300.0" styleClass="button_slick" text="Random Piece">
+                                 <graphic>
+                                    <FontIcon iconLiteral="enty-shuffle" wrappingWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </VBox>
                         <Label layoutX="10.0" layoutY="176.0" styleClass="category_header2" text="Ensembles" />
                         <VBox>
                            <children>
@@ -188,15 +177,15 @@
                            </children>
                         </VBox>
                         <Label layoutX="10.0" layoutY="402.0" styleClass="category_header2" text="Lists" />
-                        <VBox>
+                        <VBox layoutX="10.0" layoutY="287.0">
                            <children>
-                              <ListView fx:id="setlistSidebarListView" prefHeight="179.0" prefWidth="235.0">
+                              <ListView fx:id="setlistSidebarListView" prefHeight="151.0" prefWidth="235.0">
                                  <styleClass>
                                     <String fx:value="listview_slick" />
                                     <String fx:value="listview_select" />
                                  </styleClass>
                               </ListView>
-                              <Button mnemonicParsing="false" onAction="#createNewList" prefWidth="10000.0" styleClass="button_slick" text="New List">
+                              <Button mnemonicParsing="false" onAction="#createNewEnsemble" prefWidth="10000.0" styleClass="button_slick" text="New Ensemble">
                                  <graphic>
                                     <FontIcon iconLiteral="enty-plus" />
                                  </graphic>
@@ -246,7 +235,7 @@
             <Font size="11.0" fx:id="x3" />
           </font>
           <textFill>
-            <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
+            <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
           </textFill>
         </Label>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />

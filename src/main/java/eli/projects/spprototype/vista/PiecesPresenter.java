@@ -7,8 +7,6 @@ import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
-import org.controlsfx.control.tableview2.TableView2;
-
 import com.airhacks.afterburner.injection.Injector;
 
 import eli.projects.spprototype.App;
@@ -50,7 +48,7 @@ public class PiecesPresenter extends Vista implements Initializable {
 	
 	@FXML private TextField searchFilterField;
 	
-	@FXML private TableView2<Piece> pieceTable;
+	@FXML private TableView<Piece> pieceTable;
 
 	@FXML private TableColumn<Piece, String> pieceTitleColumn;
 	@FXML private TableColumn<Piece, String> pieceComposerColumn;

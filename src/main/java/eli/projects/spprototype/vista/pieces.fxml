@@ -5,14 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import org.controlsfx.control.tableview2.TableView2?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox prefHeight="551.0" prefWidth="577.0" styleClass="orgbox" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.vista.PiecesPresenter">
+<VBox prefHeight="551.0" prefWidth="577.0" styleClass="orgbox" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.vista.PiecesPresenter">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0" styleClass="orgbox">
          <children>
@@ -22,7 +22,7 @@
       </HBox>
       <VBox>
          <children>
-            <TableView2 fx:id="pieceTable" editable="true" prefHeight="707.0" prefWidth="770.0" tableMenuButtonVisible="true">
+            <TableView fx:id="pieceTable" editable="true" prefHeight="707.0" prefWidth="770.0" tableMenuButtonVisible="true">
                <contextMenu>
                   <ContextMenu>
                      <items>
@@ -56,7 +56,7 @@
                   <TableColumn fx:id="pieceYearColumn" prefWidth="75.0" text="Year" />
                   <TableColumn fx:id="pieceDurationColumn" minWidth="0.0" prefWidth="70.0" text="Duration" />
                </columns>
-            </TableView2>
+            </TableView>
             <ToolBar fx:id="pieceButtonBar" disable="true" prefHeight="35.0" prefWidth="572.0">
                <items>
                   <Label fx:id="selectionCountLabel" text="0 pieces selected" />

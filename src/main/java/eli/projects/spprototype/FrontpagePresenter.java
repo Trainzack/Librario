@@ -57,8 +57,6 @@ public class FrontpagePresenter implements Initializable {
 	// This is the pane that will contain the other controllers we load in.
 	@FXML private AnchorPane vistaPane;
 	
-	@FXML private Button controlLibrary;
-	
 	@FXML private TextField searchField;
 	@FXML private Button searchButton;
 	
@@ -86,7 +84,8 @@ public class FrontpagePresenter implements Initializable {
 		leftStatus.setText("Version " + appVersion);
 		rightStatus.setText("Java " + javaVersion + ", JavaFX " + javafxVersion);
 
-		controlLibrary.textProperty().bind(libraryService.getLibrary().getTitleProperty());
+		// Change name of library label
+		//controlLibrary.textProperty().bind(libraryService.getLibrary().getTitleProperty());
 		
 		
 		// ------------- Vista Manager ----------------------

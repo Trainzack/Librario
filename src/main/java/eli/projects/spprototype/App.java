@@ -4,29 +4,21 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Random;
 
-import javax.activity.InvalidActivityException;
-
 import com.airhacks.afterburner.injection.Injector;
 
-import eli.projects.spprototype.infrastructure.InMemoryEnsembleService;
 import eli.projects.spprototype.infrastructure.InMemoryLibraryService;
-import eli.projects.spprototype.infrastructure.InMemoryListService;
-import eli.projects.spprototype.infrastructure.InMemoryPieceService;
 import eli.projects.spprototype.model.Library;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -35,7 +27,6 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
-import javafx.scene.input.DataFormat;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 

@@ -1,40 +1,24 @@
 package eli.projects.spprototype.vista;
 
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
-import org.controlsfx.control.tableview2.TableView2;
-
 import com.airhacks.afterburner.injection.Injector;
 
-import eli.projects.spprototype.App;
 import eli.projects.spprototype.DocumentSource;
 import eli.projects.spprototype.Part;
 import eli.projects.spprototype.PartDesignation;
 import eli.projects.spprototype.infrastructure.LibraryService;
-import eli.projects.spprototype.infrastructure.PieceService;
-import eli.projects.spprototype.model.Ensemble;
 import eli.projects.spprototype.model.ExportSettings;
 import eli.projects.spprototype.model.ExportSettings.SourceSelection;
-import eli.projects.util.StringUtils;
-import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Piece;
-import eli.projects.spprototype.model.Section;
-import eli.projects.spprototype.model.Setlist;
 import javafx.fxml.Initializable;
-import javafx.beans.property.Property;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -50,7 +34,7 @@ public class PiecePresenter extends Vista implements Initializable {
 	@Inject private Map<Object, Object> context;
 	@Inject private VistaManager vistaManager;
 	
-	@FXML private TableView2<Part> partTable;
+	@FXML private TableView<Part> partTable;
 	@FXML private TableColumn<Part, PartDesignation> partDesignationColumn;
 	@FXML private TableColumn<Part, Integer> partPageCountColumn;
 	
