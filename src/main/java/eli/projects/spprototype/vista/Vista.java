@@ -23,7 +23,7 @@ public abstract class Vista {
 	 * Called once when the vista is no longer being shown.
 	 * This method will remove all listners.
 	 */
-	public void remove() {
+	public final void remove() {
 		for (@SuppressWarnings("rawtypes") ChangeListener l : changeListeners.keySet()) {
 			Property p = changeListeners.get(l);
 			p.removeListener(l);

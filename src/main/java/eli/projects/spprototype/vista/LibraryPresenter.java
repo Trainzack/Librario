@@ -74,13 +74,6 @@ public class LibraryPresenter extends Vista implements Initializable {
 	}
 
 	@Override
-	public void remove() {
-		super.remove();
-		
-		
-	}
-
-	@Override
 	public ReadOnlyStringProperty getTitleProperty() {
 		return title;
 	}

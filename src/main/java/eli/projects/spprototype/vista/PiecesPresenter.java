@@ -94,16 +94,20 @@ public class PiecesPresenter extends Vista implements Initializable {
 
 				@Override
 				public void handle(MouseEvent event) {
-					// A drag was detected, start drag and drop.
-					Dragboard db = pieceTable.startDragAndDrop(TransferMode.ANY);
 					
 					Piece selection = pieceTable.getSelectionModel().getSelectedItem();
 					
-					ClipboardContent content = new ClipboardContent();
-					content.putString(selection.getTitle());
-					content.put(DataFormats.PIECE_MIME_TYPE, selection);
-					db.setContent(content);
-					
+					if (selection != null) {
+						// A drag was detected, start drag and drop.
+						Dragboard db = pieceTable.startDragAndDrop(TransferMode.ANY);
+						
+						
+						
+						ClipboardContent content = new ClipboardContent();
+						content.putString(selection.getTitle());
+						content.put(DataFormats.PIECE_MIME_TYPE, selection);
+						db.setContent(content);
+					}
 					event.consume();
 				}
 		});

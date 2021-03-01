@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
+import eli.projects.spprototype.App;
 import eli.projects.spprototype.controller.ReorderableListCell;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
@@ -58,11 +59,17 @@ public class SetlistPresenter extends Vista implements Initializable {
 		});
 		
 	}
-
-	@Override
-	public void remove() {
-		// TODO Auto-generated method stub
-		
+	
+	@FXML
+	public void deleteList() {
+		// TODO Method stub
+		App.ShowTempAlert("Not yet implemented!");
+	}
+	
+	@FXML
+	public void exportList() {
+		// TODO Method stub
+		App.ShowTempAlert("Not yet implemented!");
 	}
 
 	@Override
