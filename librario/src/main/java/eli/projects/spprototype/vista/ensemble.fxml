@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.vista.EnsemblePresenter">
+   <children>
+      <VBox prefHeight="753.0" prefWidth="538.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <GridPane hgap="10.0" maxWidth="400.0" prefWidth="400.0" vgap="10.0">
+               <columnConstraints>
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="527.0" minWidth="43.0" prefWidth="43.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="760.0" minWidth="10.0" prefWidth="347.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Name:" textAlignment="RIGHT" />
+                  <TextField fx:id="nameField" prefHeight="26.0" promptText="Name" styleClass="header2" GridPane.columnIndex="1" />
+                  <Label fx:id="membersLabel" prefHeight="17.0" prefWidth="114.0" text="0 members" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Size:" textAlignment="RIGHT" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <VBox prefHeight="762.0" prefWidth="852.0">
+               <children>
+                  <ToolBar>
+                     <items>
+                        <Button mnemonicParsing="false" onAction="#newSection" text="New Section">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-plus" />
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#deleteSection" text="Delete Section">
+                           <graphic>
+                              <FontIcon iconLiteral="enty-trash" />
+                           </graphic>
+                        </Button>
+                     </items>
+                  </ToolBar>
+                  <TableView fx:id="sectionTableView" prefHeight="802.0" prefWidth="852.0">
+                     <columns>
+                        <TableColumn fx:id="sectionInstrumentColumn" prefWidth="197.0" text="Section" />
+                        <TableColumn fx:id="sectionCountColumn" minWidth="0.0" prefWidth="68.0" text="Number" />
+                     </columns>
+                     <contextMenu>
+                        <ContextMenu>
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#deleteSection" text="Delete">
+                                 <graphic>
+                                    <FontIcon iconLiteral="enty-trash" />
+                                 </graphic>
+                              </MenuItem>
+                           </items>
+                        </ContextMenu>
+                     </contextMenu>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

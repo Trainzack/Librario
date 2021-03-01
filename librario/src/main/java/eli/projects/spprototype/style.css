@@ -1,0 +1,86 @@
+.title {
+	-fx-font: 40 arial;
+	-fx-effect: dropshadow( two-pass-box , #FFFFFFFF , 15 , 0.0 , 0 , 0 );
+}
+
+.sidebar {
+	-fx-background-color: linear-gradient(from 88% 50% to 100% 50.01%, #F4F4F4, #F8F8F8);
+}
+
+.large_button {
+	-fx-font: 16 arial;
+	-fx-padding: 5;
+}
+
+.h1_padding {
+	-fx-padding: 10;
+}
+
+.h2_padding {
+	-fx-padding: 5;
+}
+
+.text_size_h1 {
+	-fx-font: 20 arial;
+}
+
+.text_size_h2 {
+	-fx-font: 14 arial;
+}
+
+.category_header2 {
+	-fx-font: 14 arial;
+	-fx-padding: 5 5 5 0;
+	-fx-text-fill: #666666
+}
+
+
+.button_slick {
+	-fx-alignment: center-left;
+	
+	-fx-background-color: transparent;
+}
+
+.button_slick:hover, .listview_slick .list-cell:hover
+{
+	-fx-effect: dropshadow( two-pass-box , #00000011 , 5 , 0.0 , 0 , 0 );
+	-fx-background-color: #CCCCCC22;
+} 
+.button_slick:pressed, .listview_slick .list-cell:pressed
+{
+	-fx-background-color: #FFFFFFCC;
+	-fx-text-fill: #000000;
+}
+
+.listview_slick {
+	-fx-background-color: transparent;
+}
+
+.listview_slick .list-cell {
+	-fx-background-color: transparent;
+}
+
+.listview_slick .list-cell:empty {
+    -fx-opacity: 0;
+}
+
+.listview_select .list-cell:selected {
+	
+	-fx-effect: dropshadow( two-pass-box , #00000011 , 5 , 0.0 , 0 , 0 );
+	-fx-background-color: #FFFFFFCC;
+	-fx-text-fill: #000000;
+	-fx-font-weight: bold;
+}
+
+
+.orgbox {
+	-fx-padding: 10;
+	-fx-spacing: 10;
+}
+
+.border {
+	-fx-border-color: #bbbbbb;
+    -fx-border-width: 1px;
+	-fx-border-radius: 5px;
+	-fx-padding: 10;
+}
