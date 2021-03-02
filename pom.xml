@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--  TODO Installer. IzPack? https://izpack.atlassian.net/wiki/spaces/IZPACK/pages/491628/IzPack+Maven+Plugin+Reference -->
+<!-- TODO Installer. IzPack? https://izpack.atlassian.net/wiki/spaces/IZPACK/pages/491628/IzPack+Maven+Plugin+Reference -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -17,7 +17,7 @@
 
 	<properties>
 		<project.mainClass>eli.projects.spprototype.Main</project.mainClass>
-	
+
 		<project.javaVersion>11</project.javaVersion>
 		<project.appName>Librario</project.appName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -52,28 +52,12 @@
 			<artifactId>fontbox</artifactId>
 			<version>2.0.21</version>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>jempbox</artifactId>
-			<version>1.8.21</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>xmpbox</artifactId>
-			<version>2.0.21</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>preflight</artifactId>
-			<version>2.0.21</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox-tools</artifactId>
-			<version>2.0.21</version>
-		</dependency>
- -->
+		<!-- <dependency> <groupId>org.apache.pdfbox</groupId> <artifactId>jempbox</artifactId> 
+			<version>1.8.21</version> </dependency> <dependency> <groupId>org.apache.pdfbox</groupId> 
+			<artifactId>xmpbox</artifactId> <version>2.0.21</version> </dependency> <dependency> 
+			<groupId>org.apache.pdfbox</groupId> <artifactId>preflight</artifactId> <version>2.0.21</version> 
+			</dependency> <dependency> <groupId>org.apache.pdfbox</groupId> <artifactId>pdfbox-tools</artifactId> 
+			<version>2.0.21</version> </dependency> -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
@@ -91,13 +75,13 @@
 			<version>11.0.2</version>
 			<!-- J8 <version>8.40.17</version> -->
 		</dependency>
-        <dependency>
-            <!-- <groupId>com.airhacks</groupId> -->
-            <groupId>com.dlsc.afterburner</groupId> <!--  Spinoff for java11 compatability -->
-            <artifactId>afterburner.fx</artifactId>
-            <version>2.0.0</version> 
-            <!-- <version>1.6.0</version> -->
-        </dependency>
+		<dependency>
+			<!-- <groupId>com.airhacks</groupId> -->
+			<groupId>com.dlsc.afterburner</groupId> <!-- Spinoff for java11 compatability -->
+			<artifactId>afterburner.fx</artifactId>
+			<version>2.0.0</version>
+			<!-- <version>1.6.0</version> -->
+		</dependency>
 
 	</dependencies>
 
@@ -105,12 +89,12 @@
 		<plugins>
 			<plugin>
 				<!-- This plugin checks for new versions of other plugins -->
-			    <groupId>org.codehaus.mojo</groupId>
-			    <artifactId>versions-maven-plugin</artifactId>
-			    <version>2.8.1</version>
-			    <configuration>
-			        <generateBackupPoms>false</generateBackupPoms>
-			    </configuration>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.8.1</version>
+				<configuration>
+					<generateBackupPoms>false</generateBackupPoms>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -158,51 +142,76 @@
 					</execution>
 				</executions>
 			</plugin>
-			        <plugin>
-          <groupId>com.akathist.maven.plugins.launch4j</groupId>
-          <artifactId>launch4j-maven-plugin</artifactId>
-          <executions>
-	          <execution>
-	            <id>l4j-gui</id>
-	            <phase>package</phase>
-	            <goals><goal>launch4j</goal></goals>
-	            <configuration>
-	              <headerType>gui</headerType>
-	              <outfile>target/${project.appName}.exe</outfile>
-	              <jar>target/${project.appName}-${version}.jar</jar>
-	              <errTitle>${project.appName}</errTitle>
-	              <classPath>
-	                <mainClass>${project.mainClass}</mainClass>
-	              </classPath>
-	              <jre>
-	                <minVersion>${project.javaVersion}</minVersion>
-	              </jre>
-	              <!-- 
-	              <versionInfo>
-					<fileVersion>1.2.3.4</fileVersion>
-					<txtFileVersion>txt file version?</txtFileVersion>
-					<fileDescription>a description</fileDescription>
-					<copyright>my copyright</copyright>
-					<productVersion>4.3.2.1</productVersion>
-	                <txtProductVersion>${version}</txtProductVersion>
-	                <productName>${project.appName}</productName>
-					<internalName>ccne</internalName>
-	                <originalFilename>${project.appName}.exe</originalFilename>
-	              </versionInfo> -->
-	              <splash>
-	              	<file>src/splash/LibrarioSplash.bmp</file>
-	              	<waitForWindow>true</waitForWindow>
-	              	<timeout>30</timeout>
-	              	<timeoutErr>true</timeoutErr>
-	              </splash>
-	            </configuration>
-	          </execution>
-          </executions>
-        </plugin>
-			<!-- <plugin> <groupId>com.zenjava</groupId> <artifactId>javafx-maven-plugin</artifactId> 
-				<version>8.8.3</version> <configuration> <mainClass>eli.projects.spprototype.Main</mainClass> 
-				</configuration> </plugin> -->
-
+			<plugin>
+				<groupId>com.akathist.maven.plugins.launch4j</groupId>
+				<artifactId>launch4j-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>l4j-gui</id>
+						<phase>package</phase>
+						<goals>
+							<goal>launch4j</goal>
+						</goals>
+						<configuration>
+							<!-- Params here: http://launch4j.sourceforge.net/docs.html maven 
+								implementation may mangle defaults -->
+							<headerType>gui</headerType>
+							<outfile>target/${project.appName}.exe</outfile>
+							<jar>target/${project.appName}-${version}.jar</jar>
+							<errTitle>${project.appName}</errTitle>
+							<classPath>
+								<mainClass>${project.mainClass}</mainClass>
+							</classPath>
+							<jre>
+								<minVersion>${project.javaVersion}</minVersion>
+							</jre>
+							<!-- <versionInfo> <fileVersion>1.2.3.4</fileVersion> <txtFileVersion>txt 
+								file version?</txtFileVersion> <fileDescription>a description</fileDescription> 
+								<copyright>my copyright</copyright> <productVersion>4.3.2.1</productVersion> 
+								<txtProductVersion>${version}</txtProductVersion> <productName>${project.appName}</productName> 
+								<internalName>ccne</internalName> <originalFilename>${project.appName}.exe</originalFilename> 
+								</versionInfo> -->
+							<splash>
+								<file>src/splash/LibrarioSplash.bmp</file>
+								<waitForWindow>true</waitForWindow>
+								<timeout>30</timeout>
+								<timeoutErr>true</timeoutErr>
+							</splash>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Todo: Sign EXE https://ebourg.github.io/jsign/ -->
+			
+			<!-- Create the MacOS files -->
+			<plugin>
+				<groupId>sh.tak.appbundler</groupId>
+				<artifactId>appbundle-maven-plugin</artifactId>
+				<version>1.2.0</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.plexus</groupId>
+						<artifactId>plexus-archiver</artifactId>
+						<version>RELEASE</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.velocity</groupId>
+						<artifactId>velocity-tools</artifactId>
+						<version>2.0</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<mainClass>${project.mainClass}</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>bundle</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 
 		<resources>
