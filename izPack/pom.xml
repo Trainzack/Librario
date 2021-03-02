@@ -1,16 +1,53 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>eli.projects</groupId>
-    <artifactId>librario-pom</artifactId>
-    <version>0.0.8-J11</version>
-  </parent>
-  <artifactId>izPack</artifactId>
-  <dependencies>
-  	<dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-panel</artifactId>
-      <version>5.1.0</version>
-    </dependency>  
-  </dependencies>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>eli.projects</groupId>
+		<artifactId>librario-pom</artifactId>
+		<version>0.0.8-J11</version>
+	</parent>
+	<artifactId>izPack</artifactId>
+
+	<!-- Launch IzPack automatically -->
+	<packaging>izpack-jar</packaging>
+
+	<properties>
+		<!-- Installer variables -->
+		<staging.dir>${project.build.directory}/staging</staging.dir>
+		<info.appName>Librario APP</info.appName>
+		<info.appsubpath>my-killer-app/standard</info.appsubpath>
+		<izpack.dir.app>${basedir}/src/main/izpack</izpack.dir.app>
+		<staging.dir.app>${staging.dir}/appfiles</staging.dir.app>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.codehaus.izpack</groupId>
+			<artifactId>izpack-panel</artifactId>
+			<version>5.1.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.izpack</groupId>
+				<artifactId>izpack-maven-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<baseDir>${staging.dir.app}</baseDir>
+					<installFile>${izpack.dir.app}/install.xml</installFile>
+					<outputDirectory>${project.build.directory}</outputDirectory>
+					<finalName>${project.build.finalName}</finalName>
+					<enableOverrideArtifact>true</enableOverrideArtifact>
+					<mkdirs>true</mkdirs>
+					<autoIncludeUrl>false</autoIncludeUrl>
+					<autoIncludeDevelopers>false</autoIncludeDevelopers>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
