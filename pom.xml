@@ -9,13 +9,17 @@
 
 	<groupId>eli.projects</groupId>
 	<artifactId>librario</artifactId>
-	<version>0.0.8-J11</version>
+	<version>0.0.8</version>
 	<packaging>jar</packaging>
 
 	<name>spprototype</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<project.mainClass>eli.projects.spprototype.Main</project.mainClass>
+	
+		<project.javaVersion>11</project.javaVersion>
+		<project.appName>Librario</project.appName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -145,7 +149,7 @@
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>eli.projects.spprototype.Main</mainClass>
+									<mainClass>${project.mainClass}</mainClass>
 								</transformer>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
@@ -158,64 +162,41 @@
           <groupId>com.akathist.maven.plugins.launch4j</groupId>
           <artifactId>launch4j-maven-plugin</artifactId>
           <executions>
-            <execution>
-              <id>l4j-gui</id>
-              <phase>package</phase>
-              <goals><goal>launch4j</goal></goals>
-              <configuration>
-                <headerType>console</headerType>
-                <outfile>target/encc.exe</outfile>
-                <jar>target/encc-1.0.jar</jar>
-                <errTitle>encc</errTitle>
-                <classPath>
-                  <mainClass>com.akathist.encc.Clui</mainClass>
-                  <addDependencies>false</addDependencies>
-                  <preCp>anything</preCp>
-                </classPath>
-                <jre>
-                  <minVersion>1.5.0</minVersion>
-                </jre>
-                <versionInfo>
-                  <fileVersion>1.2.3.4</fileVersion>
-                  <txtFileVersion>txt file version?</txtFileVersion>
-                  <fileDescription>a description</fileDescription>
-                  <copyright>my copyright</copyright>
-                  <productVersion>4.3.2.1</productVersion>
-                  <txtProductVersion>txt product version</txtProductVersion>
-                  <productName>E-N-C-C</productName>
-                  <internalName>ccne</internalName>
-                  <originalFilename>original.exe</originalFilename>
-                </versionInfo>
-              </configuration>
-            </execution>
-                <execution>
-                  <id>l4j-gui</id>
-                  <phase>package</phase>
-                  <goals><goal>launch4j</goal></goals>
-                  <configuration>
-                    <headerType>gui</headerType>
-                    <outfile>target/enccg.exe</outfile>
-                    <jar>target/encc-1.0.jar</jar>
-                    <errTitle>enccg</errTitle>
-                    <classPath>
-                      <mainClass>com.akathist.encc.Gui</mainClass>
-                    </classPath>
-                    <jre>
-                      <minVersion>1.5.0</minVersion>
-                    </jre>
-                    <versionInfo>
-                      <fileVersion>1.2.3.4</fileVersion>
-                      <txtFileVersion>txt file version?</txtFileVersion>
-                      <fileDescription>a description</fileDescription>
-                      <copyright>my copyright</copyright>
-                      <productVersion>4.3.2.1</productVersion>
-                      <txtProductVersion>txt product version</txtProductVersion>
-                      <productName>E-N-C-C</productName>
-                      <internalName>ccne</internalName>
-                      <originalFilename>original.exe</originalFilename>
-                    </versionInfo>
-                  </configuration>
-                </execution>
+	          <execution>
+	            <id>l4j-gui</id>
+	            <phase>package</phase>
+	            <goals><goal>launch4j</goal></goals>
+	            <configuration>
+	              <headerType>gui</headerType>
+	              <outfile>target/${project.appName}.exe</outfile>
+	              <jar>target/${project.appName}-${version}.jar</jar>
+	              <errTitle>${project.appName}</errTitle>
+	              <classPath>
+	                <mainClass>${project.mainClass}</mainClass>
+	              </classPath>
+	              <jre>
+	                <minVersion>${project.javaVersion}</minVersion>
+	              </jre>
+	              <!-- 
+	              <versionInfo>
+					<fileVersion>1.2.3.4</fileVersion>
+					<txtFileVersion>txt file version?</txtFileVersion>
+					<fileDescription>a description</fileDescription>
+					<copyright>my copyright</copyright>
+					<productVersion>4.3.2.1</productVersion>
+	                <txtProductVersion>${version}</txtProductVersion>
+	                <productName>${project.appName}</productName>
+					<internalName>ccne</internalName>
+	                <originalFilename>${project.appName}.exe</originalFilename>
+	              </versionInfo> -->
+	              <splash>
+	              	<file>src/splash/LibrarioSplash.bmp</file>
+	              	<waitForWindow>true</waitForWindow>
+	              	<timeout>30</timeout>
+	              	<timeoutErr>true</timeoutErr>
+	              </splash>
+	            </configuration>
+	          </execution>
           </executions>
         </plugin>
 			<!-- <plugin> <groupId>com.zenjava</groupId> <artifactId>javafx-maven-plugin</artifactId> 
