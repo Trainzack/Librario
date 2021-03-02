@@ -185,7 +185,7 @@
                                     <String fx:value="listview_select" />
                                  </styleClass>
                               </ListView>
-                              <Button mnemonicParsing="false" onAction="#createNewEnsemble" prefWidth="10000.0" styleClass="button_slick" text="New Ensemble">
+                              <Button mnemonicParsing="false" onAction="#createNewEnsemble" prefWidth="10000.0" styleClass="button_slick" text="New List">
                                  <graphic>
                                     <FontIcon iconLiteral="enty-plus" />
                                  </graphic>
