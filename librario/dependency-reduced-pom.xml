@@ -4,7 +4,7 @@
   <groupId>eli.projects</groupId>
   <artifactId>librario</artifactId>
   <name>spprototype</name>
-  <version>0.0.8-J11</version>
+  <version>0.0.8-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
   <build>
     <resources>
@@ -52,7 +52,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
         <configuration>
-          <release>11</release>
+          <release>${project.javaVersion}</release>
         </configuration>
       </plugin>
       <plugin>
@@ -86,6 +86,8 @@
     </dependency>
   </dependencies>
   <properties>
+    <project.appName>Librario</project.appName>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.javaVersion>11</project.javaVersion>
   </properties>
 </project>

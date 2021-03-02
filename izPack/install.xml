@@ -7,7 +7,7 @@
     <appname>${project.appName}</appname>
     <appversion>${project.version}</appversion>
     <appsubpath>myapp</appsubpath>
-    <javaversion>1.6</javaversion>
+    <javaversion>${project.javaVersion}</javaversion>
   </info>
  
   <locale>
@@ -15,7 +15,7 @@
   </locale>
  
   <guiprefs width="800" height="600" resizable="no">
-    <splash>images/peas_load.gif</splash>
+    <!--<splash>images/peas_load.gif</splash>-->
     <laf name="substance">
       <os family="windows" />
       <os family="unix" />
