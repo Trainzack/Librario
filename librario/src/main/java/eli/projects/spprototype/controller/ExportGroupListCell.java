@@ -26,10 +26,11 @@ public class ExportGroupListCell extends ReorderableListCell<ExportGroupType> {
 	
 	private ChangeListener<? super Number> orderListener; 
 	
+	/*// Somewhere along the way, the unicode got mangled. We don't use this, so commenting it out.
 	private static String[] numberStrings = {
-			"","‚ìø", "‚ù∂", "‚ù∑", "‚ù∏", "‚ùπ", "‚ù∫", "‚ùª", "‚ùº", "‚ùΩ", "‚ùæ", "‚ùø",
+			"","‚ìø", "‚?∂", "‚?∑", "‚?∏", "‚?π", "‚?∫", "‚?ª", "‚?º", "‚?Ω", "‚?æ", "‚?ø",
 			 "‚ì´", "‚ì¨", "‚ì≠", "‚ìÆ", "‚ìØ", "‚ì∞", "‚ì±", "‚ì≤", "‚ì≥", "‚ì¥"	
-	};
+	};*/
 	
 	public ExportGroupListCell() {
 		super(false);
@@ -38,7 +39,7 @@ public class ExportGroupListCell extends ReorderableListCell<ExportGroupType> {
 		
 		enabledBox = new CheckBox();
 		
-		orderLabel = new Label(numberStrings[0]);
+		//orderLabel = new Label(numberStrings[0]);
 		orderLabel.setMinWidth(20);
 		
 		
@@ -96,7 +97,7 @@ public class ExportGroupListCell extends ReorderableListCell<ExportGroupType> {
 	private void updateItemOrderLabel(int number) {
 
 		// TODO: add safety if this new value is bigger than the array.
-		orderLabel.setText(numberStrings[number+1]);
+		// orderLabel.setText(numberStrings[number+1]);
 	}
 	
 	/**

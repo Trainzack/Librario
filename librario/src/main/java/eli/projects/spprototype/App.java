@@ -43,7 +43,7 @@ public class App extends Application
 
 	public static final Random randomGenerator = new Random();
 	
-	public static final String WINDOW_NAME = "Librario";
+	public static final String windowName = "window";
 	
 	// TODO: Put this in some kind of datamodel?
 	private static Library loadedLibrary;
@@ -112,7 +112,7 @@ public class App extends Application
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo16.png")));
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/ossiaLogo48.png")));
         
-        primaryStage.setTitle(WINDOW_NAME);
+        primaryStage.setTitle(windowName);
         
         primaryStage.show();
 
