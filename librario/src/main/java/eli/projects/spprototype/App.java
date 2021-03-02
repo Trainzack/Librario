@@ -43,7 +43,7 @@ public class App extends Application
 
 	public static final Random randomGenerator = new Random();
 	
-	public static final String windowName = "window";
+	public static String windowName = "window";
 	
 	// TODO: Put this in some kind of datamodel?
 	private static Library loadedLibrary;
@@ -81,7 +81,7 @@ public class App extends Application
 		context.put("libraryService", 	new InMemoryLibraryService(path)); // Load test library from filesystem
 		//context.put("libraryService", 	new InMemoryLibraryService(-1)); // Make up test library (no PDFS)
 		
-		
+		windowName = System.getProperty("project.appName");
 		
 		context.put("javaVersion",  	System.getProperty("java.version"));
 		context.put("javafxVersion",  	System.getProperty("javafx.version"));

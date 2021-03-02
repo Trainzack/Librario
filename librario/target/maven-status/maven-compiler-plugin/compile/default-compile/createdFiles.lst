@@ -39,7 +39,6 @@ eli\projects\spprototype\App$2.class
 eli\projects\spprototype\infrastructure\ObservableListService.class
 eli\projects\spprototype\controller\FloatMMSpinnerValueFactory.class
 eli\projects\spprototype\vista\LibraryPresenter.class
-eli\projects\spprototype\controller\ExportGroupListCell.class
 eli\projects\spprototype\infrastructure\InMemoryEnsembleService.class
 eli\projects\spprototype\SimpleDocumentSource.class
 eli\projects\spprototype\controller\ExportController$1.class
@@ -50,7 +49,6 @@ eli\projects\spprototype\model\ExportSettings$SourceSelection.class
 eli\projects\spprototype\vista\PiecePresenter.class
 eli\projects\spprototype\controller\NewSectionController.class
 eli\projects\spprototype\vista\PiecesPresenter$1.class
-eli\projects\spprototype\controller\ExportGroupListCell$1.class
 eli\projects\spprototype\model\PaperSettings.class
 eli\projects\spprototype\model\Library.class
 eli\projects\spprototype\model\SectionGroup.class
