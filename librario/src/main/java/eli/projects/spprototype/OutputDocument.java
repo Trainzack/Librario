@@ -1,17 +1,14 @@
 package eli.projects.spprototype;
 
 import java.io.IOException;
-import java.security.InvalidParameterException;
 
 import org.apache.pdfbox.multipdf.LayerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.util.Matrix;
 
-import eli.projects.spprototype.model.PaperSettings;
 import eli.projects.spprototype.model.PaperSettings.FinalPaperSettings;
 
 public class OutputDocument extends PDDocument {

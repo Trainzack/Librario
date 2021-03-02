@@ -12,6 +12,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
+/**
+ * @deprecated
+ * @author Eli
+ *
+ */
 public class ExportGroupListCell extends ReorderableListCell<ExportGroupType> {
 
 	private CheckBox enabledBox;

@@ -1,10 +1,13 @@
 package eli.projects.spprototype.controller;
 
+import org.kordamp.ikonli.javafx.FontIcon;
+
 import javafx.scene.control.ListCell;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.text.FontSmoothingType;
-import javafx.scene.input.*;
-import org.kordamp.ikonli.javafx.FontIcon;
 
 /**
  * Adapted from 

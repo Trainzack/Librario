@@ -1,7 +1,6 @@
 package eli.projects.spprototype.vista;
 
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -10,29 +9,27 @@ import javax.inject.Inject;
 import com.airhacks.afterburner.injection.Injector;
 
 import eli.projects.spprototype.App;
-import eli.projects.spprototype.Part;
 import eli.projects.spprototype.infrastructure.PieceService;
-import eli.projects.spprototype.model.Ensemble;
-import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Piece;
-import eli.projects.spprototype.model.Section;
-import eli.projects.spprototype.model.Setlist;
 import eli.projects.util.DataFormats;
 import eli.projects.util.StringUtils;
-import javafx.fxml.Initializable;
-import javafx.beans.property.Property;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;

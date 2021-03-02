@@ -4,20 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.pdfbox.multipdf.LayerUtility;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
-import org.apache.pdfbox.util.Matrix;
-
-import eli.projects.spprototype.model.PaperSettings;
 import eli.projects.spprototype.model.PaperSettings.FinalPaperSettings;
 import eli.projects.util.StringUtils;
-import eli.projects.spprototype.model.PaperSize;
-import eli.projects.spprototype.model.Piece;
 import javafx.concurrent.Task;
 
 public class ExportTask extends Task<Void> {

@@ -1,7 +1,6 @@
 package eli.projects.spprototype.infrastructure;
 
 import java.util.Collection;
-import java.util.List;
 
 import eli.projects.spprototype.model.Instrument;
 import javafx.collections.FXCollections;

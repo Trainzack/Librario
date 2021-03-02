@@ -1,7 +1,6 @@
 package eli.projects.spprototype;
 
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -17,18 +16,28 @@ import eli.projects.spprototype.infrastructure.PieceService;
 import eli.projects.spprototype.model.Ensemble;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
-import eli.projects.spprototype.vista.*;
+import eli.projects.spprototype.vista.AbstractVistaView;
+import eli.projects.spprototype.vista.EnsembleView;
+import eli.projects.spprototype.vista.LibraryView;
+import eli.projects.spprototype.vista.PieceView;
+import eli.projects.spprototype.vista.PiecesView;
+import eli.projects.spprototype.vista.SetlistView;
+import eli.projects.spprototype.vista.VistaManager;
 import eli.projects.util.DataFormats;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class FrontpagePresenter implements Initializable {

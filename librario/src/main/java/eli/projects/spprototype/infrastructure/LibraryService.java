@@ -1,7 +1,6 @@
 package eli.projects.spprototype.infrastructure;
 
 import eli.projects.spprototype.model.Library;
-import javafx.beans.property.BooleanProperty;
 
 public interface LibraryService {
 	

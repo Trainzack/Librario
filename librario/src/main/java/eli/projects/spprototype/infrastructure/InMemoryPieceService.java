@@ -3,10 +3,8 @@
  */
 package eli.projects.spprototype.infrastructure;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import eli.projects.spprototype.model.Piece;
 import javafx.beans.Observable;

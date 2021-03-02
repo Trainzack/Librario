@@ -4,11 +4,7 @@
 package eli.projects.spprototype.infrastructure;
 
 import java.util.Collection;
-import java.util.List;
 
-import eli.projects.spprototype.model.Ensemble;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.collections.ObservableList;
 
 /**

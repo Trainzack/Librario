@@ -4,22 +4,25 @@ package eli.projects.spprototype.model;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 
-import eli.projects.spprototype.SimpleDocumentSource;
-import eli.projects.spprototype.infrastructure.*;
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.Part;
 import eli.projects.spprototype.PartDesignation;
 import eli.projects.spprototype.PartDesignation.InvalidPartDesignationException;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import eli.projects.spprototype.SimpleDocumentSource;
+import eli.projects.spprototype.infrastructure.EnsembleService;
+import eli.projects.spprototype.infrastructure.InMemoryEnsembleService;
+import eli.projects.spprototype.infrastructure.InMemoryInstrumentService;
+import eli.projects.spprototype.infrastructure.InMemoryListService;
+import eli.projects.spprototype.infrastructure.InMemoryPieceService;
+import eli.projects.spprototype.infrastructure.InstrumentService;
+import eli.projects.spprototype.infrastructure.ListService;
+import eli.projects.spprototype.infrastructure.PieceService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**

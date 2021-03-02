@@ -9,8 +9,6 @@ import eli.projects.spprototype.controller.ReorderableListCell;
 import eli.projects.spprototype.infrastructure.LibraryService;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Library;
-import eli.projects.spprototype.model.Piece;
-import eli.projects.spprototype.model.Setlist;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;

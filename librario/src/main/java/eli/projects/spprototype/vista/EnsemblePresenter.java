@@ -5,18 +5,18 @@ import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
-import eli.projects.spprototype.App;
 import eli.projects.spprototype.model.Ensemble;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Section;
-import eli.projects.spprototype.model.Setlist;
-import javafx.fxml.Initializable;
 import javafx.beans.property.Property;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class EnsemblePresenter extends Vista implements Initializable {

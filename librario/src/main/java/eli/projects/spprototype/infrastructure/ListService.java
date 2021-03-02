@@ -4,7 +4,6 @@
 package eli.projects.spprototype.infrastructure;
 
 import eli.projects.spprototype.model.Setlist;
-import javafx.collections.ObservableList;
 
 /**
  * @author Eli
