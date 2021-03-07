@@ -182,26 +182,22 @@
 				</executions>
 			</plugin>
 			<!-- Todo: Sign EXE https://ebourg.github.io/jsign/ -->
-			
-			<!-- Create the MacOS files -->
+
+			<!-- Create the MacOS appbundle -->
 			<plugin>
-				<groupId>sh.tak.appbundler</groupId>
-				<artifactId>appbundle-maven-plugin</artifactId>
-				<version>1.2.0</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.codehaus.plexus</groupId>
-						<artifactId>plexus-archiver</artifactId>
-						<version>RELEASE</version>
-					</dependency>
-					<dependency>
-						<groupId>org.apache.velocity</groupId>
-						<artifactId>velocity-tools</artifactId>
-						<version>2.0</version>
-					</dependency>
-				</dependencies>
+				<groupId>de.perdian.maven.plugins</groupId>
+				<artifactId>macosappbundler-maven-plugin</artifactId>
+				<version>1.10.0</version>
 				<configuration>
-					<mainClass>${project.mainClass}</mainClass>
+					<plist>
+						<JVMMainClassName>${project.mainClass}</JVMMainClassName>
+						<JVMVersion>${project.javaVersion}</JVMVersion>
+					</plist>
+					<dmg>
+						<generate>true</generate> 
+						<autoFallback>true</autoFallback>
+						<createApplicationsSymlink>false</createApplicationsSymlink>
+					</dmg>
 				</configuration>
 				<executions>
 					<execution>
@@ -212,7 +208,29 @@
 					</execution>
 				</executions>
 			</plugin>
+			
+			<!-- Create archive folders, zip everything together -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>src/main/assembly/zip.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
+
+
 
 		<resources>
 			<resource>

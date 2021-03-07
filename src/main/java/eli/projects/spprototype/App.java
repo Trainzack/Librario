@@ -78,8 +78,8 @@ public class App extends Application
 		
 
 		File path = new File("D:/Sheet Music/Pep Band");
-		context.put("libraryService", 	new InMemoryLibraryService(path)); // Load test library from filesystem
-		//context.put("libraryService", 	new InMemoryLibraryService(-1)); // Make up test library (no PDFS)
+		//context.put("libraryService", 	new InMemoryLibraryService(path)); // Load test library from filesystem
+		context.put("libraryService", 	new InMemoryLibraryService(-1)); // Make up test library (no PDFS)
 		
 		
 		
