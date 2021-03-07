@@ -113,12 +113,8 @@
 					<release>11</release>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <artifactId>maven-assembly-plugin</artifactId> <version>3.3.0</version> 
-				<configuration> <archive> <manifest> <mainClass>eli.projects.spprototype.Main</mainClass> 
-				</manifest> </archive> <descriptorRefs> <descriptorRef>jar-with-dependencies</descriptorRef> 
-				</descriptorRefs> </configuration> <executions> <execution> <id>make-assembly</id> 
-				<phase>package</phase> <goals> <goal>single</goal> </goals> </execution> 
-				</executions> </plugin> -->
+			
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -194,10 +190,14 @@
 						<JVMVersion>${project.javaVersion}</JVMVersion>
 					</plist>
 					<dmg>
-						<generate>true</generate> 
+						<generate>true</generate>
 						<autoFallback>true</autoFallback>
 						<createApplicationsSymlink>false</createApplicationsSymlink>
 					</dmg>
+					<!-- <jdk>
+						<include>true</include>
+						<location>${JAVA_HOME}</location>
+					</jdk> -->
 				</configuration>
 				<executions>
 					<execution>
@@ -208,7 +208,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<!-- Create archive folders, zip everything together -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
