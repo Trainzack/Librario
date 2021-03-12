@@ -18,7 +18,7 @@
 	<properties>
 		<project.mainClass>eli.projects.spprototype.Main</project.mainClass>
 
-		<project.javaVersion>11</project.javaVersion>
+		<project.javaVersion>15</project.javaVersion>
 		<project.appName>Librario</project.appName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -58,15 +58,22 @@
 			<groupId>org.apache.pdfbox</groupId> <artifactId>preflight</artifactId> <version>2.0.21</version> 
 			</dependency> <dependency> <groupId>org.apache.pdfbox</groupId> <artifactId>pdfbox-tools</artifactId> 
 			<version>2.0.21</version> </dependency> -->
+		<!-- the reason for having these dependency for all classifiers is here: 
+			https://stackoverflow.com/a/52654791/2463035 -->
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics </artifactId>
+			<version>15.0.1</version>
+		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			<version>14</version>
+			<version>15.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
-			<version>14</version>
+			<version>15.0.1</version>
 		</dependency>
 
 		<dependency>
@@ -101,7 +108,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
-					<mainClass>eli.projects.spprototype.Main</mainClass>
+					<mainClass>${project.mainClass}</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -113,7 +120,7 @@
 					<release>11</release>
 				</configuration>
 			</plugin>
-			
+			<?comment
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -160,12 +167,6 @@
 							<jre>
 								<minVersion>${project.javaVersion}</minVersion>
 							</jre>
-							<!-- <versionInfo> <fileVersion>1.2.3.4</fileVersion> <txtFileVersion>txt 
-								file version?</txtFileVersion> <fileDescription>a description</fileDescription> 
-								<copyright>my copyright</copyright> <productVersion>4.3.2.1</productVersion> 
-								<txtProductVersion>${version}</txtProductVersion> <productName>${project.appName}</productName> 
-								<internalName>ccne</internalName> <originalFilename>${project.appName}.exe</originalFilename> 
-								</versionInfo> -->
 							<splash>
 								<file>src/splash/LibrarioSplash.bmp</file>
 								<waitForWindow>true</waitForWindow>
@@ -176,8 +177,10 @@
 					</execution>
 				</executions>
 			</plugin>
+			endcomment?>
 			<!-- Todo: Sign EXE https://ebourg.github.io/jsign/ -->
 
+			<?comment
 			<!-- Create the MacOS appbundle -->
 			<plugin>
 				<groupId>de.perdian.maven.plugins</groupId>
@@ -207,7 +210,18 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			?>
+			
+			<plugin>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>0.0.5</version>
+				<configuration>
+                    <release>${project.javaVersion}</release>
+					<mainClass>${project.mainClass}</mainClass>
+                    <executable>${JAVA_HOME}</executable>
+				</configuration>
+			</plugin>
 			<!-- Create archive folders, zip everything together -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
