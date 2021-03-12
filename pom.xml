@@ -114,7 +114,7 @@
 				</configuration>
 			</plugin>
 			
-			
+			<!-- 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -137,7 +137,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<groupId>com.akathist.maven.plugins.launch4j</groupId>
 				<artifactId>launch4j-maven-plugin</artifactId>
@@ -189,11 +189,11 @@
 						<JVMMainClassName>${project.mainClass}</JVMMainClassName>
 						<JVMVersion>${project.javaVersion}</JVMVersion>
 					</plist>
-					<dmg>
+					<!-- <dmg>
 						<generate>true</generate>
 						<autoFallback>true</autoFallback>
 						<createApplicationsSymlink>false</createApplicationsSymlink>
-					</dmg>
+					</dmg> -->
 					<!-- <jdk>
 						<include>true</include>
 						<location>${JAVA_HOME}</location>

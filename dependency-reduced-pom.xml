@@ -123,11 +123,6 @@
             <JVMMainClassName>${project.mainClass}</JVMMainClassName>
             <JVMVersion>${project.javaVersion}</JVMVersion>
           </plist>
-          <dmg>
-            <generate>true</generate>
-            <autoFallback>true</autoFallback>
-            <createApplicationsSymlink>false</createApplicationsSymlink>
-          </dmg>
         </configuration>
       </plugin>
       <plugin>
