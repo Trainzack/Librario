@@ -30,6 +30,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ClipboardContent;
@@ -113,8 +115,7 @@ public class PiecesPresenter extends Vista implements Initializable {
 						
 						// A drag was detected, start drag and drop.
 						Dragboard db = pieceTable.startDragAndDrop(TransferMode.ANY);
-						
-						
+						// TODO set dragview
 						
 						ClipboardContent content = new ClipboardContent();
 						content.putString(titles);

@@ -59,7 +59,6 @@ public class setlistListCellFactory implements Callback<ListView<Setlist>, ListC
 					Dragboard db = event.getDragboard();
 					if (db.hasContent(DataFormats.PIECE_ARRAY_MIME_TYPE)) {
 						if (!l.getStyleClass().contains("dragover")) l.getStyleClass().add("dragover");
-						System.out.println(l.getStyleClass());
 					}
 				}
 
