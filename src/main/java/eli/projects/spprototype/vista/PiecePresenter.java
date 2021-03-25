@@ -1,6 +1,7 @@
 package eli.projects.spprototype.vista;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -12,8 +13,6 @@ import eli.projects.spprototype.DocumentSource;
 import eli.projects.spprototype.Part;
 import eli.projects.spprototype.PartDesignation;
 import eli.projects.spprototype.exporting.ExportSettings;
-import eli.projects.spprototype.exporting.ExportSettings.SourceSelection;
-import eli.projects.spprototype.infrastructure.LibraryService;
 import eli.projects.spprototype.model.Piece;
 import javafx.fxml.Initializable;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -70,9 +69,9 @@ public class PiecePresenter extends Vista implements Initializable {
 	public void exportPiece() {
 		// TODO wrap this in factory
 		
-		ExportSettings es = new ExportSettings();
-		es.getSelectedSourceProperty().set(SourceSelection.PIECE);
-		es.getSelectedExportPieceProperty().set(piece);
+		ArrayList<Piece> pieces = new ArrayList<>(1);
+		pieces.add(this.piece);
+		ExportSettings es = new ExportSettings(pieces, this.piece.getTitle());
 		
 		context.put("primaryStage", primaryStage);
 		context.put("exportSettings", es);

@@ -1,7 +1,6 @@
 package eli.projects.spprototype.vista;
 
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -11,37 +10,25 @@ import javax.inject.Inject;
 import com.airhacks.afterburner.injection.Injector;
 
 import eli.projects.spprototype.App;
-import eli.projects.spprototype.Part;
 import eli.projects.spprototype.exporting.ExportSettings;
-import eli.projects.spprototype.exporting.ExportSettings.SourceSelection;
 import eli.projects.spprototype.infrastructure.PieceService;
-import eli.projects.spprototype.model.Ensemble;
-import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Piece;
-import eli.projects.spprototype.model.Section;
-import eli.projects.spprototype.model.Setlist;
 import eli.projects.util.DataFormats;
 import eli.projects.util.StringUtils;
 import javafx.fxml.Initializable;
-import javafx.beans.property.Property;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.stage.Stage;
 
 public class PiecesPresenter extends Vista implements Initializable {
 
@@ -225,9 +212,7 @@ public class PiecesPresenter extends Vista implements Initializable {
 		
 		if (selection.size() <= 0) return;
 		
-		ExportSettings es = new ExportSettings();
-		es.getSelectedSourceProperty().set(SourceSelection.PIECES);
-		es.getSelectedExportPiecesProperty().set(selection);
+		ExportSettings es = new ExportSettings(selection,  StringUtils.pluralizer("piece", selection.size()));
 		
 		context.put("exportSettings", es);
 		

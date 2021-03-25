@@ -31,17 +31,6 @@ import eli.projects.spprototype.model.Setlist;
 public class ExportSettings {
 	
 	/**
-	 * Defines which source we are pulling pieces from
-	 * @author Eli
-	 *
-	 */
-	public enum SourceSelection {
-		LIST,
-		PIECE,
-		PIECES,
-	}
-	
-	/**
 	 * Defines which target we are going for.
 	 * @author Eli
 	 *
@@ -55,22 +44,20 @@ public class ExportSettings {
 	private PaperSettings mainPaperSettings = new PaperSettings();
 
 
+	private List<Piece> exportPieces;
+	private String exportName;
+	
 	// This controls where we want to export things to.
 	private ObjectProperty<File> exportDestination = new SimpleObjectProperty<File>(null);
 	
 	// This property is false iff the settings contained within this class are valid, and we are free to export.
 	private BooleanProperty isInvalid = new SimpleBooleanProperty(true);
 	
-	// These four control the selected target/source objects 
-	private ObjectProperty<Setlist> selectedExportSetlist = new SimpleObjectProperty<Setlist>(null);
-	private ObjectProperty<Piece> selectedExportPiece = new SimpleObjectProperty<Piece>(null);
-	private ObjectProperty<List<Piece>> selectedExportPieces = new SimpleObjectProperty<>(null);
 	
 	private ObjectProperty<Ensemble> selectedExportEnsemble = new SimpleObjectProperty<Ensemble>(null);
 	private ObjectProperty<Instrument> selectedExportInstrument = new SimpleObjectProperty<Instrument>(null);
 	
 	// These two control which type of source/target we are using
-	private ObjectProperty<SourceSelection> selectedSource = new SimpleObjectProperty<SourceSelection>();
 	private ObjectProperty<TargetSelection> selectedTarget = new SimpleObjectProperty<TargetSelection>();
 	
 	// Paper settings
@@ -81,17 +68,21 @@ public class ExportSettings {
 	/**This list contains any properties that, when changed, may change the validity of the settings. **/ 
 	@SuppressWarnings("rawtypes")
 	private final ObservableValue[] validityProperties =  {
-			selectedExportSetlist,
-			selectedExportPiece,
 			selectedExportEnsemble,
 			selectedExportInstrument,
-			selectedSource,
 			selectedTarget,
 		};
 	
+	/**
+	 * 
+	 * @param exportPieces A list containing all of the pieces that we want to export.
+	 * @param exportName A string containing the name of this export, as displayed at the top of the page.
+	 */
 	@SuppressWarnings("unchecked")
-	public ExportSettings() {
+	public ExportSettings(List<Piece> exportPieces, String exportName) {
 
+			this.exportPieces = exportPieces;
+			this.exportName = exportName;
 		
 		// Check validity after every setting change
 		for (@SuppressWarnings("rawtypes") ObservableValue p : validityProperties ) {
@@ -111,27 +102,13 @@ public class ExportSettings {
 		
 		boolean invalid = false;
 		
-		if (this.selectedSource.get() == null || this.selectedTarget.get() == null) {
+		if (this.selectedTarget.get() == null) {
 			invalid = true;
 		} else {
 			//TODO This section is messy AF. There must be a better way. Probably involving a hashmap.
-			// Test to make sure that we have a selection for the source field
-			Object fullProperty = null;
-			switch (this.selectedSource.get()) {
-				case LIST:
-					fullProperty = this.selectedExportSetlist.get();
-					break;
-				case PIECE:
-					fullProperty = this.selectedExportPiece.get();
-					break;
-				case PIECES:
-					fullProperty = this.selectedExportPieces.get();
-					break;
-			}
-			if (fullProperty == null) invalid = true;
 
 			// Test to make sure that we have a selection for the target field
-			fullProperty = null;
+			Object fullProperty = null;
 			switch (this.selectedTarget.get()) {
 				case ALL:
 					fullProperty = new Object();
@@ -157,24 +134,6 @@ public class ExportSettings {
 	 * I'm not going to make individual getters and setters for each property any more, I don't think we need them. 
 	 * 
 	 */
-	
-	/** Source **/
-	
-	public final ObjectProperty<Setlist> getSelectedExportSetlistProperty() {
-		return selectedExportSetlist;
-	}
-
-	public ObjectProperty<Piece> getSelectedExportPieceProperty() {
-		return selectedExportPiece;
-	}
-	
-	public ObjectProperty<List<Piece>> getSelectedExportPiecesProperty() {
-		return selectedExportPieces;
-	}
-	
-	public final ObjectProperty<SourceSelection> getSelectedSourceProperty() {
-		return selectedSource;
-	}
 	
 	/** Target **/
 	
@@ -243,37 +202,16 @@ public class ExportSettings {
 		fitToPage.set(fit);
 	}
 	
+	public String getName() {
+		return this.exportName;
+	}
+	
 	
 	
 	public ExportTask getExportTask() {
 		
 		PDRectangle paperDimensions;
-		
-		
-		// TODO: We should build these lists in real time, as they are updated
-		// And tie in the validity to them. If the list is empty, for example, it should become invalid.
-		
-		
-		List<Piece> exportPieces;
-		
-		
-		switch (this.selectedSource.get()) {
-		case LIST:
-			exportPieces = this.selectedExportSetlist.get().getPieceList();
-			break;
-		case PIECE:
-			exportPieces = new ArrayList<>();
-			exportPieces.add(this.selectedExportPiece.get());
-			break;
-		case PIECES:
-			exportPieces = this.getSelectedExportPiecesProperty().get();
-			break;
-		default:
-			exportPieces = new ArrayList<>();
-			break;
-			
-		}
-		
+				
 		ArrayList<Part> exportParts = new ArrayList<>();
 		
 		// TODO add grouping

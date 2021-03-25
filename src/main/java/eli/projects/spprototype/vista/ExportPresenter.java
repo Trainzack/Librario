@@ -17,7 +17,6 @@ import eli.projects.spprototype.model.Ensemble;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Library;
 import eli.projects.spprototype.model.PaperSize;
-import eli.projects.util.StringUtils;
 import javafx.fxml.Initializable;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -59,7 +58,7 @@ public class ExportPresenter extends Vista implements Initializable {
 	@FXML private CheckBox exportPageFitToPage;
 	
 	
-	@FXML private Button exportButton;
+	@FXML private ButtonBar exportButtonBar;
 	
 	
 	@Override
@@ -73,24 +72,7 @@ public class ExportPresenter extends Vista implements Initializable {
 		
 		/* Source Settings */
 		
-		String sourceName = "";
-		
-		switch (exportSettings.getSelectedSourceProperty().get()) {
-		case LIST:
-			sourceName = exportSettings.getSelectedExportSetlistProperty().get().getName();
-			break;
-		case PIECE:
-			sourceName = exportSettings.getSelectedExportPieceProperty().get().getTitle();
-			break;
-		case PIECES:
-			sourceName = StringUtils.pluralizer("piece", exportSettings.getSelectedExportPiecesProperty().get().size());
-			break;
-		default:
-			break;
-			
-		}
-		
-		sourceNameLabel.setText(sourceName);
+		sourceNameLabel.setText(exportSettings.getName());
 
 		
 		/* Target Settings */
@@ -155,7 +137,14 @@ public class ExportPresenter extends Vista implements Initializable {
 		} );
 		
 		/* Other */
+		
+		registerListener(exportSettings.getIsInvalidProperty(), (obs, oldValue, newValue) -> {
+			exportButtonBar.setDisable((boolean) newValue);
+		});
+		
 		exportSettings.evaluateValidity();
+		
+		
 	}
 	
 	

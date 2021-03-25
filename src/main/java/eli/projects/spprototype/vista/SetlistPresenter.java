@@ -11,9 +11,7 @@ import com.airhacks.afterburner.injection.Injector;
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.controller.ReorderableListCell;
 import eli.projects.spprototype.exporting.ExportSettings;
-import eli.projects.spprototype.exporting.ExportSettings.SourceSelection;
 import eli.projects.spprototype.infrastructure.LibraryService;
-import eli.projects.spprototype.infrastructure.ListService;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -88,9 +86,7 @@ public class SetlistPresenter extends Vista implements Initializable {
 	@FXML
 	public void exportList() {
 		
-		ExportSettings es = new ExportSettings();
-		es.getSelectedSourceProperty().set(SourceSelection.LIST);
-		es.getSelectedExportSetlistProperty().set(this.list);
+		ExportSettings es = new ExportSettings(this.list.getPieceList(), this.list.getName());
 		
 		context.put("primaryStage", primaryStage);
 		context.put("exportSettings", es);
