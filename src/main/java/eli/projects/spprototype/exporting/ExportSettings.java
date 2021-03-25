@@ -1,4 +1,4 @@
-package eli.projects.spprototype.model;
+package eli.projects.spprototype.exporting;
 
 import java.io.File;
 import java.security.InvalidParameterException;
@@ -19,9 +19,13 @@ import javafx.collections.ObservableList;
 
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
-import eli.projects.spprototype.ExportTask;
 import eli.projects.spprototype.Part;
-import eli.projects.spprototype.model.PaperSettings.FinalPaperSettings;
+import eli.projects.spprototype.exporting.PaperSettings.FinalPaperSettings;
+import eli.projects.spprototype.model.Ensemble;
+import eli.projects.spprototype.model.Instrument;
+import eli.projects.spprototype.model.PaperSize;
+import eli.projects.spprototype.model.Piece;
+import eli.projects.spprototype.model.Setlist;
 
 
 public class ExportSettings {
@@ -49,8 +53,6 @@ public class ExportSettings {
 	}
 	
 	private PaperSettings mainPaperSettings = new PaperSettings();
-	
-	private Library library;
 
 
 	// This controls where we want to export things to.
@@ -76,9 +78,6 @@ public class ExportSettings {
 	private BooleanProperty doublePages = new SimpleBooleanProperty(false);
 	private BooleanProperty fitToPage = new SimpleBooleanProperty(false);
 	
-	// Export Grouping
-	private ObservableList<ExportGroupType> exportGroups;
-	
 	/**This list contains any properties that, when changed, may change the validity of the settings. **/ 
 	@SuppressWarnings("rawtypes")
 	private final ObservableValue[] validityProperties =  {
@@ -91,11 +90,8 @@ public class ExportSettings {
 		};
 	
 	@SuppressWarnings("unchecked")
-	public ExportSettings(Library l) {
+	public ExportSettings() {
 
-		this.library = l; //TODO: Is it a good idea to couple these like this?
-		
-		exportGroups = FXCollections.observableArrayList(ExportGroupType.getOneOfEachExportGroupType());
 		
 		// Check validity after every setting change
 		for (@SuppressWarnings("rawtypes") ObservableValue p : validityProperties ) {
@@ -170,6 +166,10 @@ public class ExportSettings {
 
 	public ObjectProperty<Piece> getSelectedExportPieceProperty() {
 		return selectedExportPiece;
+	}
+	
+	public ObjectProperty<List<Piece>> getSelectedExportPiecesProperty() {
+		return selectedExportPieces;
 	}
 	
 	public final ObjectProperty<SourceSelection> getSelectedSourceProperty() {
@@ -262,16 +262,19 @@ public class ExportSettings {
 			exportPieces = this.selectedExportSetlist.get().getPieceList();
 			break;
 		case PIECE:
-			exportPieces = new ArrayList<>(library.getPieces().size());
+			exportPieces = new ArrayList<>();
 			exportPieces.add(this.selectedExportPiece.get());
 			break;
+		case PIECES:
+			exportPieces = this.getSelectedExportPiecesProperty().get();
+			break;
 		default:
-			exportPieces = new ArrayList<>(library.getPieces().size());
+			exportPieces = new ArrayList<>();
 			break;
 			
 		}
 		
-		ArrayList<Part> exportParts = new ArrayList<>(exportPieces.size() * 5);
+		ArrayList<Part> exportParts = new ArrayList<>();
 		
 		// TODO add grouping
 

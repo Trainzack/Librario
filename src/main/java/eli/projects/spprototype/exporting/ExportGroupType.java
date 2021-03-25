@@ -1,4 +1,4 @@
-package eli.projects.spprototype.model;
+package eli.projects.spprototype.exporting;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  * This is part of the model that contains the information needed to properly group pieces upon export. 
+ * @deprecated
  * @author Eli
  *
  */

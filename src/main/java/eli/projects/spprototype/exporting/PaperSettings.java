@@ -1,7 +1,8 @@
-package eli.projects.spprototype.model;
+package eli.projects.spprototype.exporting;
 
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
+import eli.projects.spprototype.model.PaperSize;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
@@ -19,18 +20,30 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 public class PaperSettings {
 	
-	private ObjectProperty<PaperSize> paperSize = new SimpleObjectProperty<PaperSize>(null);
+	private ObjectProperty<PaperSize> paperSize = new SimpleObjectProperty<PaperSize>();
+	
 	private FloatProperty paperWidth = new SimpleFloatProperty();
 	private FloatProperty paperHeight = new SimpleFloatProperty();
 	
-	private FloatProperty paperMargin = new SimpleFloatProperty(10);
+	private FloatProperty paperMargin = new SimpleFloatProperty();
+
+	
+	public PaperSettings() {
+		this(PaperSize.LETTER, 10);
+	}
+	
+	public PaperSettings(PaperSize paperSize, float paperMargin) {
+		super();
+		this.setPaperSize(paperSize);
+		this.paperMargin.set(paperMargin);
+	}
 	
 	/** Paper Size **/
 	
 	public final ReadOnlyObjectProperty<PaperSize> getPaperSizeProperty() {
 		return paperSize;
 	}
-	
+
 	public final PaperSize getPaperSize() {
 		return paperSize.get();
 	}
@@ -38,8 +51,8 @@ public class PaperSettings {
 	public final void setPaperSize(PaperSize p) {
 		paperSize.set(p);
 		if (p != PaperSize.CUSTOM) {
-			paperWidth.set(p.getWidthmm());
-			paperHeight.set(p.getHeightmm());
+			paperWidth.set(p.getWidthPt());
+			paperHeight.set(p.getHeightPt());
 		}
 	}
 	
@@ -112,6 +125,16 @@ public class PaperSettings {
 			
 			this.fitContentToPage = fit;
 			this.witnessMarksAtEdges = witness;
+			
+		}
+		
+		@Override
+		public String toString() {
+			String out = "Dimensions: " + this.paperDimensions.toString() + "; Margins: " + this.margins + "; ";
+			
+			if (this.fitContentToPage) out += " Fit to page; ";
+			if (this.witnessMarksAtEdges) out += " Witness marks on; ";
+			return out;
 			
 		}
 		

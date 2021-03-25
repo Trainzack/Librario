@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
@@ -12,7 +13,6 @@
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -20,84 +20,74 @@
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane maxHeight="813.0" maxWidth="800.0" prefHeight="813.0" prefWidth="700.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.vista.ExportPresenter">
+<AnchorPane maxHeight="813.0" maxWidth="800.0" prefHeight="813.0" prefWidth="700.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eli.projects.spprototype.vista.ExportPresenter">
    <children>
       <HBox layoutY="30.0" prefHeight="621.0" prefWidth="700.0" spacing="10.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="612.0" prefWidth="325.0" vgap="10.0">
+            <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="115.0" prefWidth="320.0" styleClass="border">
                <children>
-                  <VBox maxWidth="320.0" minWidth="-Infinity" prefHeight="115.0" prefWidth="320.0" styleClass="border">
+                  <Label fx:id="sourceNameLabel" text="Exporting">
+                     <styleClass>
+                        <String fx:value="h1_padding" />
+                        <String fx:value="text_size_h1" />
+                     </styleClass>
+                  </Label>
+                  <GridPane vgap="10.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="34.0" />
+                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="131.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="10.0" prefWidth="160.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
                      <children>
-                        <Label styleClass="header2" text="Filters">
+                        <RadioButton fx:id="exportTargetAllPartsToggle" mnemonicParsing="false" text="All Parts" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="exportPieceTarget" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="exportTargetEnsembleToggle" disable="true" mnemonicParsing="false" text="For Ensemble" toggleGroup="$exportPieceTarget" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <SearchableComboBox fx:id="exportTargetEnsembleComboBox" disable="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <RadioButton fx:id="exportTargetInstrumentToggle" mnemonicParsing="false" text="For Instrument" toggleGroup="$exportPieceTarget" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <SearchableComboBox fx:id="exportTargetInstrumentComboBox" disable="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label text="Instrument Filter" GridPane.columnSpan="2">
                            <graphic>
                               <FontIcon iconLiteral="enty-funnel" />
                            </graphic>
+                           <styleClass>
+                              <String fx:value="text_size_h2" />
+                              <String fx:value="h2_padding" />
+                           </styleClass>
                         </Label>
-                        <GridPane vgap="10.0">
-                          <columnConstraints>
-                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="34.0" />
-                            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="131.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="10.0" prefWidth="160.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <RadioButton fx:id="exportSetlistToggle" mnemonicParsing="false" text="Entire List" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="exportPieceSource" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="exportPieceToggle" mnemonicParsing="false" text="One Piece" toggleGroup="$exportPieceSource" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <SearchableComboBox fx:id="exportSetlistComboBox" disable="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <SearchableComboBox fx:id="exportPieceComboBox" disable="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <RadioButton fx:id="exportTargetAllPartsToggle" mnemonicParsing="false" text="All Parts" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="exportPieceTarget" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="exportTargetEnsembleToggle" mnemonicParsing="false" text="For Ensemble" toggleGroup="$exportPieceTarget" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <SearchableComboBox fx:id="exportTargetEnsembleComboBox" disable="true" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                              <RadioButton fx:id="exportTargetInstrumentToggle" mnemonicParsing="false" text="For Instrument" toggleGroup="$exportPieceTarget" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                              <SearchableComboBox fx:id="exportTargetInstrumentComboBox" disable="true" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                              <Label text="Instrument Filter" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                                 <graphic>
-                                    <FontIcon iconLiteral="enty-man" />
-                                 </graphic>
-                              </Label>
-                              <Label text="Piece Filter" GridPane.columnSpan="2">
-                                 <graphic>
-                                    <FontIcon iconLiteral="enty-archive" />
-                                 </graphic>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
-                        </GridPane>
-                     </children>
-                  </VBox>
-                  <VBox maxHeight="257.0" maxWidth="320.0" minHeight="180.0" minWidth="-Infinity" prefHeight="227.0" prefWidth="320.0" styleClass="border">
-                     <children>
-                        <Label styleClass="header2" text="Page Settings">
+                        <Label text="Page Settings" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
                            <graphic>
                               <FontIcon iconLiteral="enty-text-document" />
                            </graphic>
+                           <styleClass>
+                              <String fx:value="text_size_h2" />
+                              <String fx:value="h2_padding" />
+                           </styleClass>
                         </Label>
-                        <fx:include fx:id="mainPageSettings" source="PageSizeController.fxml" />
-                        <CheckBox fx:id="exportPageDoublePages" maxHeight="30.0" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" text="Flip folder (two pieces per page)" />
-                        <CheckBox fx:id="exportPageFitToPage" layoutX="21.0" layoutY="167.0" maxHeight="30.0" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" text="Fit to page" />
+                        <Label text="Page Size" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <SearchableComboBox fx:id="pageSizeComboBox" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <CheckBox fx:id="exportPageDoublePages" maxHeight="30.0" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" text="Flip folder (two pieces per page)" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+                        <CheckBox fx:id="exportPageFitToPage" maxHeight="30.0" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" text="Fit to page" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                      </children>
-                  </VBox>
-                  <HBox prefHeight="386.0" prefWidth="200.0" />
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </GridPane>
                </children>
-            </FlowPane>
+            </VBox>
+            <HBox prefHeight="386.0" prefWidth="200.0" />
           <AnchorPane minHeight="0.0" minWidth="500.0" prefHeight="673.0" prefWidth="500.0" styleClass="border">
                <children>
                   <Label styleClass="header2" text="Preview" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
@@ -120,7 +110,7 @@
         <buttons>
             <Button fx:id="exportButton" defaultButton="true" minWidth="120.0" mnemonicParsing="false" onAction="#finishExport" prefHeight="40.0" prefWidth="120.0" styleClass="large_button" text="Export">
                <graphic>
-                  <FontIcon iconLiteral="enty-export" text="" />
+                  <FontIcon iconLiteral="enty-export" text="" />
                </graphic>
             </Button>
         </buttons>

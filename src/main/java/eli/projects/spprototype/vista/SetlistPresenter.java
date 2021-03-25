@@ -1,12 +1,19 @@
 package eli.projects.spprototype.vista;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
+import com.airhacks.afterburner.injection.Injector;
+
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.controller.ReorderableListCell;
+import eli.projects.spprototype.exporting.ExportSettings;
+import eli.projects.spprototype.exporting.ExportSettings.SourceSelection;
+import eli.projects.spprototype.infrastructure.LibraryService;
+import eli.projects.spprototype.infrastructure.ListService;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -16,10 +23,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class SetlistPresenter extends Vista implements Initializable {
 	
 	@Inject private Setlist list;
+	@Inject private Stage primaryStage;
+	@Inject private Map<Object, Object> context;
+	@Inject private VistaManager vistaManager;
+	
+	@Inject private LibraryService libraryService;
 	
 	@FXML private TextField titleField;
 	@FXML private Label pieceCountLabel;
@@ -37,6 +50,8 @@ public class SetlistPresenter extends Vista implements Initializable {
 		pieceCountLabel.textProperty().set(""+list.getLengthProperty().get());
 		
 		pieceView.setItems(list.getPieceList());
+		
+		pieceView.setPlaceholder(new Label("There are no pieces in this list! You can add pieces to this list in the Pieces tab, by dragging them from the table to the name of this list."));
 		
 		// Allow the cells to be reordered.
 		pieceView.setCellFactory(list -> new ReorderableListCell<Piece>() {
@@ -62,14 +77,29 @@ public class SetlistPresenter extends Vista implements Initializable {
 	
 	@FXML
 	public void deleteList() {
-		// TODO Method stub
-		App.ShowTempAlert("Not yet implemented!");
+		
+		if (App.showConfirmationDialog("List Deletion", "Are you sure you want to delete '" + this.list.getName() +"'?", "Delete")) {
+			vistaManager.clearVistaStack();
+			libraryService.getLibrary().getListService().deleteItem(this.list);
+		}
+		
 	}
 	
 	@FXML
 	public void exportList() {
-		// TODO Method stub
-		App.ShowTempAlert("Not yet implemented!");
+		
+		ExportSettings es = new ExportSettings();
+		es.getSelectedSourceProperty().set(SourceSelection.LIST);
+		es.getSelectedExportSetlistProperty().set(this.list);
+		
+		context.put("primaryStage", primaryStage);
+		context.put("exportSettings", es);
+		
+		Injector.setConfigurationSource(context::get);
+		
+		AbstractVistaView exportView = new ExportView();
+		
+        vistaManager.pushVista(exportView);
 	}
 
 	@Override

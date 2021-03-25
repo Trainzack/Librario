@@ -1,6 +1,6 @@
 package eli.projects.spprototype.controller;
 
-import eli.projects.spprototype.model.ExportGroupType;
+import eli.projects.spprototype.exporting.ExportGroupType;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

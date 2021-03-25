@@ -1,4 +1,4 @@
-package eli.projects.spprototype;
+package eli.projects.spprototype.exporting;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +13,9 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.util.Matrix;
 
-import eli.projects.spprototype.model.PaperSettings;
-import eli.projects.spprototype.model.PaperSettings.FinalPaperSettings;
+import eli.projects.spprototype.DocumentSource;
+import eli.projects.spprototype.Part;
+import eli.projects.spprototype.exporting.PaperSettings.FinalPaperSettings;
 import eli.projects.util.StringUtils;
 import eli.projects.spprototype.model.PaperSize;
 import eli.projects.spprototype.model.Piece;
@@ -41,6 +42,7 @@ public class ExportTask extends Task<Void> {
 	 */
 	public ExportTask(FinalPaperSettings pageSettings, List<Part> parts, File exportDestination) {
 		super();
+		System.out.println("Starting unimposed export task.");
 		this.parts = parts;
 		this.exportDestination = exportDestination;
 		
@@ -48,10 +50,12 @@ public class ExportTask extends Task<Void> {
 		
 		document = new OutputDocument(pageSettings);
 		imposedPageSettings = null;
+		System.out.println(document);
 	}
 	
 	public ExportTask(FinalPaperSettings pageSettings, FinalPaperSettings cutPageSettings, List<Part> parts, File exportDestination) {
 		super();
+		System.out.println("Starting imposed export task.");
 		this.parts = parts;
 		this.exportDestination = exportDestination;
 		
@@ -59,6 +63,7 @@ public class ExportTask extends Task<Void> {
 		
 		document = new OutputDocument(cutPageSettings);
 		imposedPageSettings = pageSettings;
+		System.out.println(document);
 	}
 
 

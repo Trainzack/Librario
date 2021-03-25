@@ -12,6 +12,8 @@ import com.airhacks.afterburner.injection.Injector;
 
 import eli.projects.spprototype.App;
 import eli.projects.spprototype.Part;
+import eli.projects.spprototype.exporting.ExportSettings;
+import eli.projects.spprototype.exporting.ExportSettings.SourceSelection;
 import eli.projects.spprototype.infrastructure.PieceService;
 import eli.projects.spprototype.model.Ensemble;
 import eli.projects.spprototype.model.Instrument;
@@ -39,15 +41,16 @@ import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.stage.Stage;
 
 public class PiecesPresenter extends Vista implements Initializable {
 
 	private FilteredList<Piece> filteredPieces;
 	
 	@Inject private PieceService pieceService;
-	@Inject private VistaManager vistaManager;
 	
 	@Inject private Map<Object, Object> context;
+	@Inject private VistaManager vistaManager;
 	
 	@FXML private TextField searchFilterField;
 	
@@ -218,12 +221,28 @@ public class PiecesPresenter extends Vista implements Initializable {
 	
 	@FXML
 	private void exportSelectedPiece() {
-		// TODO Method stub
+		ObservableList<Piece> selection = pieceTable.getSelectionModel().getSelectedItems();
+		
+		if (selection.size() <= 0) return;
+		
+		ExportSettings es = new ExportSettings();
+		es.getSelectedSourceProperty().set(SourceSelection.PIECES);
+		es.getSelectedExportPiecesProperty().set(selection);
+		
+		context.put("exportSettings", es);
+		
+		Injector.setConfigurationSource(context::get);
+		
+		AbstractVistaView exportView = new ExportView();
+		
+        vistaManager.pushVista(exportView);
+		
 	}
 	
 	@FXML
 	private void addPieceToList() {
 		// TODO Method stub
+		App.showTempAlert("You can add pieces to a list by dragging them to the name of the list on the left-hand side of the screen.");
 	}
 
 	@Override
@@ -233,7 +252,6 @@ public class PiecesPresenter extends Vista implements Initializable {
 
 	@Override
 	public ReadOnlyStringProperty getIconLiteralProperty() {
-		// TODO Auto-generated method stub
 		return new SimpleStringProperty("enty-beamed-note");
 	}
 

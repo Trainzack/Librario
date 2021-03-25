@@ -196,7 +196,7 @@ public class FrontpagePresenter implements Initializable {
 
 	@FXML
 	private void search() {
-		App.ShowTempAlert("You searched for " + searchField.getText() + "!");
+		App.showTempAlert("You searched for " + searchField.getText() + "!");
 	}
 
 	@FXML

@@ -3,8 +3,11 @@ package eli.projects.spprototype.vista;
 import java.util.HashMap;
 import java.util.Map;
 
+import eli.projects.spprototype.model.PaperSize;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.Property;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -15,9 +18,9 @@ public abstract class Vista {
 	// We keep track of all listeners so that we can remove them all before we delete the vista
 	// This way we can ensure garbage collection picks up the listeners.
 	@SuppressWarnings("rawtypes")
-	Map<ChangeListener, Property> changeListeners = new HashMap<>();
+	Map<ChangeListener, ReadOnlyProperty> changeListeners = new HashMap<>();
 	@SuppressWarnings("rawtypes")
-	Map<InvalidationListener, Property> invalidationListeners = new HashMap<>();
+	Map<InvalidationListener, ReadOnlyProperty> invalidationListeners = new HashMap<>();
 	
 	/**
 	 * Called once when the vista is no longer being shown.
@@ -25,11 +28,11 @@ public abstract class Vista {
 	 */
 	public final void remove() {
 		for (@SuppressWarnings("rawtypes") ChangeListener l : changeListeners.keySet()) {
-			Property p = changeListeners.get(l);
+			ReadOnlyProperty p = changeListeners.get(l);
 			p.removeListener(l);
 		}
 		for (@SuppressWarnings("rawtypes") InvalidationListener l : invalidationListeners.keySet()) {
-			Property p = invalidationListeners.get(l);
+			ReadOnlyProperty p = invalidationListeners.get(l);
 			p.removeListener(l);
 		}
 	}
@@ -57,7 +60,7 @@ public abstract class Vista {
 	 * @param l The ChangeListener to register
 	 */
 	@SuppressWarnings("unchecked")
-	protected void registerListener(Property p, ChangeListener l) {
+	protected void registerListener(ReadOnlyProperty p, ChangeListener l) {
 		p.addListener(l);
 		changeListeners.put(l, p);
 	}
@@ -74,7 +77,7 @@ public abstract class Vista {
 	 * @param l The InvalidationListener to register
 	 */
 	@SuppressWarnings("unchecked")
-	protected void registerListener(Property p, InvalidationListener l) {
+	protected void registerListener(ReadOnlyProperty p, InvalidationListener l) {
 		p.addListener(l);
 		invalidationListeners.put(l, p);
 	}

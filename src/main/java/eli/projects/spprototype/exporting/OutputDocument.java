@@ -1,18 +1,15 @@
-package eli.projects.spprototype;
+package eli.projects.spprototype.exporting;
 
 import java.io.IOException;
-import java.security.InvalidParameterException;
-
 import org.apache.pdfbox.multipdf.LayerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.util.Matrix;
 
-import eli.projects.spprototype.model.PaperSettings;
-import eli.projects.spprototype.model.PaperSettings.FinalPaperSettings;
+import eli.projects.spprototype.DocumentSource;
+import eli.projects.spprototype.exporting.PaperSettings.FinalPaperSettings;
 
 public class OutputDocument extends PDDocument {
 	
@@ -163,6 +160,10 @@ public class OutputDocument extends PDDocument {
         }
 	}
 	
+	@Override
+	public String toString() {
+		return "Page Settings: " + this.pageSettings.toString();
+	}
 	
 	
 }

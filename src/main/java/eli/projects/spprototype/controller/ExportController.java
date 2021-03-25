@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.controlsfx.control.SearchableComboBox;
 
 import eli.projects.spprototype.App;
-import eli.projects.spprototype.ExportTask;
+import eli.projects.spprototype.exporting.ExportSettings;
+import eli.projects.spprototype.exporting.ExportTask;
+import eli.projects.spprototype.exporting.PaperSettings;
 import eli.projects.spprototype.model.Ensemble;
-import eli.projects.spprototype.model.ExportSettings;
 import eli.projects.spprototype.model.Instrument;
 import eli.projects.spprototype.model.Library;
-import eli.projects.spprototype.model.PaperSettings;
 import eli.projects.spprototype.model.PaperSize;
 import eli.projects.spprototype.model.Piece;
 import eli.projects.spprototype.model.Setlist;
@@ -251,7 +251,7 @@ public class ExportController {
 		exportSettings.evaluateValidity();
 		if (exportSettings.getIsInvalidProperty().get()) {
 			//This is bad
-			App.ShowError("Export Failed", "The settings you chose for export were invalid. Additionally, the program should have prevented this.");
+			App.showError("Export Failed", "The settings you chose for export were invalid. Additionally, the program should have prevented this.");
 		}
 		
 		//DirectoryChooser dir = new DirectoryChooser();

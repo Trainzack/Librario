@@ -78,8 +78,8 @@ public class App extends Application
 		
 
 		File path = new File("D:/Sheet Music/Pep Band");
-		//context.put("libraryService", 	new InMemoryLibraryService(path)); // Load test library from filesystem
-		context.put("libraryService", 	new InMemoryLibraryService(-1)); // Make up test library (no PDFS)
+		context.put("libraryService", 	new InMemoryLibraryService(path)); // Load test library from filesystem
+		//context.put("libraryService", 	new InMemoryLibraryService(-1)); // Make up test library (no PDFS)
 		
 		
 		
@@ -120,7 +120,7 @@ public class App extends Application
 	
 	private static void handleError(Thread t, Throwable e) {
         if (Platform.isFxApplicationThread()) {
-        	ShowException(e, "An exception has occured.");
+        	showException(e, "An exception has occured.");
         } else {
             System.err.println("An unexpected error occurred in "+t);
 
@@ -128,18 +128,18 @@ public class App extends Application
 	}
 	
 	// TODO: method names not following proper capitalization.
-	public static void ShowTempAlert(String text) {
+	public static void showTempAlert(String text) {
 		
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Temporary Placeholder Alert");
-		alert.setHeaderText(text);
-		alert.setContentText("[This action is not yet implemented]");
+		alert.setHeaderText("This action is not yet implemented");
+		alert.setContentText(text);
 		alert.initOwner(primaryStage); // Should fix alerts taking up the fullscreen on MacOS, and should make sure that the window reliably pops up in front of the main window.
 
 		alert.showAndWait();
 	}
 	
-	public static void ShowError(String error, String reason) {
+	public static void showError(String error, String reason) {
 		
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
@@ -155,8 +155,8 @@ public class App extends Application
 	 * @param e AThe exception to display in this box.
 	 * @param description A human-readable description of the problem.
 	 */
-	public static void ShowException(Throwable throwable, String description) {
-		ShowException(new Throwable[] {throwable}, description);
+	public static void showException(Throwable throwable, String description) {
+		showException(new Throwable[] {throwable}, description);
 	}
 	
 	
@@ -165,7 +165,7 @@ public class App extends Application
 	 * @param e An array containing exceptions to display in this box.
 	 * @param description A human-readable description of the problem.
 	 */
-	public static void ShowException(Throwable throwables[], String description) {
+	public static void showException(Throwable throwables[], String description) {
 		
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("An Exception Has Occured"); //This may not always give good results, testing is needed.
@@ -246,7 +246,7 @@ public class App extends Application
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			
 			public void handle(ActionEvent event) {
-				App.ShowTempAlert(alertText);
+				App.showTempAlert(alertText);
 			}
 		});
 		

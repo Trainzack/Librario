@@ -1,6 +1,6 @@
 package eli.projects.spprototype.controller;
 
-import eli.projects.spprototype.model.PaperSettings;
+import eli.projects.spprototype.exporting.PaperSettings;
 import eli.projects.spprototype.model.PaperSize;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

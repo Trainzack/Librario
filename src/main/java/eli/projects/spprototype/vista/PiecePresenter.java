@@ -11,9 +11,9 @@ import com.airhacks.afterburner.injection.Injector;
 import eli.projects.spprototype.DocumentSource;
 import eli.projects.spprototype.Part;
 import eli.projects.spprototype.PartDesignation;
+import eli.projects.spprototype.exporting.ExportSettings;
+import eli.projects.spprototype.exporting.ExportSettings.SourceSelection;
 import eli.projects.spprototype.infrastructure.LibraryService;
-import eli.projects.spprototype.model.ExportSettings;
-import eli.projects.spprototype.model.ExportSettings.SourceSelection;
 import eli.projects.spprototype.model.Piece;
 import javafx.fxml.Initializable;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -30,7 +30,6 @@ public class PiecePresenter extends Vista implements Initializable {
 
 	@Inject private Piece piece;
 	@Inject private Stage primaryStage;
-	@Inject private LibraryService libraryService;
 	@Inject private Map<Object, Object> context;
 	@Inject private VistaManager vistaManager;
 	
@@ -71,7 +70,7 @@ public class PiecePresenter extends Vista implements Initializable {
 	public void exportPiece() {
 		// TODO wrap this in factory
 		
-		ExportSettings es = new ExportSettings(this.libraryService.getLibrary());
+		ExportSettings es = new ExportSettings();
 		es.getSelectedSourceProperty().set(SourceSelection.PIECE);
 		es.getSelectedExportPieceProperty().set(piece);
 		
