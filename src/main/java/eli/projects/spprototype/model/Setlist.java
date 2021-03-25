@@ -48,6 +48,22 @@ public class Setlist {
 		observableList.add(newPiece);
 	}
 	
+	/**
+	 * Adds the piece indicated by the given session-specific ID. This is intended for use by the dragboard.
+	 * @param ID The ID of the piece to add
+	 * @return true if successful, false otherwise.
+	 */
+	public boolean addFromID(int ID) {
+		
+		Piece p = Piece.getPiece(ID);
+		if (p != null) {
+			this.add(p);
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public void remove(Piece piece) {
 		observableList.remove(piece);
 	}
@@ -69,7 +85,10 @@ public class Setlist {
 	}
 
 
-	
+	/**
+	 * @deprecated
+	 * @return
+	 */
 	public boolean isUserList() {
 		return true;
 	}

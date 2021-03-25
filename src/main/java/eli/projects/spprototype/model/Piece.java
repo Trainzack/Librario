@@ -3,6 +3,8 @@ package eli.projects.spprototype.model;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.Serializable;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.Random;
 
 import eli.projects.spprototype.SimpleDocumentSource;
@@ -26,7 +28,17 @@ import javafx.collections.ObservableList;
  * @author Eli
  *
  */
-public class Piece implements Serializable {
+public class Piece {
+	
+	// This keeps track of IDs that we assign. This ID is *not* saved, but recreated in memory every time.
+	// This ID may be different across different sessions.
+	private static int cur_id = 0;
+	
+	// This keeps track of all pieces so that we can drag and drop them
+	// I get the feeling that this is an unwise design decision.
+	//	-- In particular, this means that pieces will never be garbage collected, even if we load a new library
+	//  -- It may be smarter to put this in the library class.
+	private static Dictionary<Integer, Piece> all_pieces = new Hashtable<>();
 	
 	private static final String[] SAMPLE_PIECE_NAMES_PEP = {"25 Miles", "All I do is Win ", "All Right Now", "Alma Mater, Cal Poly Pomona", "Angel is the Centerfold", "Apache", "Believer", "Better Now", "Cal Poly Pomona Fight Song", "Carry on Wayward Son", "Come Out and Play", "Crazy in Love", "Daft Punk Medley", "Dance to the Music", "Dream On", "Evil Ways", "Eye of the Tiger", "Final Countdown,The", "Flagpole Sitta", "Frankenstein", "Hand That Feeds, The", "Heartbreaker", "Hey! Baby!", "Higher Ground", "Holiday", "I'm Shipping up to Boston", "Impression That I Get, The", "In the Stone", "Land of a Thousand Dances", "Pretender, The", "Rage!", "Rock Lobster", "Doctor Who", "Get Down Tonight", "Hey Pachuco!", "Kids Aren't Alright, The", "Runaway Baby", "Sell Out", "Seven Nation Army", "Shout", "Shout it Out", "Stacy's Mom", "Star Spangled Banner", "Take On Me", "Uma Thurman", "William Tell Overture (Finale)", "You're Gonna Go Far Kid", "Word Up"};
 	private static final String[] SAMPLE_PIECE_NAMES = {"Emblems", "Variations on a Shaker Melody", "Dream", "Repercussions", "Armenian Dances (Part I)", "Armenian Dances (Part II)", "Russian Christmas Music", "Hymn Variants (based on Lasst uns erfreuen [1623])", "Blue and White Dance", "Athenian Festival", "Serenade in D Minor", "Sinfonia Drammatica", "Theme and Variations, Op. 43a", "Suite in D Major, Op. 29", "Kappa Kappa Psi March", "Glass Menagerie", "Home Again", "Orient et Occident, Op. 25", "The Universal Judgement", "Riverwalk", "Symphony No. 1 for Band", "Affirmation and Credo", "Symphonic Suite", "Fanfare and Allegro", "Symphonic Dance No. 3: Fiesta", "Symphonic Essays", "Variations on a Maine Theme", "Desert Winds", "Unusual Behavior in Ceremonies Involving Drums", "Colors Aloft", "Suite Française", "Mansions of Glory", "In The Spring, at the Time When Kings Go Off to War", "Symphonic Canticle", "A Child's Garden of Dreams", "Symphony No. 4 (West Point)", "In Memoriam", "A Tuning Piece: Songs of Fall and Winter", "Traveler", "Purple Heart", "Dark Dreams of a Circus Bandstand", "Ballet for Band", "Cloudless Day, Bitter Sky", "Come, memory ...", "Tau Beta Sigma March", "Celestial Dancers", "A Little Learning is a Dangerous Thing", "Cloudburst", "Equus", "Ghost Train Triptych", "Godzilla Eats Las Vegas!", "October", "Prelude and Double Fugue", "Blue Shades", "Vesuvius ", "Angels in The Architecture", "Nitro", "An American Elegy", "Gaian Visions", "An American Elegy", "A Fraternal Prelude", "Loud Sunsets", "Scherzo", "Carolina Fantasy", "An Original Suite", "William Byrd Suite", "Study in Textures", "Hammersmith: Prelude and Scherzo, Op. 52", "First Suite in E-flat Major, Op. 28/1", "Second Suite in F Major, Op. 28/2", "La Fiesta Mexicana", "Ferris Fantasy", "Grande symphonie funèbre et triomphale, Op. 15", "Americans We", "The Footlifter", "His Honor", "Chorale and Alleluia", "Concerto for Piano and Wind Instruments", "Symphonies of Wind Instruments", "Saxophone Concerto", "Sinfonietta", "Kappa Kappa Psi March", "Movements for Wind Ensemble", "Gavorkna Fanfare", "Four Maryland Songs", "Bandancing", "Century Tower", "Chorale Prelude on a German Folk Tune", "Pagan Dances", "Variants on an Ancient Air", "Daystar: Symphonic Variations for Wind and Percussion", "Concerto for Piano and Wind Ensemble", "Neologue", "Chronolog", "Cantique and Festival", "A Gathering of Angels", "From the Mountains", "The Imperceptible Voices Cloaked in Wind", "Block M", "Overture Alfresco", "Fugue with Drums", "Elegy", "Incantation and Dance", "Symphony No. 2", "Variations on a Korean Folk Song", "Sinfonia for Winds and Percussion", "Infinite Horizons", "(Redacted)", "Semper Fidelis", "Stars and Stripes Forever", "The Washington Post", "The Thunderer", "But God's Own Descent", "Dance Variations", "Rondo Cappricio", "Rondo Jubiloso", "The Gates of the Wonder-World Open", "The March of Kappa Kappa Psi", "And the mountains rising nowhere", "Concerto for Piano and Wind Orchestra: Solar Traveller", "Space Symphony", "Culloden", "Hands of Mercy", "Husaria Cavalry Overture", "HardDrive", "Of Blood and Stone", "The Florentiner March", "Music for Prague", "Apotheosis of This Earth", "Concerto for Trumpet and Wind Orchestra", "Into the Solitude", "Masque", "A Century of Opportunity Celebration", "Two American Canvases", "Let Us Now Praise Famous Men", "LUX: Legend of Sankta Lucia", "Cycles of Moons and Tides", "Niagara Falls", "Dance Scene", "Back to Old Fairview", "King Ubu", "Dakota", "American Salute", "Symphony No. 4 (West Point)", "Fantasia for Band", "Songs of Abelard", "Always We Begin Again", "Prelude and Dance", "Symphony in B-flat", "Jacob's Ladder", "Fanatic Fanfare", "Irish Tune from County Derry", "Lincolnshire Posy", "Country Gardens", "Canzona", "Morning Song", "The Seasons", "Catcher of Shadows", "English Folk Song Suite", "Flourish for Wind Band", "Toccata Marziale", "Sea Songs", "High Adventure", "Caccia", "The Two Rivers", "National Intercollegiate Band March", "Sonatina No 1 in F major (Aus der Werkstatt eines Invaliden)", "Reflections On An Old Hymn Tune", "Fuse", "Crest of Allegiance", "Overture: Memory of a Friend", "Stars and Stripes Variations", "Propagula", "Suite of Old American Dances", "Symphonic Songs for Band", "Symphonic Songs for Band", "Danse Celestiale", "To the Summit! (Strive for the Highest)", "Seven Deadly Sins", "Chamarita!", "From This Wilderness...", "Rocky Point Holiday", "Commando March", "Dances of Nahawand", "Vigor", "Ancient Irish Hymn", "March in B-flat Major, Op. 99", "Variations and Fugue on How Firm a Foundation", "Ebullience", "Revenge of the Darkseekers!", "Hajj", "Idyll and Whirlwind", "Sinfonia XV \"Ursa Major\"", "Mourning Dances", "Capitan Majesty", "Symphonic Requiem", "Divertimento, Op. 42", "Psalm for Band, Op. 53", "Symphony No. 6, Op. 69", "Masque", "Divergents", "The Seventh Seal", "Caccia for Band", "Tunbridge Fair", "Dilemmae", "George Washington Bridge", "Someday", "The Gold Bug", "Play!", "Balkanya", "Symphony in 3 Scenes", "At the Crossroads", "Le Nozze di Figaro", "Sells-Floto Triumphal", "The River", "Prelude and Fugue in D minor, BWV 539", "Sinfonia in F major", "Suíte popular", "Trittico Botticelliano", "Modulationes variae", "Symphony in D major"};
@@ -64,7 +76,8 @@ public class Piece implements Serializable {
 	// Key
 	
 	private ObservableList<Part> parts;
-
+	
+	private int id;
 	/**
 	 * This constructor creates a piece from a folder full of PDF files (like the kind I used to make)
 	 * 
@@ -103,6 +116,10 @@ public class Piece implements Serializable {
 		this.duration.set(duration);
 		
 		this.parts = FXCollections.observableArrayList();
+		
+		// Ensure that every instantiated piece has a unique id, and is in the all_pieces map.
+		this.id = Piece.cur_id++;
+		Piece.all_pieces.put(this.id, this);
 		
 		// When we change the number of parts, update the part count property.
 		this.parts.addListener((ListChangeListener<? super Part>)(Change) -> {
@@ -168,7 +185,6 @@ public class Piece implements Serializable {
 	}
 	
 	
-	
 	/*
 	 * This is for UI javafx table workings.
 	 */
@@ -205,6 +221,25 @@ public class Piece implements Serializable {
 	}
 
 
+	/**
+	 * Returns an ID number that currently represents this piece.
+	 * The ID numbers are not saved with the pieces, but instead are recreated each time.
+	 * This number should not be saved or stored anywhere. 
+	 * @return The ID number for this piece in this session.
+	 */
+	public int getID() {
+		return this.id;
+	}
+	
+	/**
+	 * Returns the piece with the given ID number. This is used for drag and drop.
+	 * @param ID The ID number of the piece
+	 * @return The piece
+	 */
+	public static Piece getPiece(int ID) {
+		return Piece.all_pieces.get(ID);
+	}
+	
 	@Override
 	public String toString() {
 		return this.getTitle();

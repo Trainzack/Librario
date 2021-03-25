@@ -1,7 +1,6 @@
 package eli.projects.spprototype;
 
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -30,214 +29,231 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class FrontpagePresenter implements Initializable {
-	
+
 	private VistaManager vistaManager;
-	
+
 	// The stage that contains this controller's views
-	@Inject private Stage primaryStage;
-	
-	
-	
+	@Inject
+	private Stage primaryStage;
+
 	// This is the service that provides us the lists we display.
-	@Inject private LibraryService libraryService;
-	
+	@Inject
+	private LibraryService libraryService;
+
 	private EnsembleService ensembleService;
 	private ListService listService;
 	private PieceService pieceService;
-	
+
 	// Version information
-	@Inject private String javaVersion;
-	@Inject private String javafxVersion;
-	@Inject private String appVersion;
-	
-	@Inject private Map<Object, Object> context;
-	
+	@Inject
+	private String javaVersion;
+	@Inject
+	private String javafxVersion;
+	@Inject
+	private String appVersion;
+
+	@Inject
+	private Map<Object, Object> context;
+
 	// This is the pane that will contain the other controllers we load in.
-	@FXML private AnchorPane vistaPane;
-	
-	@FXML private TextField searchField;
-	@FXML private Button searchButton;
-	
-	//@FXML private ListView<Piece> pieceSidebarListView;
-	@FXML private ListView<Ensemble> ensembleSidebarListView;
-	@FXML private ListView<Setlist> setlistSidebarListView;
-	
-	@FXML private Button backButton;
-	@FXML private HBox vistaStackHbox;
-	
-	@FXML private Label leftStatus;
-	@FXML private Label rightStatus;
-	
+	@FXML
+	private AnchorPane vistaPane;
+
+	@FXML
+	private TextField searchField;
+	@FXML
+	private Button searchButton;
+
+	// @FXML private ListView<Piece> pieceSidebarListView;
+	@FXML
+	private ListView<Ensemble> ensembleSidebarListView;
+	@FXML
+	private ListView<Setlist> setlistSidebarListView;
+
+	@FXML
+	private Button backButton;
+	@FXML
+	private HBox vistaStackHbox;
+
+	@FXML
+	private Label leftStatus;
+	@FXML
+	private Label rightStatus;
+
 	// TODO Find a way to get this programmatically
 	static float SIDEBAR_LIST_CELL_HEIGHT = 24;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		ensembleService = libraryService.getLibrary().getEnsembleService();
 		listService = libraryService.getLibrary().getListService();
 		pieceService = libraryService.getLibrary().getPieceService();
-		
-		
+
 		leftStatus.setText("Version " + appVersion);
 		rightStatus.setText("Java " + javaVersion + ", JavaFX " + javafxVersion);
 
 		// Change name of library label
-		//controlLibrary.textProperty().bind(libraryService.getLibrary().getTitleProperty());
-		
-		
+		// controlLibrary.textProperty().bind(libraryService.getLibrary().getTitleProperty());
+
 		// ------------- Vista Manager ----------------------
-		
+
 		vistaManager = new VistaManager(vistaPane, backButton, vistaStackHbox);
 		context.put("vistaManager", vistaManager);
-		
+
 		// -------------- Sidebars --------------------------
-		
+
 		@SuppressWarnings("rawtypes")
-		ListView[] sidebars = {
-				ensembleSidebarListView,
-				setlistSidebarListView,
-		};
-		
-		// ------------- Ensemble Sidebar -------------------		
-		
+		ListView[] sidebars = { ensembleSidebarListView, setlistSidebarListView, };
+
+		// ------------- Ensemble Sidebar -------------------
+
 		ensembleSidebarListView.setItems(ensembleService.getItems());
-		
-		
-		
-		ensembleSidebarListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-			
-			if (newSelection != null) {
-				
-				// TODO wrap this in factory
-				context.put("ensemble", newSelection);
 
-				Injector.setConfigurationSource(context::get);
-				AbstractVistaView ensembleView = new EnsembleView();
-		        vistaManager.setVista(ensembleView);
-		        
-		        setlistSidebarListView.getSelectionModel().clearSelection();
-			}
-		});		
-		
-		// ------------- Setlist Sidebar -------------------
-		
-		setlistSidebarListView.setItems(listService.getItems());
-		
-		// TODO: Surely there's a better way. Make listview buttons?
-		setlistSidebarListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-			
-			if (newSelection != null) {
-				
-				// TODO wrap this in factory
-				context.put("list", newSelection);
+		ensembleSidebarListView.getSelectionModel().selectedItemProperty()
+				.addListener((obs, oldSelection, newSelection) -> {
 
-				Injector.setConfigurationSource(context::get);
-				AbstractVistaView listView = new SetlistView();
-		        vistaManager.setVista(listView);
-		        
-				ensembleSidebarListView.getSelectionModel().clearSelection();
-			}
-		});
-		
-		setlistSidebarListView.setOnDragOver(new EventHandler<DragEvent>() {
-
-			@Override
-			public void handle(DragEvent event) {
-				if (event.getGestureSource() != setlistSidebarListView) {
-					Dragboard db = event.getDragboard();
-					if (db.hasContent(DataFormats.PIECE_MIME_TYPE)) {
-						event.acceptTransferModes(TransferMode.LINK);
+					if (newSelection != null) {
+						setEnsembleVista(newSelection);
+						setlistSidebarListView.getSelectionModel().clearSelection();
 					}
-				}
-				event.consume();
-				
-			}
-			
-		});
-		
-		// TODO: Add other sidebar drag events, as per https://docs.oracle.com/javafx/2/drag_drop/jfxpub-drag_drop.htm
-		// Note: The PIECE reference probably won't work right due to unserialized properties, so may need to make an ID or hashing system
-		
-		
+				});
+
+		// ------------- Setlist Sidebar -------------------
+
+		setlistSidebarListView.setItems(listService.getItems());
+
+		// TODO: Surely there's a better way. Make listview buttons?
+		setlistSidebarListView.getSelectionModel().selectedItemProperty()
+				.addListener((obs, oldSelection, newSelection) -> {
+
+					if (newSelection != null) {
+						setListVista(newSelection);
+						ensembleSidebarListView.getSelectionModel().clearSelection();
+					}
+				});
+
+		// Allow Pieces to be drag and dropped into the list.
+		setlistSidebarListView.setCellFactory(new setlistListCellFactory());
+
+		// TODO: Add other sidebar drag events, as per
+		// https://docs.oracle.com/javafx/2/drag_drop/jfxpub-drag_drop.htm
+		// Note: The PIECE reference probably won't work right due to unserialized
+		// properties, so may need to make an ID or hashing system
+
 		// ---------------- All Sidebar ListViews ------------
-		
+
 		// Set all sidebars to be of the same height.
 		for (ListView l : sidebars) {
 
-			l.prefHeightProperty().bind(Bindings.size((ObservableList) l.itemsProperty().get()).multiply(SIDEBAR_LIST_CELL_HEIGHT).add(1));
+			l.prefHeightProperty().bind(
+					Bindings.size((ObservableList) l.itemsProperty().get()).multiply(SIDEBAR_LIST_CELL_HEIGHT).add(1));
 		}
-		
+
 	}
 
-	
 	@FXML
 	private void quitProgram() {
 		boolean userWantsToQuit = App.confirmQuit();
 		// TODO: check to see if we have unsaved work
-		
+
 		if (userWantsToQuit) {
-			this.primaryStage.close();	
+			this.primaryStage.close();
 		}
-		
+
 	}
-	
+
 	@FXML
 	private void openPieces() {
 		context.put("pieceService", pieceService);
 
 		Injector.setConfigurationSource(context::get);
 		AbstractVistaView piecesView = new PiecesView();
-        vistaManager.setVista(piecesView);
+		vistaManager.setVista(piecesView);
 	}
-	
-	
+
 	@FXML
 	private void openRandomPiece() {
 		List<Piece> l = pieceService.getItems();
-		if (l.size() < 1) return;
+		if (l.size() < 1)
+			return;
 		Piece selectedPiece = l.get(App.randomGenerator.nextInt(l.size()));
-		context.put("piece", selectedPiece);
-		
-		Injector.setConfigurationSource(context::get);
-        PieceView pieceView = new PieceView();
-        vistaManager.setVista(pieceView);
+		setPieceVista(selectedPiece);
 	}
-	
+
 	@FXML
 	private void openLibrarySettings() {
-		
+
 		context.put("libraryService", libraryService);
-		
+
 		Injector.setConfigurationSource(context::get);
-        AbstractVistaView newVista = new LibraryView();
-        vistaManager.setVista(newVista);
+		AbstractVistaView newVista = new LibraryView();
+		vistaManager.setVista(newVista);
 	}
-	
+
 	@FXML
 	private void search() {
 		App.ShowTempAlert("You searched for " + searchField.getText() + "!");
 	}
-	
+
 	@FXML
 	private void createNewList() {
-		listService.addItem(new Setlist("Untitled Setlist"));
+		Setlist l = new Setlist("Untitled Setlist");
+		listService.addItem(l);
+		setListVista(l);
 	}
-	
+
 	@FXML
 	private void createNewEnsemble() {
-		ensembleService.addItem(new Ensemble("Untitled Ensemble"));
+		Ensemble e = new Ensemble("Untitled Ensemble");
+		ensembleService.addItem(e);
+		setEnsembleVista(e);
 	}
-	
-	
+
 	@FXML
 	private void goToPreviousVista() {
 		vistaManager.popVista();
 	}
 
-	
-	
+	/**
+	 * Sets the vista to a new vista with the given piece.
+	 * 
+	 * @param p The piece to put in the vista
+	 */
+	private void setPieceVista(Piece p) {
+		context.put("piece", p);
+		Injector.setConfigurationSource(context::get);
+		PieceView pieceView = new PieceView();
+		vistaManager.setVista(pieceView);
+	}
+
+	/**
+	 * Sets the vista to a new vista containing the given list.
+	 * 
+	 * @param l The list to put in the vista
+	 */
+	private void setListVista(Setlist l) {
+		context.put("list", l);
+
+		Injector.setConfigurationSource(context::get);
+		AbstractVistaView listView = new SetlistView();
+		vistaManager.setVista(listView);
+	}
+
+	/**
+	 * Sets the vista to a new vista containing the given ensemble.
+	 * 
+	 * @param l The ensemble to put in the vista
+	 */
+	private void setEnsembleVista(Ensemble e) {
+		context.put("ensemble", e);
+
+		Injector.setConfigurationSource(context::get);
+		AbstractVistaView ensembleView = new EnsembleView();
+		vistaManager.setVista(ensembleView);
+	}
 
 }

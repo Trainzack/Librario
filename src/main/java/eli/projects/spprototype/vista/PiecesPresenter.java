@@ -2,6 +2,7 @@ package eli.projects.spprototype.vista;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -95,17 +96,29 @@ public class PiecesPresenter extends Vista implements Initializable {
 				@Override
 				public void handle(MouseEvent event) {
 					
-					Piece selection = pieceTable.getSelectionModel().getSelectedItem();
+					List<Piece> selections = pieceTable.getSelectionModel().getSelectedItems();
 					
-					if (selection != null) {
+					if (selections != null && !selections.isEmpty()) {
+						
+						int[] piece_IDs = new int[selections.size()];
+						String titles = "";
+						
+						for (int i = 0; i < piece_IDs.length; i++) {
+							Piece curPiece = selections.get(i);
+							piece_IDs[i] = curPiece.getID();
+							titles += curPiece.getTitle() + ", ";
+						}
+						
+						titles = titles.substring(0, titles.length() - 2);
+						
 						// A drag was detected, start drag and drop.
 						Dragboard db = pieceTable.startDragAndDrop(TransferMode.ANY);
 						
 						
 						
 						ClipboardContent content = new ClipboardContent();
-						content.putString(selection.getTitle());
-						content.put(DataFormats.PIECE_MIME_TYPE, selection);
+						content.putString(titles);
+						content.put(DataFormats.PIECE_ARRAY_MIME_TYPE, piece_IDs);
 						db.setContent(content);
 					}
 					event.consume();

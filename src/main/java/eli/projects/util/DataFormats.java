@@ -19,8 +19,15 @@ public class DataFormats {
 	
 
 	/**
-	 * For serialized objects.
+	 * @deprecated
+	 * For a single piece's ID, stored as an Integer.
 	 */
-	public static final DataFormat PIECE_MIME_TYPE = new DataFormat("application/x-java-piece-reference");
+	public static final DataFormat PIECE_MIME_TYPE = new DataFormat("application/x-java-piece-id");
+	
+
+	/**
+	 * For multiple pieces' IDs.
+	 */
+	public static final DataFormat PIECE_ARRAY_MIME_TYPE = new DataFormat("application/x-java-piece-id-array");
 	
 }
