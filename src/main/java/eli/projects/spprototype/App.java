@@ -77,7 +77,7 @@ public class App extends Application
 		context.put("primaryStage", primaryStage);
 		
 
-		File path = new File("D:/Sheet Music/Pep Band");
+		File path = new File("C:\\Users\\Eli\\Documents\\Sheet Music\\Out\\Easy PD");
 		context.put("libraryService", 	new InMemoryLibraryService(path)); // Load test library from filesystem
 		//context.put("libraryService", 	new InMemoryLibraryService(-1)); // Make up test library (no PDFS)
 		
