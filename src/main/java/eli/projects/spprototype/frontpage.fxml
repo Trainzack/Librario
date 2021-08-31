@@ -29,7 +29,7 @@
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem disable="true" mnemonicParsing="false" text="New Library" />
-            <MenuItem disable="true" mnemonicParsing="false" text="Open Library" />
+            <MenuItem disable="false" mnemonicParsing="false" onAction="#openLibrary" text="Open Library" />
             <SeparatorMenuItem disable="true" mnemonicParsing="false" />
             <MenuItem disable="true" mnemonicParsing="false" text="Close" />
             <MenuItem disable="true" mnemonicParsing="false" text="Save Library">

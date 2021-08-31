@@ -49,6 +49,8 @@ public class App extends Application
 	private static Library loadedLibrary;
 	
 	private static Stage primaryStage;
+
+	private static Settings appSettings;
 	
     public static void main( String[] args )
     {
@@ -71,16 +73,16 @@ public class App extends Application
 			}
 		});
 		
+		// Load settings
+		appSettings = Settings.loadSettings();
+		
 		// Set up the context for depedancy injection
 		Map<Object, Object> context = new HashMap<>();
 		context.put("context", context);
 		context.put("primaryStage", primaryStage);
 		
-
-		File path = new File("C:\\Users\\Eli\\Documents\\Sheet Music\\Out\\Easy PD");
-		context.put("libraryService", 	new InMemoryLibraryService(path)); // Load test library from filesystem
 		//context.put("libraryService", 	new InMemoryLibraryService(-1)); // Make up test library (no PDFS)
-		
+
 		
 		
 		context.put("javaVersion",  	System.getProperty("java.version"));
@@ -118,6 +120,10 @@ public class App extends Application
 
 	}
 	
+	public static Settings getAppSettings() {
+		return appSettings;
+	}
+
 	private static void handleError(Thread t, Throwable e) {
         if (Platform.isFxApplicationThread()) {
         	showException(e, "An exception has occured.");

@@ -4,21 +4,8 @@
 package eli.projects.spprototype.infrastructure;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Set;
-
-import javax.management.AttributeList;
-
-import eli.projects.spprototype.model.Ensemble;
+import java.nio.file.InvalidPathException;
 import eli.projects.spprototype.model.Library;
-import eli.projects.spprototype.model.Piece;
-import eli.projects.spprototype.model.Setlist;
-import javafx.beans.Observable;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.util.Callback;
 
 /**
  * @author Eli
@@ -30,6 +17,9 @@ public class InMemoryLibraryService implements LibraryService {
 	private Library library;
 	
 	public InMemoryLibraryService(File path) {
+		if (!path.exists() || !path.isDirectory()) {
+			throw new InvalidPathException(path.getPath(), "This path doesn't exist or is invalid.");
+		}
 		library = Library.loadOldLibrary(path);
 	}
 	

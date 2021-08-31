@@ -1,5 +1,6 @@
 package eli.projects.spprototype;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import javax.inject.Inject;
 import com.airhacks.afterburner.injection.Injector;
 
 import eli.projects.spprototype.infrastructure.EnsembleService;
+import eli.projects.spprototype.infrastructure.InMemoryLibraryService;
 import eli.projects.spprototype.infrastructure.LibraryService;
 import eli.projects.spprototype.infrastructure.ListService;
 import eli.projects.spprototype.infrastructure.PieceService;
@@ -28,6 +30,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -39,10 +42,8 @@ public class FrontpagePresenter implements Initializable {
 	@Inject
 	private Stage primaryStage;
 
-	// This is the service that provides us the lists we display.
-	@Inject
+	
 	private LibraryService libraryService;
-
 	private EnsembleService ensembleService;
 	private ListService listService;
 	private PieceService pieceService;
@@ -89,10 +90,14 @@ public class FrontpagePresenter implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		ensembleService = libraryService.getLibrary().getEnsembleService();
-		listService = libraryService.getLibrary().getListService();
-		pieceService = libraryService.getLibrary().getPieceService();
-
+		if (App.getAppSettings().getLibraryLocation() != null) {
+			File libraryLocation = new File(App.getAppSettings().getLibraryLocation());
+			if (libraryLocation.exists()) {
+				this.setLibraryService(new InMemoryLibraryService(libraryLocation));
+			}
+			
+		}
+		
 		leftStatus.setText("Version " + appVersion);
 		rightStatus.setText("Java " + javaVersion + ", JavaFX " + javafxVersion);
 
@@ -111,7 +116,6 @@ public class FrontpagePresenter implements Initializable {
 
 		// ------------- Ensemble Sidebar -------------------
 
-		ensembleSidebarListView.setItems(ensembleService.getItems());
 
 		ensembleSidebarListView.getSelectionModel().selectedItemProperty()
 				.addListener((obs, oldSelection, newSelection) -> {
@@ -124,7 +128,6 @@ public class FrontpagePresenter implements Initializable {
 
 		// ------------- Setlist Sidebar -------------------
 
-		setlistSidebarListView.setItems(listService.getItems());
 
 		// TODO: Surely there's a better way. Make listview buttons?
 		setlistSidebarListView.getSelectionModel().selectedItemProperty()
@@ -154,6 +157,18 @@ public class FrontpagePresenter implements Initializable {
 		}
 
 	}
+	
+	private void setLibraryService(LibraryService s) {
+		this.libraryService = s;
+		
+		this.ensembleService = libraryService.getLibrary().getEnsembleService();
+		this.listService = libraryService.getLibrary().getListService();
+		this.pieceService = libraryService.getLibrary().getPieceService();
+
+		ensembleSidebarListView.setItems(ensembleService.getItems());
+		setlistSidebarListView.setItems(listService.getItems());
+
+	}
 
 	@FXML
 	private void quitProgram() {
@@ -165,9 +180,34 @@ public class FrontpagePresenter implements Initializable {
 		}
 
 	}
+	
+	@FXML
+	private void openLibrary() {
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		
+		if (App.getAppSettings().getLibraryLocation() != null) {
+			File def = new File(App.getAppSettings().getLibraryLocation());
+			
+			if (def.exists() && def.isDirectory()) {
+				directoryChooser.setInitialDirectory(def);
+			}
+			
+		}
+		
+		directoryChooser.setTitle("Please select a library.");
+		File selected = directoryChooser.showDialog(primaryStage);
+		
+		if (selected != null) {
+			this.setLibraryService(new InMemoryLibraryService(selected));
+			App.getAppSettings().setLibraryLocation(selected.getAbsolutePath());
+			this.openPieces();
+		}
+		
+	}
 
 	@FXML
 	private void openPieces() {
+		if (pieceService == null) return;
 		context.put("pieceService", pieceService);
 
 		Injector.setConfigurationSource(context::get);
@@ -177,6 +217,7 @@ public class FrontpagePresenter implements Initializable {
 
 	@FXML
 	private void openRandomPiece() {
+		if (pieceService == null) return;
 		List<Piece> l = pieceService.getItems();
 		if (l.size() < 1)
 			return;
@@ -186,6 +227,7 @@ public class FrontpagePresenter implements Initializable {
 
 	@FXML
 	private void openLibrarySettings() {
+		if (libraryService == null) return;
 
 		context.put("libraryService", libraryService);
 
