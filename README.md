@@ -4,6 +4,11 @@ Librario is a band library management tool designed to minimize your interaction
 
 ## How to Compile from Source
 
+### Recommended Tools
+
+1. [Eclipse](https://www.eclipse.org/ide/)
+2. [JavaFX Scene Builder](https://gluonhq.com/products/scene-builder/)
+
 ### Setup the Project
 
 1. [Clone this repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository).
